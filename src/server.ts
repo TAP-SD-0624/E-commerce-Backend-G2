@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 import {connectToDatabase} from './config/database';
 import syncDatabase from './models/sync';
 import userRouter from './routes/userRoutes';
-import postRouter from './routes/productRoutes';
+import productRouter from './routes/productRoutes';
 import categoriesRouter from "./routes/categoriesRoutes";
 import commentsRouter from "./routes/reviewsRoutes";
 //import { logger} from "./utils/logEvents";
@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use('/', userRouter);
-app.use('/posts', postRouter);
+app.use('/posts', productRouter);
 app.use('/users', userRouter);
 app.use('/comment', commentsRouter);
 app.use('/category', categoriesRouter);
@@ -34,7 +34,7 @@ app.get('/', (req: Request, res: Response, next: NextFunction) => {
     res.send('Hello World');
 });
 
-//cookies
+//cookies test
 app.get('/set-cookies', (req: Request, res: Response, next: NextFunction) => {
     res.cookie('newUser', false);
     res.cookie('isEmployee', true, { maxAge: 1000 * 60 * 60 * 24, });
@@ -46,6 +46,7 @@ app.get('/read-cookies', (req: Request, res: Response, next: NextFunction) => {
 
     res.json(cookies);
 });
+
 // Connect to database and sync models before starting the server
 connectToDatabase()
     .then(() => syncDatabase())
