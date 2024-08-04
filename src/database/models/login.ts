@@ -1,5 +1,5 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
-import sequelize from '../config/database';
+import sequelize from '../../config/database';
 interface loginInterface{
      id?:number;
     userId:number;
@@ -13,26 +13,27 @@ class Login extends Model<loginInterface>implements loginInterface{
     declare email:string;
     declare phone:number;
     declare password:string;
+    static associate(){}
 }
 Login.init({
     id:{
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement: true,
         unique:true
     },
     userId:{
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
          allowNull:false,
          onUpdate: "CASCADE",
          onDelete: "SET NULL",
     },
     email:{
-        type:DataTypes.STRING(50),
+        type:DataTypes.STRING,
         allowNull:false,
     },
     phone:{
-        type:DataTypes.INTEGER.UNSIGNED,
+        type:DataTypes.INTEGER,
         allowNull:false
     },
     password:{
@@ -40,7 +41,7 @@ Login.init({
         allowNull:false
     }
 },{
-    tableName:"Login",
+    modelName:"Login",
     sequelize
 });
 export default Login

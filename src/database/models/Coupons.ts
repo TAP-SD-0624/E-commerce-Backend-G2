@@ -1,23 +1,21 @@
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../config/database";
-interface ProductsCategoriesInterface {
+import sequelize from "../../config/database";
+interface CouponsInterface {
   id?: number;
   createdAt?: number;
   updatedAt?: number;
-  productId: number;
-  categoryId: number;
+  uuid: number;
+  value: number;
 }
-class ProductsCategories
-  extends Model<ProductsCategoriesInterface>
-  implements ProductsCategoriesInterface
-{
+class Coupons extends Model<CouponsInterface> implements CouponsInterface {
   declare id?: number;
   declare createdAt?: number;
   declare updatedAt?: number;
-  declare productId: number;
-  declare categoryId: number;
+  declare uuid: number;
+  declare value: number;
+  static associate(){}
 }
-ProductsCategories.init(
+Coupons.init(
   {
     id: {
       allowNull: false,
@@ -25,17 +23,13 @@ ProductsCategories.init(
       primaryKey: true,
       type: DataTypes.INTEGER,
     },
-    productId: {
+    uuid: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      onUpdate: "CASCADE",
-      onDelete: "SET NULL",
     },
-    categoryId: {
+    value: {
       type: DataTypes.INTEGER,
       allowNull: true,
-      onUpdate: "CASCADE",
-      onDelete: "SET NULL",
     },
     createdAt: {
       allowNull: false,
@@ -47,8 +41,8 @@ ProductsCategories.init(
     },
   },
   {
+    modelName: "Coupons",
     sequelize,
-    modelName: "ProductsCategories",
   }
 );
-export default ProductsCategories;
+export default Coupons;

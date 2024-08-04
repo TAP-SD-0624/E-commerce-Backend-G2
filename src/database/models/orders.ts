@@ -1,5 +1,5 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
-import sequelize from '../config/database';
+import sequelize from '../../config/database';
 interface OrderInterface {
     id?:number;
     productId:number;
@@ -7,14 +7,16 @@ interface OrderInterface {
     transactionId:number;
 }
 
-class Order extends Model<OrderInterface>implements OrderInterface{
+class Orders extends Model<OrderInterface>implements OrderInterface{
     declare id?:number;
     declare productId:number;
     declare userId:number;
     declare transactionId:number;
+    static associate(){}
+
 }
 
-Order.init({
+Orders.init({
     id:{
         type:DataTypes.INTEGER,
         primaryKey:true,
@@ -40,8 +42,7 @@ Order.init({
         onDelete: "SET NULL",
     }
 },{
-    tableName:"Order",
-    modelName:"Order",
+    modelName:"Orders",
     sequelize  
 });
-export default Order;
+export default Orders;

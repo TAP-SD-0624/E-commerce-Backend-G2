@@ -1,18 +1,19 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
-import sequelize from '../config/database';
-interface CategoryInterface{
+import sequelize from '../../config/database';
+interface CategoriesInterface{
     id?:number;
     title:string;
     image:string;
 }
 
-class Category extends Model<CategoryInterface> implements CategoryInterface{
+class Categories extends Model<CategoriesInterface> implements CategoriesInterface{
     declare id?:number;
     declare title:string;
     declare image:string;
+    static associate(){}
 }
 
-Category.init({
+Categories.init({
     id:{
         type:DataTypes.INTEGER,
         autoIncrement:true,
@@ -27,8 +28,7 @@ Category.init({
         allowNull:false
     }
 },{
-    tableName:"Category",
-    modelName:"Category",
-sequelize
+    modelName:"Categories",
+    sequelize
 });
-export default Category;
+export default Categories;

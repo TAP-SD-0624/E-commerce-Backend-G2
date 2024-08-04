@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../config/database";
+import sequelize from "../../config/database";
 interface ImagesInterface {
   id?: number;
   createdAt?: number;
@@ -13,6 +13,7 @@ class Images extends Model<ImagesInterface> implements ImagesInterface {
   declare updatedAt?: number;
   declare productId: number;
   declare imageUrl: number;
+  static associate(){}
 }
 Images.init(
   {

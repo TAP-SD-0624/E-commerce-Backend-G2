@@ -1,31 +1,37 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
-import sequelize from '../config/database';
+import sequelize from '../../config/database';
+import Address from './address';
+import Ratings from './ratings';
 interface UserInterface{
     id ?:number;
-    loginId:number;
+    loginId?:number;
     firstName: string;
     lastName:string;
     DOB:number;
     image: string;
 }
-class User extends Model<UserInterface>implements UserInterface{
+class Users extends Model<UserInterface>implements UserInterface{
     declare id ?:number;
-    declare loginId:number;
+    declare loginId?:number;
     declare firstName: string;
     declare lastName:string;
     declare DOB :number;
     declare image: string;
+    static associate(){
+        Users.hasMany(Address,{foreignKey:'userId'})
+        Users.hasMany(Ratings,{foreignKey:{name:'userId'}})
+    }
 }
-User.init({
+Users.init({
     id:{
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement: true,
         unique:true
     },
     loginId:{
-        type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: false,
+        type: DataTypes.INTEGER,
+        // allowNull: false,
         onUpdate: "CASCADE",
         onDelete: "SET NULL",
     },
@@ -46,7 +52,7 @@ User.init({
         allowNull:false
     }
 },{
-    tableName:'User',
+    modelName:'Users',
     sequelize
 });
-export default User;
+export default Users;

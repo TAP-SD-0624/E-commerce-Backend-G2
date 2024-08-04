@@ -1,5 +1,5 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
-import sequelize from '../config/database';
+import sequelize from '../../config/database';
 interface CartInterface{
     id?:number;
     userId:number;
@@ -12,7 +12,7 @@ class Cart extends Model<CartInterface>implements CartInterface{
    declare userId:number;
    declare productId:number;
    declare quantity:number;
-
+   static associate(){}
 }
 Cart.init({
     id:{
@@ -37,7 +37,7 @@ Cart.init({
         allowNull:false
     }
 },{
-    tableName:"Cart",
+    modelName:"Cart",
     sequelize
 });
 export default Cart;

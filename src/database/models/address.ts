@@ -1,4 +1,4 @@
-import sequelize from '../config/database';
+import sequelize from '../../config/database';
 import { Model, DataTypes} from 'sequelize';
 
 interface AddressInterface{
@@ -10,47 +10,46 @@ interface AddressInterface{
      zipcode:number;
 }
 class Address extends Model<AddressInterface> implements AddressInterface{
-   
     declare id?:number;
     declare userId:number;
     declare state:string;
     declare street:string;
     declare city:string;
     declare zipcode:number;
-
+    static associate(){}
 }
 Address.init({
     id:{
-        type: DataTypes.INTEGER.UNSIGNED,
+        type: DataTypes.INTEGER,
         primaryKey:true,
         autoIncrement: true,
         unique:true
     },
     userId:{
-        type:DataTypes.INTEGER.UNSIGNED,
+        type:DataTypes.INTEGER,
         allowNull:false,
         onUpdate: "CASCADE",
         onDelete: "SET NULL",
     },
     state:{
-        type:DataTypes.STRING(100),
+        type:DataTypes.STRING,
         allowNull:false
     },
     street:{
-        type:DataTypes.STRING(100),
+        type:DataTypes.STRING,
         allowNull:false  
     },
     city:{
-        type:DataTypes.STRING(100),
+        type:DataTypes.STRING,
         allowNull:false 
     },
     zipcode:{
-        type:DataTypes.INTEGER.UNSIGNED,
+        type:DataTypes.INTEGER,
         allowNull:false
     }
 
 },{
-    tableName:'Address',
+    modelName:'Address',
     sequelize
 });
 export default Address;

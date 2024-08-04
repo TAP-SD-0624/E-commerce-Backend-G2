@@ -1,6 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
-import sequelize from '../config/database';
-interface RatingInterface{
+import sequelize from '../../config/database';
+interface RatingsInterface{
     id?:number;
     productId:number;
     userId:number;
@@ -9,16 +9,16 @@ interface RatingInterface{
     review:string;
 }
 
-class Rating extends Model<RatingInterface> implements RatingInterface{
+class Ratings extends Model<RatingsInterface> implements RatingsInterface{
     declare id?:number;
     declare productId:number;
     declare userId:number;
     declare rating:number;
     declare comments :string;
     declare  review:string;
-
+    static associate(){}
 }
-Rating.init({
+Ratings.init({
     id:{
         primaryKey:true,
     type:DataTypes.INTEGER,
@@ -41,15 +41,15 @@ Rating.init({
         allowNull:false
     },
     comments:{
-        type:DataTypes.STRING(100),
+        type:DataTypes.STRING,
         allowNull:false
     },
     review:{
-        type:DataTypes.STRING(200),
+        type:DataTypes.STRING,
         allowNull:false
     }
 },{
-    tableName:"Rating",
+    modelName:"Ratings",
     sequelize
 });
-export default Rating;
+export default Ratings;

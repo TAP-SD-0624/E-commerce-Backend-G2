@@ -1,5 +1,5 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
-import sequelize from '../config/database';
+import sequelize from '../../config/database';
 interface BrandsInterface{
     id?:number;
     productId:number;
@@ -11,8 +11,7 @@ class Brands extends Model<BrandsInterface> implements BrandsInterface{
     declare productId:number;
     declare name:string;
     declare image:string;
-
-  
+    static associate(){}
 }
 Brands.init({
     id:{
@@ -27,15 +26,15 @@ Brands.init({
         onDelete: "SET NULL",
     },
     name:{
-        type:DataTypes.STRING(100),
+        type:DataTypes.STRING,
         allowNull:false
     },
     image:{
-        type:DataTypes.STRING(100),
+        type:DataTypes.STRING,
         allowNull:false
     }
 },{
-    tableName:"Brands",
+    modelName:"Brands",
     sequelize
 });
 export default Brands;

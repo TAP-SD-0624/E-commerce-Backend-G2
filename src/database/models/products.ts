@@ -1,6 +1,6 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
-import sequelize from '../config/database';
-interface ProductInterface{
+import sequelize from '../../config/database';
+interface ProductsInterface{
      id?:number;
      detail:string;
      description:string;
@@ -12,7 +12,7 @@ interface ProductInterface{
      readonly createdAt?: Date;
      readonly updatedAt?: Date;
 }
-class Product extends Model<ProductInterface> implements ProductInterface{
+class Products extends Model<ProductsInterface> implements ProductsInterface{
     declare id?:number;
     declare detail:string;
     declare description:string;
@@ -23,8 +23,9 @@ class Product extends Model<ProductInterface> implements ProductInterface{
     declare image:string;
     declare readonly createdAt?: Date;
     declare readonly updatedAt?: Date;
+    static associate(){}
 }
-Product.init({
+Products.init({
     id:{
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -40,11 +41,11 @@ Product.init({
         allowNull: false  
     },
     price:{
-        type: new DataTypes.INTEGER.UNSIGNED,
+        type: new DataTypes.INTEGER,
         allowNull:false
     },
     discount :{
-        type: new DataTypes.INTEGER.UNSIGNED,
+        type: new DataTypes.INTEGER,
         allowNull:false
     },
     title :{
@@ -52,7 +53,7 @@ Product.init({
        allowNull: false
     },
     quantity:{
-        type: new DataTypes.INTEGER.UNSIGNED,
+        type: new DataTypes.INTEGER,
         allowNull:false
     },
     image:{
@@ -61,7 +62,7 @@ Product.init({
     }
 
 },{
-    tableName: 'Product',
+    modelName: 'Products',
     sequelize
 });
-export default Product;
+export default Products;
