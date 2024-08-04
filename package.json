@@ -23,11 +23,8 @@
     "#sql",
     "#mvc"
   ],
-"author": "TAP SDBE Team G2",
+  "author": "TAP SDBE Team G2",
   "license": "MIT",
-  "bugs": {
-    "url": "..../issues"
-  },
   "homepage": "https://github.com/ramziosta/#####readme",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -60,5 +57,8 @@
     "mysql2": "^3.11.0",
     "sequelize": "^6.37.3",
     "uuid": "^10.0.0"
+  },
+  "directories": {
+    "test": "test"
   }
 }

@@ -1,8 +1,20 @@
 import { Sequelize } from 'sequelize';
 require('dotenv').config();
-
+import Rating from '../models/Rating';
+// import Brands from '../models/brands';
+// import Address from '../models/address';
+// import Cart from '../models/cart';
+// import Category from '../models/category';
+// import Coupons from '../models/Coupons';
+// import Images from '../models/Images';
+// import Login from '../models/login';
+// import Order from '../models/orders';
+// import Product from '../models/product';
+// import ProductsCategories from '../models/ProductsCategories';
+// import Tranactions from '../models/Transactions';
+// import User from '../models/user';
 const sequelize: Sequelize = new Sequelize(
-    process.env.DB_NAME ?? 'sequelizeJWT',
+    process.env.DB_NAME ?? 'ep',
     process.env.DB_USER ?? 'root',
     process.env.DB_PASSWORD,
     {
@@ -15,6 +27,8 @@ const sequelize: Sequelize = new Sequelize(
         }
     }
 );
+
+
 
 const testConnection = async (): Promise<boolean> => {
     try {

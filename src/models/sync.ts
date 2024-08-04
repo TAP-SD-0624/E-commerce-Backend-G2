@@ -1,11 +1,23 @@
 import sequelize from '../config/database';
-import User from './userModel';
-import Post from './productModel';
-import Category from './categoryModel';
-import Comment from './commentModel';
-import PostCategories from "./postCategoriesModel";
-import {QueryInterface} from "sequelize";
+// import User from './userModel';
+// import Category from './categoryModel';
+// import Comment from './commentModel';
+// import PostCategories from "./postCategoriesModel";
 
+import Rating from '../models/Rating';
+import Brands from '../models/brands';
+import Address from '../models/address';
+import Cart from '../models/cart';
+import Category from '../models/category';
+import Coupons from '../models/Coupons';
+import Images from '../models/Images';
+import Login from '../models/login';
+import Order from '../models/orders';
+import Product from '../models/product';
+import ProductsCategories from '../models/ProductsCategories';
+import Tranactions from '../models/Transactions';
+import User from '../models/user';
+import {QueryInterface} from "sequelize";
 
 
 
