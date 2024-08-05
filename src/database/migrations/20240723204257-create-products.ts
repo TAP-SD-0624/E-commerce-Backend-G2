@@ -10,6 +10,12 @@ module.exports = {
         primaryKey: true,
         unique:true,
     },
+    brandsId:{
+        type:Sequelize.INTEGER,
+        allowNull:true,
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+    },
     detail:{
        type: new Sequelize.STRING,
        allowNull: false

@@ -9,12 +9,6 @@ module.exports = {
         type:Sequelize.INTEGER,
         autoIncrement: true,
     },
-    productId:{
-        type:Sequelize.INTEGER,
-        allowNull:false,
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
-    },
     name:{
         type:Sequelize.STRING,
         allowNull:false

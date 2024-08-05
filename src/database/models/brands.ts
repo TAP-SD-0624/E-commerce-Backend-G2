@@ -1,17 +1,19 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connection';
+import Products from './products';
 interface BrandsInterface{
     id?:number;
-    productId:number;
     name:string;
     image:string;
 }
 class Brands extends Model<BrandsInterface> implements BrandsInterface{
     declare id?:number;
-    declare productId:number;
+   
     declare name:string;
     declare image:string;
-    static associate(){}
+    static associate(){
+        Brands.hasMany(Products,{foreignKey:'brandsId'});
+    }
 }
 Brands.init({
     id:{
@@ -19,12 +21,7 @@ Brands.init({
         type:DataTypes.INTEGER,
         autoIncrement: true,
     },
-    productId:{
-        type:DataTypes.INTEGER,
-        allowNull:false,
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
-    },
+ 
     name:{
         type:DataTypes.STRING,
         allowNull:false

@@ -1,7 +1,13 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connection';
+import Ratings from './ratings';
+import Orders from './orders';
+import Images from './Images';
+import Cart from './cart';
+import Wishlist from './wishlist';
 interface ProductsInterface{
      id?:number;
+     brandsId:number;
      detail:string;
      description:string;
      price:number;
@@ -14,6 +20,7 @@ interface ProductsInterface{
 }
 class Products extends Model<ProductsInterface> implements ProductsInterface{
     declare id?:number;
+    declare brandsId: number;
     declare detail:string;
     declare description:string;
     declare price:number;
@@ -23,7 +30,13 @@ class Products extends Model<ProductsInterface> implements ProductsInterface{
     declare image:string;
     declare readonly createdAt?: Date;
     declare readonly updatedAt?: Date;
-    static associate(){}
+    static associate(){
+        Products.hasMany(Ratings,{foreignKey:'productId'})
+        Products.hasMany(Orders,{foreignKey:'productId'})
+        Products.hasMany(Images,{foreignKey:'productId'})
+        Products.hasMany(Cart,{foreignKey:'productId'})
+        Products.hasMany(Wishlist,{foreignKey:'productId'})
+    }
 }
 Products.init({
     id:{
@@ -31,6 +44,12 @@ Products.init({
         autoIncrement: true,
         primaryKey: true,
         unique:true,
+    },
+    brandsId:{
+        type:DataTypes.INTEGER,
+        allowNull:true,
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
     },
     detail:{
        type: new DataTypes.STRING,
