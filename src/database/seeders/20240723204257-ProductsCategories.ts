@@ -6,16 +6,52 @@ import { DataTypes, QueryInterface } from 'sequelize';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
-        await queryInterface.bulkInsert('Products', [
+        await queryInterface.bulkInsert('ProductsCategories', [
             {
-                brandsId: 1,
-                image: 'url/url',
-                detail: 'black',
-                quantity: 100,
-                description: 'newnewnew',
-                price: 5,
-                discount: 10,
-                title: 'Hand bag',
+                productId: 1,
+                categoryId: 2,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                productId: 1,
+                categoryId: 3,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                productId: 2,
+                categoryId: 1,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                productId: 6,
+                categoryId: 2,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                productId: 7,
+                categoryId: 3,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                productId: 3,
+                categoryId: 2,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                productId: 4,
+                categoryId: 2,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                productId: 1,
+                categoryId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
             }
