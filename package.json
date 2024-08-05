@@ -8,7 +8,8 @@
     "dev": "nodemon",
     "build": "tsc",
     "prestart": "npm run build",
-    "test": "jest"
+    "test": "jest",
+    "setDatabase" : "sequelize db:create && sequelize db:migrate && npm run dev"
   },
   "repository": {
     "type": "git",
@@ -23,11 +24,8 @@
     "#sql",
     "#mvc"
   ],
-"author": "TAP SDBE Team G2",
+  "author": "TAP SDBE Team G2",
   "license": "MIT",
-  "bugs": {
-    "url": "..../issues"
-  },
   "homepage": "https://github.com/ramziosta/#####readme",
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -58,7 +56,13 @@
     "express-validator": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.0",
+    "pg": "^8.12.0",
+    "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
     "uuid": "^10.0.0"
+  },
+  "directories": {
+    "test": "test"
   }
 }
