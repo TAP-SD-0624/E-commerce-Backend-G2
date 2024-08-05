@@ -1,24 +1,17 @@
 import express, {Express, Request, Response, NextFunction} from 'express';
-import path from 'path';
 import cors from 'cors';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import sequelize from './config/database';
-import {connectToDatabase} from './config/database';
-import {db,syncDatabase} from './database/sync';
-import { logger} from "./utils/logEvents";
-connectToDatabase()
-const app: Express = express();
-const PORT: number | string = process.env.PORT || 3000;
-syncDatabase()
-app.use(express.json());
-// app.use(express.static(path.join(__dirname, '..', 'public')));
-app.use(cors());
-// app.use(bodyParser.json());
-app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());
+import sequelize from './database/connection';
+import {db,syncDatabase} from './database';
 
-sequelize.sync({alter:true})
+const app: Express = express();
+
+const PORT: number | string = process.env.PORT || 3000;
+
+app.use(express.json());
+app.use(cors());
+app.use(express.urlencoded({extended: true}));
+syncDatabase()
+
 
 // app.use('/', userRouter);
 // app.use('/posts', productRouter);
@@ -26,16 +19,15 @@ sequelize.sync({alter:true})
 // app.use('/comment', commentsRouter);
 // app.use('/category', categoriesRouter);
 // app.use('/login', userRouter);
-//app.use(logger)
-db.Users.create({
-    firstName:'kkkkk',
-    lastName:'kkkk',
-    DOB: Date.now(),
-    image:'url/url'
-})
+// app.use(logger)
+
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    console.log('Hello World');
-    res.send('Hello World');
+    db.Users.create({
+        firstName:"ahmed",
+        lastName:'mmm',
+        DOB:Date.now(),
+        image:"niodasndioas/dwadaw"
+    })
 });
 //cookies test
 app.get('/set-cookies', (req: Request, res: Response, next: NextFunction) => {
@@ -49,6 +41,10 @@ app.get('/read-cookies', (req: Request, res: Response, next: NextFunction) => {
     res.json(cookies);
 });
 // Connect to database and sync models before starting the server
+
+sequelize.sync({alter:true}).then(()=>{
+    console.log("databaseSync")
     app.listen(PORT, () => {
         console.log(`Server listening on port ${PORT}`);
     });
+})

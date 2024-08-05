@@ -1,5 +1,5 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
-import sequelize from '../../config/database';
+import sequelize from '../connection';
 interface CartInterface{
     id?:number;
     userId:number;
@@ -18,7 +18,7 @@ Cart.init({
     id:{
         primaryKey:true,
         type:DataTypes.INTEGER,
-        autoIncrement: true,
+        autoIncrement: true
     },
     userId:{
         type:DataTypes.INTEGER,

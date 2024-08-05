@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../../config/database";
+import sequelize from '../connection';
 interface ProductsCategoriesInterface {
   id?: number;
   createdAt?: number;
@@ -16,7 +16,9 @@ class ProductsCategories
   declare updatedAt?: number;
   declare productId: number;
   declare categoryId: number;
-  static associate(){}
+  static associate(){
+    
+  }
 }
 ProductsCategories.init(
   {

@@ -1,5 +1,3 @@
-import sequelize from '../config/database';
-import {QueryInterface} from "sequelize";
 import Ratings from './models/ratings';
 import Brands from './models/brands';
 import Address from './models/address';

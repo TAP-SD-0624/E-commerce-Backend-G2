@@ -1,5 +1,5 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
-import sequelize from '../../config/database';
+import sequelize from '../connection';
 import Address from './address';
 import Ratings from './ratings';
 interface UserInterface{

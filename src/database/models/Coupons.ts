@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../../config/database";
+import sequelize from '../connection';
 interface CouponsInterface {
   id?: number;
   createdAt?: number;

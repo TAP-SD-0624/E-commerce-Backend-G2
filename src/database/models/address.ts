@@ -1,4 +1,4 @@
-import sequelize from '../../config/database';
+import sequelize from '../connection';
 import { Model, DataTypes} from 'sequelize';
 
 interface AddressInterface{

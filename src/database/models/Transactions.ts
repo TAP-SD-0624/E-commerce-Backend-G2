@@ -1,5 +1,5 @@
 import { Model, DataTypes } from "sequelize";
-import sequelize from "../../config/database";
+import sequelize from '../connection';
 interface TranactionsInterface {
   id?: number;
   userId: number;
@@ -9,7 +9,7 @@ interface TranactionsInterface {
   createdAt?: Date;
 }
 
-class Tranactions
+class Transactions
   extends Model<TranactionsInterface>
   implements TranactionsInterface
 {
@@ -23,7 +23,7 @@ class Tranactions
     // Tranactions
   }
 }
-Tranactions.init(
+Transactions.init(
   {
     id: {
       allowNull: false,
@@ -53,8 +53,8 @@ Tranactions.init(
   },
   {
     sequelize,
-    modelName: "Tranactions",
+    modelName: "Transactions",
   }
 );
 
-export default Tranactions;
+export default Transactions;
