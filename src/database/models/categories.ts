@@ -4,12 +4,16 @@ interface CategoriesInterface {
     id?: number;
     title: string;
     image: string;
+    createdAt?: number;
+    updatedAt?: number;
 }
 
 class Categories extends Model<CategoriesInterface> implements CategoriesInterface {
     declare id?: number;
     declare title: string;
     declare image: string;
+    declare createdAt?: number;
+    declare updatedAt?: number;
     static associate() {}
 }
 
@@ -27,6 +31,14 @@ Categories.init(
         image: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        createdAt: {
+            allowNull: false,
+            type: DataTypes.DATE
+        },
+        updatedAt: {
+            allowNull: false,
+            type: DataTypes.DATE
         }
     },
     {

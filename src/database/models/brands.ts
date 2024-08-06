@@ -5,10 +5,13 @@ interface BrandsInterface {
     id?: number;
     name: string;
     image: string;
+    createdAt?: number;
+    updatedAt?: number;
 }
 class Brands extends Model<BrandsInterface> implements BrandsInterface {
     declare id?: number;
-
+    declare createdAt?: number;
+    declare updatedAt?: number;
     declare name: string;
     declare image: string;
     static associate() {
@@ -30,6 +33,14 @@ Brands.init(
         image: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        createdAt: {
+            allowNull: false,
+            type: DataTypes.DATE
+        },
+        updatedAt: {
+            allowNull: false,
+            type: DataTypes.DATE
         }
     },
     {
