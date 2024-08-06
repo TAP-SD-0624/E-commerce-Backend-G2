@@ -4,7 +4,7 @@ interface CartInterface {
     id?: number;
     userId: number;
     productId: number;
-    quantity: number;
+    // quantity: number;
     createdAt?: number;
     updatedAt?: number;
 }
@@ -13,7 +13,7 @@ class Cart extends Model<CartInterface> implements CartInterface {
     declare id?: number;
     declare userId: number;
     declare productId: number;
-    declare quantity: number;
+    // declare quantity: number;
     declare createdAt?: number;
     declare updatedAt?: number;
     static associate() {}
@@ -37,10 +37,10 @@ Cart.init(
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },
-        quantity: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
+        // quantity: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: false
+        // },
         createdAt: {
             allowNull: false,
             type: DataTypes.DATE

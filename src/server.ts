@@ -21,12 +21,12 @@ syncDatabase();
 // app.use(logger)
 
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    db.Users.create({
-        firstName: 'ahmed',
-        lastName: 'mmm',
-        DOB: Date.now(),
-        image: 'niodasndioas/dwadaw'
-    });
+    // db.Users.create({
+    //     firstName: 'ahmed',
+    //     lastName: 'mmm',
+    //     DOB: Date.now(),
+    //     image: 'niodasndioas/dwadaw'
+    // });
 });
 //cookies test
 app.get('/set-cookies', (req: Request, res: Response, next: NextFunction) => {

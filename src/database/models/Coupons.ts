@@ -4,14 +4,14 @@ interface CouponsInterface {
     id?: number;
     createdAt?: number;
     updatedAt?: number;
-    uuid: number;
+    uuid: string;
     value: number;
 }
 class Coupons extends Model<CouponsInterface> implements CouponsInterface {
     declare id?: number;
     declare createdAt?: number;
     declare updatedAt?: number;
-    declare uuid: number;
+    declare uuid: string;
     declare value: number;
     static associate() {}
 }

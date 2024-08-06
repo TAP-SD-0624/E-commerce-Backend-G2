@@ -9,7 +9,7 @@ module.exports = {
         await queryInterface.bulkInsert('Products', [
             {
                 title: 'hand bag',
-                detail: 'black',
+                label: 'black',
                 description: 'leather',
                 price: 10,
                 discount: 0,
@@ -21,7 +21,7 @@ module.exports = {
             },
             {
                 title: 'backpack',
-                detail: 'travel',
+                label: 'travel',
                 description: 'big',
                 price: 150,
                 discount: 10,
@@ -33,7 +33,7 @@ module.exports = {
             },
             {
                 title: 'sneakers',
-                detail: 'shoes',
+                label: 'shoes',
                 description: 'sports',
                 price: 300,
                 discount: 20,
@@ -45,7 +45,7 @@ module.exports = {
             },
             {
                 title: 'jordan',
-                detail: 'shoes',
+                label: 'shoes',
                 description: 'basketball',
                 price: 700,
                 discount: 30,
@@ -57,7 +57,7 @@ module.exports = {
             },
             {
                 title: 'airmax',
-                detail: 'shoes',
+                label: 'shoes',
                 description: 'casual',
                 price: 562,
                 discount: 7,
@@ -69,7 +69,7 @@ module.exports = {
             },
             {
                 title: 'cowboy Hat',
-                detail: 'hat',
+                label: 'hat',
                 description: 'summer',
                 price: 15,
                 discount: 20,
@@ -81,7 +81,7 @@ module.exports = {
             },
             {
                 title: 'iphone 14',
-                detail: '14 pro max',
+                label: '14 pro max',
                 description: 'brand new',
                 price: 333,
                 discount: 12,
@@ -93,7 +93,7 @@ module.exports = {
             },
             {
                 title: 'galaxy s23',
-                detail: 's23 ultra',
+                label: 's23 ultra',
                 description: 'the new samsung phone',
                 price: 332,
                 discount: 15,
@@ -105,7 +105,7 @@ module.exports = {
             },
             {
                 title: 'air pods 3',
-                detail: 'apple earbuds',
+                label: 'apple earbuds',
                 description: 'noise canceling earbuds',
                 price: 520,
                 discount: 13,
@@ -117,7 +117,7 @@ module.exports = {
             },
             {
                 title: 'smart tablelamp',
-                detail: 'usb c',
+                label: 'usb c',
                 description: 'smart wifi table lamp',
                 price: 15,
                 discount: 7,

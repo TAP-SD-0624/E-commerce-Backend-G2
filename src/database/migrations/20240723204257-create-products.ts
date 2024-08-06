@@ -16,7 +16,7 @@ module.exports = {
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL'
             },
-            detail: {
+            label: {
                 type: new Sequelize.STRING(),
                 allowNull: false
             },
@@ -30,7 +30,7 @@ module.exports = {
             },
             discount: {
                 type: new Sequelize.INTEGER(),
-                allowNull: false
+                allowNull: true
             },
             title: {
                 type: new Sequelize.STRING(),
