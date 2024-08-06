@@ -5,7 +5,6 @@ interface RatingsInterface {
     productId: number;
     userId: number;
     rating: number;
-    comments: string;
     review: string;
     createdAt?: number;
     updatedAt?: number;
@@ -16,7 +15,6 @@ class Ratings extends Model<RatingsInterface> implements RatingsInterface {
     declare productId: number;
     declare userId: number;
     declare rating: number;
-    declare comments: string;
     declare review: string;
     declare createdAt?: number;
     declare updatedAt?: number;
@@ -45,13 +43,9 @@ Ratings.init(
             type: DataTypes.INTEGER,
             allowNull: false
         },
-        comments: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         review: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: true
         },
         createdAt: {
             allowNull: false,

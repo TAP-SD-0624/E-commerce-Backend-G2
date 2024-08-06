@@ -8,7 +8,7 @@ import Wishlist from './wishlist';
 interface ProductsInterface {
     id?: number;
     brandId: number;
-    detail: string;
+    label: string;
     description: string;
     price: number;
     discount: number;
@@ -21,7 +21,7 @@ interface ProductsInterface {
 class Products extends Model<ProductsInterface> implements ProductsInterface {
     declare id?: number;
     declare brandId: number;
-    declare detail: string;
+    declare label: string;
     declare description: string;
     declare price: number;
     declare discount: number;
@@ -52,7 +52,7 @@ Products.init(
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },
-        detail: {
+        label: {
             type: new DataTypes.STRING(),
             allowNull: false
         },
@@ -66,7 +66,7 @@ Products.init(
         },
         discount: {
             type: new DataTypes.INTEGER(),
-            allowNull: false
+            allowNull: true
         },
         title: {
             type: new DataTypes.STRING(),

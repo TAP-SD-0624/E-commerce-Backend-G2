@@ -8,9 +8,11 @@ import Tranactions from './Transactions';
 import Wishlist from './wishlist';
 interface UserInterface {
     id?: number;
-    loginId?: number;
     firstName: string;
     lastName: string;
+    email: string;
+    phone: string;
+    password: string;
     DOB: number;
     image: string;
     createdAt?: number;
@@ -18,9 +20,11 @@ interface UserInterface {
 }
 class Users extends Model<UserInterface> implements UserInterface {
     declare id?: number;
-    declare loginId?: number;
     declare firstName: string;
     declare lastName: string;
+    declare email: string;
+    declare phone: string;
+    declare password: string;
     declare DOB: number;
     declare image: string;
     declare createdAt?: number;
@@ -42,18 +46,25 @@ Users.init(
             autoIncrement: true,
             unique: true
         },
-        loginId: {
-            type: DataTypes.INTEGER,
-            // allowNull: false,
-            onUpdate: 'CASCADE',
-            onDelete: 'SET NULL'
-        },
+
         firstName: {
             type: new DataTypes.STRING(),
             allowNull: false
         },
         lastName: {
             type: new DataTypes.STRING(),
+            allowNull: false
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        phone: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        password: {
+            type: DataTypes.STRING,
             allowNull: false
         },
         DOB: {

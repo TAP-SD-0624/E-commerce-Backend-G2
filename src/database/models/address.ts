@@ -1,5 +1,6 @@
 import sequelize from '../connection';
 import { Model, DataTypes } from 'sequelize';
+import Orders from './orders';
 
 interface AddressInterface {
     id?: number;
@@ -8,6 +9,8 @@ interface AddressInterface {
     street: string;
     city: string;
     zipcode: number;
+    fullName: string;
+    mobile: string;
     createdAt?: number;
     updatedAt?: number;
 }
@@ -18,9 +21,13 @@ class Address extends Model<AddressInterface> implements AddressInterface {
     declare street: string;
     declare city: string;
     declare zipcode: number;
+    declare fullName: string;
+    declare mobile: string;
     declare createdAt?: number;
     declare updatedAt?: number;
-    static associate() {}
+    static associate() {
+        Address.hasMany(Orders, { foreignKey: { name: 'addressId' } });
+    }
 }
 Address.init(
     {
@@ -50,6 +57,14 @@ Address.init(
         },
         zipcode: {
             type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        fullName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        mobile: {
+            type: DataTypes.STRING,
             allowNull: false
         },
         createdAt: {
