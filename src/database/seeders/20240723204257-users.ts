@@ -14,7 +14,8 @@ module.exports = {
                 phone: '0598001122',
                 password: 'P@SSWORD',
                 DOB: new Date('1985-02-05'),
-                image: 'url/url',
+                imageUrl: 'url/url',
+                role: 'admin',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -25,7 +26,8 @@ module.exports = {
                 phone: '0598001122',
                 password: 'P@SSWORD',
                 DOB: new Date('1987-01-24'),
-                image: 'url/url',
+                imageUrl: 'url/url',
+                role: 'user',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -36,7 +38,8 @@ module.exports = {
                 phone: '0598001122',
                 password: 'P@SSWORD',
                 DOB: new Date('1975-05-15'),
-                image: 'url/url',
+                imageUrl: 'url/url',
+                role: 'user',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -47,7 +50,8 @@ module.exports = {
                 phone: '0598001122',
                 password: 'P@SSWORD',
                 DOB: new Date('1983-05-20'),
-                image: 'url/url',
+                imageUrl: 'url/url',
+                role: 'user',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -58,7 +62,8 @@ module.exports = {
                 phone: '0598001122',
                 password: 'P@SSWORD',
                 DOB: new Date('1900-07-05'),
-                image: 'url/url',
+                imageUrl: 'url/url',
+                role: 'user',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -69,7 +74,8 @@ module.exports = {
                 phone: '0598001122',
                 password: 'P@SSWORD',
                 DOB: new Date('1985-02-05'),
-                image: 'url/url',
+                imageUrl: 'url/url',
+                role: 'user',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -80,7 +86,8 @@ module.exports = {
                 phone: '0598001122',
                 password: 'P@SSWORD',
                 DOB: new Date('1940-02-05'),
-                image: 'url/url',
+                imageUrl: 'url/url',
+                role: 'user',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -91,7 +98,8 @@ module.exports = {
                 phone: '0598001122',
                 password: 'P@SSWORD',
                 DOB: new Date('1970-08-07'),
-                image: 'url/url',
+                imageUrl: 'url/url',
+                role: 'user',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -102,7 +110,8 @@ module.exports = {
                 phone: '0598001122',
                 password: 'P@SSWORD',
                 DOB: new Date('1965-07-31'),
-                image: 'url/url',
+                imageUrl: 'url/url',
+                role: 'user',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -113,7 +122,8 @@ module.exports = {
                 phone: '0598001122',
                 password: 'P@SSWORD',
                 DOB: new Date('1997-06-26'),
-                image: 'url/url',
+                imageUrl: 'url/url',
+                role: 'user',
                 createdAt: new Date(),
                 updatedAt: new Date()
             }

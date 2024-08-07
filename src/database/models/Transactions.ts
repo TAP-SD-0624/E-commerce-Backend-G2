@@ -1,5 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../connection';
+import Users from './users';
+import Orders from './orders';
 interface TranactionsInterface {
     id?: number;
     userId: number;
@@ -21,7 +23,8 @@ class Transactions extends Model<TranactionsInterface> implements TranactionsInt
     declare readonly updatedAt?: Date;
     declare readonly createdAt?: Date;
     static associate() {
-        // Tranactions
+        Transactions.belongsTo(Users, { foreignKey: { name: 'userId' } });
+        Transactions.hasMany(Orders, { foreignKey: { name: 'transactionId' } });
     }
 }
 Transactions.init(

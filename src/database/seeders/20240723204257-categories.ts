@@ -7,19 +7,19 @@ module.exports = {
         await queryInterface.bulkInsert('Categories', [
             {
                 title: 'HandBags',
-                image: 'url/url',
+                imageUrl: 'url/url',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
             {
                 title: 'Watches',
-                image: 'url/url',
+                imageUrl: 'url/url',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
             {
                 title: 'Skincare',
-                image: 'url/url',
+                imageUrl: 'url/url',
                 createdAt: new Date(),
                 updatedAt: new Date()
             }
@@ -36,4 +36,4 @@ module.exports = {
 };
 //   declare id?: number;
 //     declare title: string;
-//     declare image: string;
+//     declare imageUrl: string;

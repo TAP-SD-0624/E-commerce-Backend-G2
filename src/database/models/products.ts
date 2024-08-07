@@ -5,6 +5,9 @@ import Orders from './orders';
 import Images from './Images';
 import Cart from './cart';
 import Wishlist from './wishlist';
+import Brands from './brands';
+import Categories from './categories';
+import ProductsCategories from './ProductsCategories';
 interface ProductsInterface {
     id?: number;
     brandId: number;
@@ -14,7 +17,9 @@ interface ProductsInterface {
     discount: number;
     title: string;
     quantity: number;
-    image: string;
+    imageUrl: string;
+    categoriesIds?: Array<{}>;
+    imagesUrls?: Array<{}>;
     readonly createdAt?: Date;
     readonly updatedAt?: Date;
 }
@@ -27,15 +32,20 @@ class Products extends Model<ProductsInterface> implements ProductsInterface {
     declare discount: number;
     declare title: string;
     declare quantity: number;
-    declare image: string;
+    declare imageUrl: string;
+    declare categoriesIds: Array<{}>;
+    declare imagesUrls: Array<{}>;
     declare readonly createdAt?: Date;
     declare readonly updatedAt?: Date;
     static associate() {
         Products.hasMany(Ratings, { foreignKey: 'productId' });
         Products.hasMany(Orders, { foreignKey: 'productId' });
-        Products.hasMany(Images, { foreignKey: 'productId' });
+        Products.hasMany(Images, { foreignKey: 'productId', as: 'imagesUrls' });
         Products.hasMany(Cart, { foreignKey: 'productId' });
         Products.hasMany(Wishlist, { foreignKey: 'productId' });
+        Products.belongsTo(Brands, { foreignKey: 'brandId' });
+        Products.belongsToMany(Categories, { through: ProductsCategories, foreignKey: 'productId' });
+        Products.hasMany(ProductsCategories, { foreignKey: 'productId', as: 'categoriesIds' });
     }
 }
 Products.init(
@@ -76,7 +86,7 @@ Products.init(
             type: new DataTypes.INTEGER(),
             allowNull: false
         },
-        image: {
+        imageUrl: {
             type: new DataTypes.STRING(),
             allowNull: false
         }

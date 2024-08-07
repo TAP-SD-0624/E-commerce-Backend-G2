@@ -14,9 +14,10 @@ interface UserInterface {
     phone: string;
     password: string;
     DOB: number;
-    image: string;
+    imageUrl: string;
     createdAt?: number;
     updatedAt?: number;
+    role: string;
 }
 class Users extends Model<UserInterface> implements UserInterface {
     declare id?: number;
@@ -26,9 +27,10 @@ class Users extends Model<UserInterface> implements UserInterface {
     declare phone: string;
     declare password: string;
     declare DOB: number;
-    declare image: string;
+    declare imageUrl: string;
     declare createdAt?: number;
     declare updatedAt?: number;
+    declare role: string;
     static associate() {
         Users.hasMany(Address, { foreignKey: 'userId' });
         Users.hasMany(Ratings, { foreignKey: 'userId' });
@@ -71,7 +73,11 @@ Users.init(
             type: DataTypes.DATE,
             allowNull: false
         },
-        image: {
+        imageUrl: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        role: {
             type: DataTypes.STRING,
             allowNull: false
         },
