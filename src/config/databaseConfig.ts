@@ -21,9 +21,9 @@ if (process.env.NODE_ENV === "test") {
   };
 } else {
   configs = {
-    username: process.env.DB_USERNAME || "postgres",
-    password: process.env.DB_PASSWORD || "12345",
-    database: process.env.DB_DATABASE || "Ecommerce",
+    username: process.env.DB_USERNAME || "root",
+    password: process.env.DB_PASSWORD || "kata5678",
+    database: process.env.DB_DATABASE || "ecommerce_dev",
     dialect: process.env.DB_TESTING_DIALECT as Dialect || "postgres",
     host: process.env.DB_HOST || "localhost",
     port: process.env.DB_PORT || "5432",
