@@ -14,7 +14,7 @@ module.exports = {
                 price: 10,
                 discount: 0,
                 quantity: 100,
-                image: 'url/url',
+                imageUrl: 'url/url',
                 brandId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -26,7 +26,7 @@ module.exports = {
                 price: 150,
                 discount: 10,
                 quantity: 20,
-                image: 'url/url',
+                imageUrl: 'url/url',
                 brandId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -38,7 +38,7 @@ module.exports = {
                 price: 300,
                 discount: 20,
                 quantity: 174,
-                image: 'url/url',
+                imageUrl: 'url/url',
                 brandId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -50,7 +50,7 @@ module.exports = {
                 price: 700,
                 discount: 30,
                 quantity: 543,
-                image: 'url/url',
+                imageUrl: 'url/url',
                 brandId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -62,7 +62,7 @@ module.exports = {
                 price: 562,
                 discount: 7,
                 quantity: 255,
-                image: 'url/url',
+                imageUrl: 'url/url',
                 brandId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -74,7 +74,7 @@ module.exports = {
                 price: 15,
                 discount: 20,
                 quantity: 70,
-                image: 'url/url',
+                imageUrl: 'url/url',
                 brandId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -86,7 +86,7 @@ module.exports = {
                 price: 333,
                 discount: 12,
                 quantity: 19,
-                image: 'url/url',
+                imageUrl: 'url/url',
                 brandId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -98,7 +98,7 @@ module.exports = {
                 price: 332,
                 discount: 15,
                 quantity: 1010,
-                image: 'url/url',
+                imageUrl: 'url/url',
                 brandId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -110,7 +110,7 @@ module.exports = {
                 price: 520,
                 discount: 13,
                 quantity: 700,
-                image: 'url/url',
+                imageUrl: 'url/url',
                 brandId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -122,7 +122,7 @@ module.exports = {
                 price: 15,
                 discount: 7,
                 quantity: 5,
-                image: 'url/url',
+                imageUrl: 'url/url',
                 brandId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()

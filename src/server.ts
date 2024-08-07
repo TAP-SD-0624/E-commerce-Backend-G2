@@ -2,7 +2,9 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import sequelize from './database/connection';
 import { db, syncDatabase } from './database';
-
+///////////////////////////////////////////////////////////////////
+// import amrFakeRouter from './controllers/amr/amrFakeRouter';
+///////////////////////////////////////////////////////////////////
 const app: Express = express();
 
 const PORT: number | string = process.env.PORT || 3000;
@@ -11,7 +13,9 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 syncDatabase();
-
+//amr testing //////////////////////////////////////////////////////////////////////////
+// app.use('/amr', amrFakeRouter);
+////////////////////////////////////////////////////////////////////////////////
 // app.use('/', userRouter);
 // app.use('/posts', productRouter);
 // app.use('/users', userRouter);

@@ -7,19 +7,19 @@ module.exports = {
         await queryInterface.bulkInsert('Brands', [
             {
                 name: 'd&g',
-                image: 'url/url',
+                imageUrl: 'url/url',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
             {
                 name: 'Zara',
-                image: 'url/url',
+                imageUrl: 'url/url',
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
             {
                 name: 'CHANEL',
-                image: 'url/url',
+                imageUrl: 'url/url',
                 createdAt: new Date(),
                 updatedAt: new Date()
             }

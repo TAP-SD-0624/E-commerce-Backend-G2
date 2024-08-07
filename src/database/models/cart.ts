@@ -1,22 +1,24 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connection';
+import Products from './products';
+import Users from './users';
 interface CartInterface {
     id?: number;
     userId: number;
     productId: number;
-    // quantity: number;
     createdAt?: number;
     updatedAt?: number;
 }
-
 class Cart extends Model<CartInterface> implements CartInterface {
     declare id?: number;
     declare userId: number;
     declare productId: number;
-    // declare quantity: number;
     declare createdAt?: number;
     declare updatedAt?: number;
-    static associate() {}
+    static associate() {
+        Cart.belongsTo(Products, { foreignKey: 'productId' });
+        Cart.belongsTo(Users, { foreignKey: 'userId' });
+    }
 }
 Cart.init(
     {
@@ -37,10 +39,6 @@ Cart.init(
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },
-        // quantity: {
-        //     type: DataTypes.INTEGER,
-        //     allowNull: false
-        // },
         createdAt: {
             allowNull: false,
             type: DataTypes.DATE

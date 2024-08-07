@@ -1,9 +1,11 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connection';
+import Products from './products';
+import ProductsCategories from './ProductsCategories';
 interface CategoriesInterface {
     id?: number;
     title: string;
-    image: string;
+    imageUrl: string;
     createdAt?: number;
     updatedAt?: number;
 }
@@ -11,10 +13,13 @@ interface CategoriesInterface {
 class Categories extends Model<CategoriesInterface> implements CategoriesInterface {
     declare id?: number;
     declare title: string;
-    declare image: string;
+    declare imageUrl: string;
     declare createdAt?: number;
     declare updatedAt?: number;
-    static associate() {}
+    static associate() {
+        Categories.belongsToMany(Products, { through: ProductsCategories, foreignKey: 'categoryId' });
+        Categories.hasMany(ProductsCategories, { as: 'cateToProducts', foreignKey: 'categoryId' });
+    }
 }
 
 Categories.init(
@@ -28,7 +33,7 @@ Categories.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        image: {
+        imageUrl: {
             type: DataTypes.STRING,
             allowNull: false
         },

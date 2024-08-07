@@ -1,5 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../connection';
+import Products from './products';
+import Users from './users';
 interface RatingsInterface {
     id?: number;
     productId: number;
@@ -18,7 +20,10 @@ class Ratings extends Model<RatingsInterface> implements RatingsInterface {
     declare review: string;
     declare createdAt?: number;
     declare updatedAt?: number;
-    static associate() {}
+    static associate() {
+        Ratings.belongsTo(Products, { foreignKey: 'productId' });
+        Ratings.belongsTo(Users, { foreignKey: 'userId' });
+    }
 }
 Ratings.init(
     {

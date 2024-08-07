@@ -1,5 +1,9 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connection';
+import Products from './products';
+import Users from './users';
+import Transactions from './Transactions';
+import Address from './address';
 interface OrderInterface {
     id?: number;
     productId: number;
@@ -18,7 +22,12 @@ class Orders extends Model<OrderInterface> implements OrderInterface {
     declare transactionId: number;
     declare createdAt?: number;
     declare updatedAt?: number;
-    static associate() {}
+    static associate() {
+        Orders.belongsTo(Products, { foreignKey: 'productId' });
+        Orders.belongsTo(Users, { foreignKey: 'userId' });
+        Orders.belongsTo(Transactions, { foreignKey: 'transactionId' });
+        Orders.belongsTo(Address, { foreignKey: 'addressId' });
+    }
 }
 
 Orders.init(
