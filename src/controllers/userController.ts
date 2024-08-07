@@ -16,9 +16,9 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
     let lastName: string = req.body.lastName.toLowerCase();
     let email: string = req.body.email.toLowerCase();
     let password: string = req.body.password;
-    let phone: string = req.body.phone;
-    let DOB : number = req.body.dob;
-    let image : string = req.body.image;
+    let phone: string = req.body.phone || "123-456-7890";
+    let DOB : number = req.body.dob || "01-02-2024";
+    let image : string = req.body.image || "https://i.imgur.com/h9m0E58.jpg";
 
 
     try {
