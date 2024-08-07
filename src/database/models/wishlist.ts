@@ -1,37 +1,39 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connection';
-interface ImagesInterface {
+
+interface WishlistInterface {
     id?: number;
+    productId: number;
+    userId: number;
     createdAt?: number;
     updatedAt?: number;
-    productId: number;
-    imageUrl: string;
 }
-class Images extends Model<ImagesInterface> implements ImagesInterface {
+class Wishlist extends Model<WishlistInterface> implements WishlistInterface {
     declare id?: number;
+    declare productId: number;
+    declare userId: number;
     declare createdAt?: number;
     declare updatedAt?: number;
-    declare productId: number;
-    declare imageUrl: string;
     static associate() {}
 }
-Images.init(
+Wishlist.init(
     {
         id: {
-            allowNull: false,
-            autoIncrement: true,
             primaryKey: true,
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            autoIncrement: true
         },
         productId: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },
-        imageUrl: {
-            type: DataTypes.STRING,
-            allowNull: true
+        userId: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            onUpdate: 'CASCADE',
+            onDelete: 'SET NULL'
         },
         createdAt: {
             allowNull: false,
@@ -43,8 +45,8 @@ Images.init(
         }
     },
     {
-        modelName: 'Images',
+        modelName: 'Wishlist',
         sequelize
     }
 );
-export default Images;
+export default Wishlist;
