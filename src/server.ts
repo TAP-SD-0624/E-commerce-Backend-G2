@@ -2,6 +2,7 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import sequelize from './database/connection';
 import { db, syncDatabase } from './database';
+import userRouter from "./routes/userRoutes";
 
 const app: Express = express();
 
@@ -12,34 +13,14 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 syncDatabase();
 
-// app.use('/', userRouter);
-// app.use('/posts', productRouter);
-// app.use('/users', userRouter);
-// app.use('/comment', commentsRouter);
-// app.use('/category', categoriesRouter);
-// app.use('/login', userRouter);
-// app.use(logger)
+app.use('/', userRouter)
+
 
 app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    // db.Users.create({
-    //     firstName: 'ahmed',
-    //     lastName: 'mmm',
-    //     DOB: Date.now(),
-    //     image: 'niodasndioas/dwadaw'
-    // });
-});
-//cookies test
-app.get('/set-cookies', (req: Request, res: Response, next: NextFunction) => {
-    res.cookie('newUser', false);
-    res.cookie('isEmployee', true, { maxAge: 1000 * 60 * 60 * 24 });
-    res.send('You got the cookies!');
-});
-app.get('/read-cookies', (req: Request, res: Response, next: NextFunction) => {
-    const cookies = req.cookies;
-    console.log(cookies.newUser);
-    res.json(cookies);
-});
-// Connect to database and sync models before starting the server
+    console.log('hello server')
+    });
+
+
 
 sequelize.sync({ alter: true }).then(() => {
     console.log('databaseSync');

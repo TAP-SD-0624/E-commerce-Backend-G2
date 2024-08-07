@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from 'express';
-import User from "../database/models/users";
+import Users from "../database/models/users";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
@@ -12,10 +12,14 @@ export const createToken = (id: number) => jwt.sign(
     /* options */
     {expiresIn: '3d'});
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {
-    let firstName: string = req.body.firstName;
-    let lastName: string = req.body.lastName;
+    let firstName: string = req.body.firstName.toLowerCase();
+    let lastName: string = req.body.lastName.toLowerCase();
     let email: string = req.body.email.toLowerCase();
     let password: string = req.body.password;
+    let phone: string = req.body.phone;
+    let DOB : number = req.body.dob;
+    let image : string = req.body.image;
+
 
     try {
         // Hash and salt the password
@@ -23,7 +27,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
         password = await bcrypt.hash(password, salt);
 
         // Create the user
-        const user: User = await User.create({name, email, password});
+        const user: Users = await Users.create({firstName, lastName, email, password, phone, DOB, image});
 
         // create jwt token and send in cookie
         let token: string = createToken(user.id as number);
@@ -32,7 +36,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
             secure: process.env.NODE_ENV === 'production',
             maxAge: 3 * 24 * 60 * 60 * 1000
         });
-        res.status(201).json({user: user.id, token});
+        res.status(201).json({user});
 
     } catch (err) {
         console.error(err);
@@ -40,49 +44,12 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
     }
 }
 
-export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
-    const {name, email, password, login, id} = req.body as {
-        name: string,
-        email: string,
-        password: string,
-        login: boolean,
-        id: number
-    };
-
-    if (!id) {
-        return res.status(400).json({error: 'Please enter a user id'});
-    }
-
-    const user = await User.findByPk(id);
-    if (!user) {
-        return res.status(404).json({error: 'User not found'});
-    }
-
-    await user.update({name, email, password, login});
-    res.status(200).json({user});
-}
-
-export const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
-    const {id} = req.params;
-
-    if (!id) {
-        return res.status(400).json({error: 'Please enter a user id'});
-    }
-
-    const user = await User.findByPk(id);
-    if (!user) {
-        return res.status(404).json({error: 'Could not delete user. User not found'});
-    }
-    await user.destroy();
-    res.status(200).send({message: 'User deleted successfully'});
-}
-
 export const userLogin = async (req: Request, res: Response, next: NextFunction) => {
     const {email, password} = req.body as { email: string; password: string };
 
     try {
         // Use LOWER function for case-insensitive comparison
-        const user = await User.findOne({
+        const user = await Users.findOne({
             where: {
                 email
             }
@@ -112,16 +79,11 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
 export const userLogout = async (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id;
     try {
-        const user = await User.findByPk(id);
+        const user = await Users.findByPk(id);
         if (!user) {
             return res.status(404).json({ error: 'User not found' });
         }
 
-        await user.update({ login: false });
-
-        // Clear cookies
-        res.clearCookie('jwt');
-        res.clearCookie('userLogin');
 
         res.status(200).json({ user: user.id, message: 'User logged out successfully' });
     } catch (error) {

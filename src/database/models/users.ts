@@ -11,10 +11,10 @@ interface UserInterface {
     firstName: string;
     lastName: string;
     email: string;
-    phone: string;
+    phone?: string;
     password: string;
-    DOB: number;
-    image: string;
+    DOB?: number;
+    image?: string;
     createdAt?: number;
     updatedAt?: number;
 }
@@ -23,10 +23,10 @@ class Users extends Model<UserInterface> implements UserInterface {
     declare firstName: string;
     declare lastName: string;
     declare email: string;
-    declare phone: string;
+    declare phone?: string;
     declare password: string;
-    declare DOB: number;
-    declare image: string;
+    declare DOB?: number;
+    declare image?: string;
     declare createdAt?: number;
     declare updatedAt?: number;
     static associate() {
@@ -48,11 +48,11 @@ Users.init(
         },
 
         firstName: {
-            type: new DataTypes.STRING(),
+            type: new DataTypes.STRING,
             allowNull: false
         },
         lastName: {
-            type: new DataTypes.STRING(),
+            type: new DataTypes.STRING,
             allowNull: false
         },
         email: {

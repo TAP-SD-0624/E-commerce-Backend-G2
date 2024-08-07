@@ -1,5 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../connection';
+import { v4 as uuidv4 } from 'uuid';
 interface CouponsInterface {
     id?: number;
     createdAt?: number;
@@ -15,6 +16,7 @@ class Coupons extends Model<CouponsInterface> implements CouponsInterface {
     declare value: number;
     static associate() {}
 }
+
 Coupons.init(
     {
         id: {
@@ -33,7 +35,8 @@ Coupons.init(
         },
         createdAt: {
             allowNull: false,
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
+
         },
         updatedAt: {
             allowNull: false,
