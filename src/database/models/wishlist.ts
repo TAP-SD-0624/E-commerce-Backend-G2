@@ -1,5 +1,7 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connection';
+import Products from './products';
+import Users from './users';
 
 interface WishlistInterface {
     id?: number;
@@ -14,7 +16,10 @@ class Wishlist extends Model<WishlistInterface> implements WishlistInterface {
     declare userId: number;
     declare createdAt?: number;
     declare updatedAt?: number;
-    static associate() {}
+    static associate() {
+        Wishlist.belongsTo(Products, { foreignKey: 'productId' });
+        Wishlist.belongsTo(Users, { foreignKey: 'userId' });
+    }
 }
 Wishlist.init(
     {

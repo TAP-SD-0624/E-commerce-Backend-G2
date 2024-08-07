@@ -34,7 +34,11 @@ module.exports = {
                 type: Sequelize.STRING,
                 allowNull: false
             },
-            image: {
+            imageUrl: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+            role: {
                 type: Sequelize.STRING,
                 allowNull: false
             },

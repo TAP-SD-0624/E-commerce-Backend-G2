@@ -4,7 +4,7 @@ import Products from './products';
 interface BrandsInterface {
     id?: number;
     name: string;
-    image: string;
+    imageUrl: string;
     createdAt?: number;
     updatedAt?: number;
 }
@@ -13,7 +13,7 @@ class Brands extends Model<BrandsInterface> implements BrandsInterface {
     declare createdAt?: number;
     declare updatedAt?: number;
     declare name: string;
-    declare image: string;
+    declare imageUrl: string;
     static associate() {
         Brands.hasMany(Products, { foreignKey: 'brandId' });
     }
@@ -30,7 +30,7 @@ Brands.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        image: {
+        imageUrl: {
             type: DataTypes.STRING,
             allowNull: false
         },
