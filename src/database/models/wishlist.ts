@@ -2,38 +2,39 @@ import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connection';
 import Products from './products';
 import Users from './users';
-interface CartInterface {
+
+interface WishlistInterface {
     id?: number;
-    userId: number;
     productId: number;
+    userId: number;
     createdAt?: number;
     updatedAt?: number;
 }
-class Cart extends Model<CartInterface> implements CartInterface {
+class Wishlist extends Model<WishlistInterface> implements WishlistInterface {
     declare id?: number;
-    declare userId: number;
     declare productId: number;
+    declare userId: number;
     declare createdAt?: number;
     declare updatedAt?: number;
     static associate() {
-        Cart.belongsTo(Products, { foreignKey: 'productId' });
-        Cart.belongsTo(Users, { foreignKey: 'userId' });
+        Wishlist.belongsTo(Products, { foreignKey: 'productId' });
+        Wishlist.belongsTo(Users, { foreignKey: 'userId' });
     }
 }
-Cart.init(
+Wishlist.init(
     {
         id: {
             primaryKey: true,
             type: DataTypes.INTEGER,
             autoIncrement: true
         },
-        userId: {
+        productId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },
-        productId: {
+        userId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             onUpdate: 'CASCADE',
@@ -49,8 +50,8 @@ Cart.init(
         }
     },
     {
-        modelName: 'Cart',
+        modelName: 'Wishlist',
         sequelize
     }
 );
-export default Cart;
+export default Wishlist;

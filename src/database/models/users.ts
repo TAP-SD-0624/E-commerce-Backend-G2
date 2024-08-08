@@ -2,57 +2,98 @@ import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connection';
 import Address from './address';
 import Ratings from './ratings';
-interface UserInterface{
-    id ?:number;
-    loginId?:number;
+import Cart from './cart';
+import Orders from './orders';
+import Tranactions from './Transactions';
+import Wishlist from './wishlist';
+interface UserInterface {
+    id?: number;
     firstName: string;
-    lastName:string;
-    DOB:number;
-    image: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    password: string;
+    DOB: number;
+    imageUrl: string;
+    createdAt?: number;
+    updatedAt?: number;
+    role: string;
 }
-class Users extends Model<UserInterface>implements UserInterface{
-    declare id ?:number;
-    declare loginId?:number;
+class Users extends Model<UserInterface> implements UserInterface {
+    declare id?: number;
     declare firstName: string;
-    declare lastName:string;
-    declare DOB :number;
-    declare image: string;
-    static associate(){
-        Users.hasMany(Address,{foreignKey:'userId'})
-        Users.hasMany(Ratings,{foreignKey:{name:'userId'}})
+    declare lastName: string;
+    declare email: string;
+    declare phone: string;
+    declare password: string;
+    declare DOB: number;
+    declare imageUrl: string;
+    declare createdAt?: number;
+    declare updatedAt?: number;
+    declare role: string;
+    static associate() {
+        Users.hasMany(Address, { foreignKey: 'userId' });
+        Users.hasMany(Ratings, { foreignKey: 'userId' });
+        Users.hasMany(Cart, { foreignKey: 'userId' });
+        Users.hasMany(Tranactions, { foreignKey: 'userId' });
+        Users.hasMany(Orders, { foreignKey: 'userId' });
+        Users.hasMany(Wishlist, { foreignKey: 'userId' });
     }
 }
-Users.init({
-    id:{
-        type: DataTypes.INTEGER,
-        primaryKey:true,
-        autoIncrement: true,
-        unique:true
+Users.init(
+    {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true
+        },
+
+        firstName: {
+            type: new DataTypes.STRING(),
+            allowNull: false
+        },
+        lastName: {
+            type: new DataTypes.STRING(),
+            allowNull: false
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        phone: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: '1-234-567-8900'
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        DOB: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
+        imageUrl: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        role: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        createdAt: {
+            allowNull: false,
+            type: DataTypes.DATE
+        },
+        updatedAt: {
+            allowNull: false,
+            type: DataTypes.DATE
+        }
     },
-    loginId:{
-        type: DataTypes.INTEGER,
-        // allowNull: false,
-        onUpdate: "CASCADE",
-        onDelete: "SET NULL",
-    },
-    firstName:{
-        type: new DataTypes.STRING,
-       allowNull: false
-    },
-    lastName:{
-        type: new DataTypes.STRING,
-       allowNull: false
-    },
-    DOB:{
-      type:DataTypes.DATE,
-      allowNull:false
-    },
-    image:{
-        type :DataTypes.STRING,
-        allowNull:false
+    {
+        modelName: 'Users',
+        sequelize
     }
-},{
-    modelName:'Users',
-    sequelize
-});
+);
 export default Users;

@@ -3,19 +3,19 @@ import { DataTypes, QueryInterface } from 'sequelize';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
-        await queryInterface.createTable('Cart', {
+        await queryInterface.createTable('Wishlist', {
             id: {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
                 autoIncrement: true
             },
-            userId: {
+            productId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL'
             },
-            productId: {
+            userId: {
                 type: Sequelize.INTEGER,
                 allowNull: false,
                 onUpdate: 'CASCADE',
@@ -32,6 +32,6 @@ module.exports = {
         });
     },
     async down(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
-        await queryInterface.dropTable('Cart');
+        await queryInterface.dropTable('Wishlist');
     }
 };
