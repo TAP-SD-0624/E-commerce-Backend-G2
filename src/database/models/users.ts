@@ -63,7 +63,8 @@ Users.init(
         },
         phone: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            defaultValue: '1-234-567-8900'
         },
         password: {
             type: DataTypes.STRING,
@@ -71,7 +72,7 @@ Users.init(
         },
         DOB: {
             type: DataTypes.DATE,
-            allowNull: false
+            allowNull: false,
         },
         imageUrl: {
             type: DataTypes.STRING,

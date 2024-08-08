@@ -3,7 +3,7 @@ import cors from 'cors';
 import sequelize from './database/connection';
 import { db, syncDatabase } from './database';
 import userRouter from "./routes/userRoutes";
-
+import adminRouter from "./routes/adminRoutes";
 ///////////////////////////////////////////////////////////////////
 // import amrFakeRouter from './controllers/amr/amrFakeRouter';
 ///////////////////////////////////////////////////////////////////
@@ -16,7 +16,9 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 syncDatabase();
 
+
 app.use('/', userRouter)
+app.use('/admin', adminRouter)
 
 //amr testing //////////////////////////////////////////////////////////////////////////
 // app.use('/amr', amrFakeRouter);

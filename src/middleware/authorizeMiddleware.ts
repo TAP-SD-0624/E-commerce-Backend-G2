@@ -3,24 +3,34 @@ import jwt from 'jsonwebtoken';
 
 interface RoleRequest extends Request {
     user?: {
-        id?: number;
         role?: string;
     };
 }
 
+export const verifyToken = async (req: RoleRequest, res: Response, next: NextFunction) =>{
+    const authHeader = req.headers['authorization'];
 
-export const authenticate = (req: RoleRequest, res: Response, next: NextFunction) => {
-    const token = req.cookies.jwt;
+    try{
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(403).json({ error: 'No token provided' });
+        }
 
-    if (!token) {
-        return res.status(401).json({ message: 'Unauthorized' });
+        const token = authHeader.split(' ')[1];
+        console.log(token);
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string, (err, decoded) => {
+            if (err) {
+                return res.status(401).json({ error: 'Failed to authenticate token' });
+            }
+            req.body.user = decoded;
+            next();
+        });
+    }
+    catch(err){
+        console.log(err);
+        return res.status(401).json({ error: 'Failed to authenticate token' });
     }
 
-    try {
-        const decoded: any = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
-        req.user = { id: decoded.id, role: decoded.role };
-        next();
-    } catch (err) {
-        return res.status(401).json({ message: 'Unauthorized' });
-    }
-};
+}
+
+
+
