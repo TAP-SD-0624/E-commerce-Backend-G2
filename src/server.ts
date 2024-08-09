@@ -2,8 +2,9 @@ import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import sequelize from './database/connection';
 import { db, syncDatabase } from './database';
-import userRouter from "./routes/userRoutes";
-import adminRouter from "./routes/adminRoutes";
+import userRouter from './routes/userRoutes';
+import adminRouter from './routes/adminRoutes';
+import { checkIfUserEmailExists, findUserByEmail } from './utils/database';
 ///////////////////////////////////////////////////////////////////
 // import amrFakeRouter from './controllers/amr/amrFakeRouter';
 ///////////////////////////////////////////////////////////////////
@@ -16,9 +17,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 syncDatabase();
 
-
-app.use('/', userRouter)
-app.use('/admin', adminRouter)
+app.use('/', userRouter);
+app.use('/admin', adminRouter);
 
 //amr testing //////////////////////////////////////////////////////////////////////////
 // app.use('/amr', amrFakeRouter);
@@ -31,13 +31,9 @@ app.use('/admin', adminRouter)
 // app.use('/login', userRouter);
 // app.use(logger)
 
-app.get('/', (req: Request, res: Response, next: NextFunction) => {
-    // db.Users.create({
-    //     firstName: 'ahmed',
-    //     lastName: 'mmm',
-    //     DOB: Date.now(),
-    //     image: 'niodasndioas/dwadaw'
-    // });
+app.post('/', async (req: Request, res: Response, next: NextFunction) => {
+    const x = await checkIfUserEmailExists(req.body.email);
+    res.send(x);
 });
 //cookies test
 app.get('/set-cookies', (req: Request, res: Response, next: NextFunction) => {
