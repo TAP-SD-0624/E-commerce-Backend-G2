@@ -12,10 +12,9 @@ export const checkRole = (allowedRoles: string[]) => {
         console.log(req.body.role);
         if (!userRole || !allowedRoles.includes(userRole)) {
             console.log(userRole);
-            return res.status(403).json({message: 'Access denied'});
+          res.status(403).json({message: 'Access denied, please check your role, or enter a role'});
         }
-        res.send({message:'Access granted'});
-        console.log('granted')
+        console.log(`Permission granted, welcome ${userRole}!`)
         next();
     };
 };
