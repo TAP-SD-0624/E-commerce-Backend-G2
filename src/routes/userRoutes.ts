@@ -5,10 +5,9 @@ import {validateLogin, validateUser} from '../middleware/validateUser';
 const userRouter: Router = Router();
 
 // user routes
-userRouter.post('/', validateUser, createUser);
-userRouter.post('/login', validateLogin, userLogin);
+userRouter.post('/register', validateUser, createUser);
+userRouter.post('/login', userLogin);
 userRouter.post('/logout', userLogout);
-
 
 // get wishlist
 // get getUserById
@@ -16,7 +15,7 @@ userRouter.post('/logout', userLogout);
 // see all reviews by userId
 // see all addresses by userId
 // see all payment cards
-//Update user
+// Update user
 
 
 export default userRouter;

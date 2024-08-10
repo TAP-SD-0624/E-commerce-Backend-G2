@@ -1,5 +1,6 @@
 import { body, validationResult } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
+import {db} from "../database";
 
 
 export const validateUser = [
@@ -16,8 +17,18 @@ export const validateUser = [
     body('email')
         .notEmpty().withMessage('Email is required')
         .isEmail().withMessage('Invalid email format')
-        .normalizeEmail(),
-
+        .normalizeEmail()
+        .withMessage('missing email address!')
+        .isString()
+        .exists()
+        .bail()
+        .trim()
+        .normalizeEmail()
+        .custom(async (value) => {
+            if (await checkIfUserEmailExists(value)) {
+                throw new Error('E-mail already in use');
+            }
+        }),
     body('password')
         .notEmpty().withMessage('Password is required')
         .isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
@@ -67,3 +78,14 @@ export const validateLogin = [
         next();
     }
 ];
+
+export async function findUserByEmail(email: string): Promise<null | {}> {
+    return await db.Users.findOne({
+        where: {email}
+    });
+}
+
+export async function checkIfUserEmailExists(email: string): Promise<boolean> {
+    const results = await findUserByEmail(email);
+    return !!results;
+}

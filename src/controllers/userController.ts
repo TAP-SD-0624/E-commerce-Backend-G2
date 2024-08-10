@@ -9,8 +9,8 @@ export const createToken = (id: number, role: string) => jwt.sign(
     {expiresIn: '3d'}
 );
 
-export const createUserOrAdmin = async (req: Request, res: Response, next: NextFunction, role: string) => {
-    const { firstName, lastName, email, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
+export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+    const { firstName, lastName, email, password, phone, DOB, imageUrl, role }: createNewUserInterface = req.body;
 
     try {
         // Create the user
@@ -27,7 +27,7 @@ export const createUserOrAdmin = async (req: Request, res: Response, next: NextF
 
         // Create JWT token with user role
         const token: string = createToken(user.id as number, user.role);
-        res.status(201).json({ user, token });
+        res.status(201).json({ user, token , message : `User ${firstName} ${lastName} created successfully`});
 
     } catch (err) {
         console.error(err);
@@ -35,13 +35,7 @@ export const createUserOrAdmin = async (req: Request, res: Response, next: NextF
     }
 }
 
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
-    await createUserOrAdmin(req, res, next, "user");
-};
 
-export const createAdmin = async (req: Request, res: Response, next: NextFunction) => {
-    await createUserOrAdmin(req, res, next, 'admin');
-};
 export const userLogin = async (req: Request, res: Response, next: NextFunction) => {
     const {email, password} = req.body as { email: string; password: string };
 
@@ -84,6 +78,7 @@ export const userLogout = async (req: Request, res: Response, next: NextFunction
             return res.status(404).json({error: 'User not found'});
         }
         res.status(200).json({message: `User ${user.firstName} ${user.lastName} logged out successfully`});
+       //! remove JWT from database
     } catch (error) {
         console.error('Error during logout:', error);
         res.status(500).json({error: 'Internal server error'});
