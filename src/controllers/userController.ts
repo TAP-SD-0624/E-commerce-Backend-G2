@@ -3,6 +3,7 @@ import Users from '../database/models/users';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { createNewUserInterface } from '../utils/interfaces';
+import { dbHelper } from '../database/dbHelper';
 
 export const createToken = (id: number, role: string) => jwt.sign({ id, role }, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: '3d' });
 
@@ -11,16 +12,26 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
 
     try {
         // Create the user
-        const user: Users = await Users.create({
+        const user: Users = await dbHelper.createUser({
             firstName,
             lastName,
-            email, //Email should be unique
+            email,
             password,
-            phone: phone ?? '',
-            DOB: DOB ?? '1999-09-09',
-            imageUrl: imageUrl ?? '',
+            phone,
+            DOB,
+            imageUrl,
             role
-        });
+        } as Users);
+        // const user: Users = await Users.create({
+        //     firstName,
+        //     lastName,
+        //     email, //Email should be unique
+        //     password,
+        //     phone: phone ?? '',
+        //     DOB: DOB ?? '1999-09-09',
+        //     imageUrl: imageUrl ?? '',
+        //     role
+        // });
 
         // Create JWT token with user role
         const token: string = createToken(user.id as number, user.role);
