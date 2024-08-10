@@ -8,7 +8,7 @@ import Wishlist from './wishlist';
 import Brands from './brands';
 import Categories from './categories';
 import ProductsCategories from './ProductsCategories';
-interface ProductsInterface {
+export interface ProductsInterface {
     id?: number;
     brandId: number;
     label: string;

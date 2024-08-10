@@ -64,7 +64,7 @@ Users.init(
         phone: {
             type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: '1-234-567-8900'
+
         },
         password: {
             type: DataTypes.STRING,
