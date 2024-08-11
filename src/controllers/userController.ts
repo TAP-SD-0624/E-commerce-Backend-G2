@@ -27,6 +27,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
 
         // Create JWT token with user role
         const token: string = createToken(user.id as number, user.role);
+        // add cookie
         res.status(201).json({ user, token , message : `User ${firstName} ${lastName} created successfully`});
 
     } catch (err) {

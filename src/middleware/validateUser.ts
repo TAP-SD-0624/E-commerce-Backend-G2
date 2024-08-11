@@ -1,6 +1,7 @@
 import { body, validationResult } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
 import {db} from "../database";
+import {checkIfUserEmailExists} from "../utils/databaseUtils";
 
 
 export const validateUser = [
@@ -79,13 +80,3 @@ export const validateLogin = [
     }
 ];
 
-export async function findUserByEmail(email: string): Promise<null | {}> {
-    return await db.Users.findOne({
-        where: {email}
-    });
-}
-
-export async function checkIfUserEmailExists(email: string): Promise<boolean> {
-    const results = await findUserByEmail(email);
-    return !!results;
-}

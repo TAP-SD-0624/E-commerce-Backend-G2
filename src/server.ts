@@ -6,7 +6,7 @@ import userRouter from "./routes/userRoutes";
 import adminRouter from "./routes/adminRoutes";
 import productRouter from "./routes/productRoutes";
 
-const app: Express = express();
+export const app: Express = express();
 
 const PORT: number | string = process.env.PORT || 3000;
 
