@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { createNewUserInterface } from '../utils/interfaces';
 import { dbHelper } from '../database/dbHelper';
+import { CustomError } from '../middleware/customError';
 
 export const createToken = (id: number, role: string) => jwt.sign({ id, role }, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: '3d' });
 
@@ -37,6 +38,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
         const token: string = createToken(user.id as number, user.role);
         res.status(201).json({ user, token, message: `User ${firstName} ${lastName} created successfully` });
     } catch (err) {
+        // new CustomError('Data not found', 404, 'DATA_NOT_FOUND');
         console.error(err);
         res.status(400).json({ error: 'An error occurred while creating the user' });
     }
