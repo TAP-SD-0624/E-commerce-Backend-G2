@@ -7,18 +7,21 @@ module.exports = {
     async up(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
         await queryInterface.bulkInsert('Coupons', [
             {
+                id: 1,
                 value: 10,
                 uuid: uuidv4(),
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
             {
+                id: 5,
                 value: 5,
                 uuid: uuidv4(),
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
             {
+                id: 155,
                 value: 15,
                 uuid: uuidv4(),
                 createdAt: new Date(),

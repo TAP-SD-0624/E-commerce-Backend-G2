@@ -6,7 +6,7 @@ import Cart from './cart';
 import Orders from './orders';
 import Tranactions from './Transactions';
 import Wishlist from './wishlist';
-interface UserInterface {
+export interface UserInterface {
     id?: number;
     firstName: string;
     lastName: string;
@@ -15,8 +15,8 @@ interface UserInterface {
     password: string;
     DOB: Date;
     imageUrl: string;
-    createdAt?: number;
-    updatedAt?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
     role: string;
 }
 class Users extends Model<UserInterface> implements UserInterface {
@@ -28,8 +28,8 @@ class Users extends Model<UserInterface> implements UserInterface {
     declare password: string;
     declare DOB: Date;
     declare imageUrl: string;
-    declare createdAt?: number;
-    declare updatedAt?: number;
+    declare createdAt?: Date;
+    declare updatedAt?: Date;
     declare role: string;
     static associate() {
         Users.hasMany(Address, { foreignKey: 'userId' });
@@ -59,12 +59,12 @@ Users.init(
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         phone: {
             type: DataTypes.STRING,
-            allowNull: false,
-
+            allowNull: false
         },
         password: {
             type: DataTypes.STRING,
@@ -72,7 +72,7 @@ Users.init(
         },
         DOB: {
             type: DataTypes.DATE,
-            allowNull: false,
+            allowNull: false
         },
         imageUrl: {
             type: DataTypes.STRING,

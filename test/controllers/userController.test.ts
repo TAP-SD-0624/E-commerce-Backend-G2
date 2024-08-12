@@ -27,7 +27,7 @@ describe('User controller', () => {
             role: 'user'
         };
 
-        const user612 = await Users.create(userData);
+        const user = await Users.create(userData);
         expect(user).toBeDefined();
         expect(user.firstName).toBe(userData.firstName);
         expect(user.lastName).toBe(userData.lastName);

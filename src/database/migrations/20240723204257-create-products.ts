@@ -44,6 +44,19 @@ module.exports = {
                 type: new Sequelize.STRING(),
                 allowNull: false
             },
+            tags: {
+                type: new Sequelize.ARRAY(Sequelize.STRING),
+                allowNull: false
+            },
+            rating: {
+                type: new Sequelize.FLOAT(),
+                allowNull: false
+            },
+            orders: {
+                type: new Sequelize.INTEGER(),
+                allowNull: false
+            },
+
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

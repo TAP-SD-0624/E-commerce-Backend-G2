@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === "test") {
 } else {
   configs = {
     username: process.env.DB_USERNAME || "postgres",
-    password: process.env.DB_PASSWORD || "password",
+    password: process.env.DB_PASSWORD || "12345",
     database: process.env.DB_DATABASE || "Ecommerce",
     dialect: process.env.DB_TESTING_DIALECT as Dialect || "postgres",
     host: process.env.DB_HOST || "localhost",

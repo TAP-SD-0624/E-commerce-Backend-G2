@@ -35,7 +35,7 @@ describe('User controller', () => {
             imageUrl: 'http://example.com/image.jpg',
             role: 'user'
         };
-        const user612 = yield users_1.default.create(userData);
+        const user = yield users_1.default.create(userData);
         expect(user).toBeDefined();
         expect(user.firstName).toBe(userData.firstName);
         expect(user.lastName).toBe(userData.lastName);
