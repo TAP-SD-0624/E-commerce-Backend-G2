@@ -1,0 +1,3 @@
+{
+  "test":"//&& sequelize db:seed:all"
+}

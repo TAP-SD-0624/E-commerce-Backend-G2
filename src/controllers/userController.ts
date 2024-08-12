@@ -31,7 +31,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
         res.status(201).json({ user, token , message : `User ${firstName} ${lastName} created successfully`});
 
     } catch (err) {
-        console.error(err);
+        console.log(err);
         res.status(400).json({ error: 'An error occurred while creating the user' });
     }
 }
@@ -47,9 +47,6 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
                 email
             }
         });
-
-        console.log(user);
-
         if (!user) {
             return res.status(400).json({error: 'User not found'});
         }
@@ -62,26 +59,6 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
         res.status(200).json({message: `User ${user.firstName} ${user.lastName} logged in successfully`, token});
 
     } catch (error) {
-        console.error('Error during login:', error);
-        res.status(500).json({error: 'Internal server error'});
-    }
-};
-
-export const userLogout = async (req: Request, res: Response, next: NextFunction) => {
-    const email = req.body.email;
-    try {
-        const user = await Users.findOne({
-            where: {
-                email
-            }
-        });
-        if (!user) {
-            return res.status(404).json({error: 'User not found'});
-        }
-        res.status(200).json({message: `User ${user.firstName} ${user.lastName} logged out successfully`});
-       //! remove JWT from database
-    } catch (error) {
-        console.error('Error during logout:', error);
         res.status(500).json({error: 'Internal server error'});
     }
 };

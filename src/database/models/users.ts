@@ -13,7 +13,7 @@ interface UserInterface {
     email: string;
     phone: string;
     password: string;
-    DOB: number;
+    DOB: Date;
     imageUrl: string;
     createdAt?: number;
     updatedAt?: number;
@@ -26,7 +26,7 @@ class Users extends Model<UserInterface> implements UserInterface {
     declare email: string;
     declare phone: string;
     declare password: string;
-    declare DOB: number;
+    declare DOB: Date;
     declare imageUrl: string;
     declare createdAt?: number;
     declare updatedAt?: number;

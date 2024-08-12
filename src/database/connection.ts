@@ -4,7 +4,7 @@ const sequelize: Sequelize = new Sequelize(configs.database, configs.username, c
     host: configs.host,
     dialect: configs.dialect,
     port: Number(configs.port),
-    // logging: false,
+    logging: false,
     define: {
         timestamps: true,
         freezeTableName: true

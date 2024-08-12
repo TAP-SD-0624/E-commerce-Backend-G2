@@ -4,7 +4,7 @@ export interface createNewUserInterface {
     email: string;
     password: string;
     phone: string;
-    DOB: number;
+    DOB: Date;
     imageUrl: string;
     role: string;
 }
