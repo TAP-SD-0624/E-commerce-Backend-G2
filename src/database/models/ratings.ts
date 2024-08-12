@@ -2,14 +2,14 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../connection';
 import Products from './products';
 import Users from './users';
-interface RatingsInterface {
+export interface RatingsInterface {
     id?: number;
     productId: number;
     userId: number;
     rating: number;
     review: string;
-    createdAt?: number;
-    updatedAt?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 class Ratings extends Model<RatingsInterface> implements RatingsInterface {
@@ -18,8 +18,8 @@ class Ratings extends Model<RatingsInterface> implements RatingsInterface {
     declare userId: number;
     declare rating: number;
     declare review: string;
-    declare createdAt?: number;
-    declare updatedAt?: number;
+    declare createdAt?: Date;
+    declare updatedAt?: Date;
     static associate() {
         Ratings.belongsTo(Products, { foreignKey: 'productId' });
         Ratings.belongsTo(Users, { foreignKey: 'userId' });

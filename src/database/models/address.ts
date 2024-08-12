@@ -3,7 +3,7 @@ import { Model, DataTypes } from 'sequelize';
 import Orders from './orders';
 import Users from './users';
 
-interface AddressInterface {
+export interface AddressInterface {
     id?: number;
     userId: number;
     state: string;
@@ -12,8 +12,8 @@ interface AddressInterface {
     zipcode: number;
     fullName: string;
     mobile: string;
-    createdAt?: number;
-    updatedAt?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 class Address extends Model<AddressInterface> implements AddressInterface {
     declare id?: number;
@@ -24,8 +24,8 @@ class Address extends Model<AddressInterface> implements AddressInterface {
     declare zipcode: number;
     declare fullName: string;
     declare mobile: string;
-    declare createdAt?: number;
-    declare updatedAt?: number;
+    declare createdAt?: Date;
+    declare updatedAt?: Date;
     static associate() {
         Address.hasMany(Orders, { foreignKey: { name: 'addressId' } });
         Address.belongsTo(Users, { foreignKey: 'userId' });

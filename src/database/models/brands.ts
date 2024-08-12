@@ -1,17 +1,17 @@
 import { Model, DataTypes, Sequelize } from 'sequelize';
 import sequelize from '../connection';
 import Products from './products';
-interface BrandsInterface {
+export interface BrandsInterface {
     id?: number;
     name: string;
     imageUrl: string;
-    createdAt?: number;
-    updatedAt?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 class Brands extends Model<BrandsInterface> implements BrandsInterface {
     declare id?: number;
-    declare createdAt?: number;
-    declare updatedAt?: number;
+    declare createdAt?: Date;
+    declare updatedAt?: Date;
     declare name: string;
     declare imageUrl: string;
     static associate() {
