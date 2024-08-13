@@ -44,11 +44,11 @@ export const validateUser = [
     (req: Request, res: Response, next: NextFunction) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            // return res.status(400).json({ errors: errors.array() });
             const errorObjects = errors.array().map((err) => ({
-                // field: err.,  ?// @todo should return the field here
+                // field: err.,  // @todo should return the field here
                 message: err.msg
             }));
+            console.log(errorObjects);
 
             return res.status(422).json({
                 errors: errorObjects,
