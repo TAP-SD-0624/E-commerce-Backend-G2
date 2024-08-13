@@ -1,6 +1,6 @@
 import {Router} from 'express';
 import {verifyToken} from "../middleware/authorizeMiddleware";
-import {validateProduct} from "../middleware/validateProduct";
+//import {validateProduct} from "../middleware/validateProduct";
 // import {
 //     createProduct,
 //     deleteProductById,

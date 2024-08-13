@@ -2,7 +2,7 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../connection';
 import Users from './users';
 import Orders from './orders';
-interface TranactionsInterface {
+interface TransactionsInterface {
     id?: number;
     userId: number;
     paymentStatus: string;
@@ -13,7 +13,7 @@ interface TranactionsInterface {
     totalPrice: number;
 }
 
-class Transactions extends Model<TranactionsInterface> implements TranactionsInterface {
+class Transactions extends Model<TransactionsInterface> implements TransactionsInterface {
     declare id?: number;
     declare userId: number;
     declare paymentStatus: string;

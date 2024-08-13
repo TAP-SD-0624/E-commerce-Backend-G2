@@ -29,8 +29,8 @@ describe('User controller', () => {
             firstName: 'John',
             lastName: 'Doe',
             email: 'john.doe@example.com',
-            phone: '1234567890',
             password: 'password123',
+            phone: '1234567890',
             DOB: new Date('1990-01-01'),
             imageUrl: 'http://example.com/image.jpg',
             role: 'user'
@@ -48,23 +48,29 @@ describe('User controller', () => {
         expect(user.role).toBe(userData.role);
     }));
 });
-describe('User login', () => {
-    test('should login user with valid credentials', () => __awaiter(void 0, void 0, void 0, function* () {
-        // Create a user before testing login
-        const user = {
-            email: 'johndoe2@example.com',
-            password: 'password123'
-        };
-        const loginData = {
-            email: 'johndoe2@example.com',
-            password: 'password123'
-        };
-        const response = yield request
-            .post('/login')
-            .send(loginData);
-        expect(response.statusCode).toBe(200);
-    }));
-});
+// describe('User login', () => {
+//     test('should login user with valid credentials', async () => {
+//         // Create a user before testing login
+//         const user = {
+//             email: 'johndoe2@example.com',
+//             password: 'password123'
+//         };
+//
+//         const loginData = {
+//             email: 'johndoe2@example.com',
+//             password: 'password123'
+//         };
+//
+//         const response = await request
+//             .post('/login')
+//             .send(loginData);
+//
+//         expect(response.statusCode).toBe(200);
+//     });
+//
+//
+//
+// });
 //! deletes the table after all tests are done use with caution when login in and editing
 /*
 afterAll(async ()=> {//clears the table

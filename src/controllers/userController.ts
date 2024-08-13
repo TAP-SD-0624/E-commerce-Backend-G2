@@ -23,16 +23,6 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
             imageUrl,
             role
         } as Users);
-        // const user: Users = await Users.create({
-        //     firstName,
-        //     lastName,
-        //     email, //Email should be unique
-        //     password,
-        //     phone: phone ?? '',
-        //     DOB: DOB ?? '1999-09-09',
-        //     imageUrl: imageUrl ?? '',
-        //     role
-        // });
 
         // Create JWT token with user role
         const token: string = createToken(user.id as number, user.role);
