@@ -10,6 +10,7 @@ export interface RatingsInterface {
     review: string;
     createdAt?: Date;
     updatedAt?: Date;
+    totalRatings?: number;
 }
 
 class Ratings extends Model<RatingsInterface> implements RatingsInterface {
@@ -18,6 +19,7 @@ class Ratings extends Model<RatingsInterface> implements RatingsInterface {
     declare userId: number;
     declare rating: number;
     declare review: string;
+    declare totalRatings?: number;
     declare createdAt?: Date;
     declare updatedAt?: Date;
     static associate() {

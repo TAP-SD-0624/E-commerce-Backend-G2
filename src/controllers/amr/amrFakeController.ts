@@ -1,5 +1,9 @@
 // // product productCategory category
+<<<<<<< HEAD
 //
+=======
+
+>>>>>>> origin/Development
 // import { db } from '../../database';
 // import sequelize from '../../database/connection';
 // // create new category
@@ -38,7 +42,11 @@
 //         });
 //     } catch (error) {
 //         console.log(error);
+<<<<<<< HEAD
 //
+=======
+
+>>>>>>> origin/Development
 //         throw new Error('couldent complete');
 //     }
 // }
@@ -144,7 +152,11 @@
 //                         { model: db.ProductsCategories, as: 'categoriesIds' },
 //                         { model: db.Images, as: 'imagesUrls' }
 //                     ],
+<<<<<<< HEAD
 //
+=======
+
+>>>>>>> origin/Development
 //                     transaction: t
 //                 }
 //             );
