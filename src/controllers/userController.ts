@@ -81,10 +81,11 @@ export const userUpdate = async (req: Request, res: Response, next: NextFunction
     console.log(userUpdate);
 
     try {
-        const { id } = req.body; // User ID passed in the request body
+        // const { id } = req.body; // User ID passed in the request body
         const { decoded } = req.body; // Decoded JWT payload from the middleware
         console.log(id);
         console.log(decoded);
+
         if (id != decoded.userId) {
             console.log('----------');
             console.log(id);
