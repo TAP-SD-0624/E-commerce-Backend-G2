@@ -77,7 +77,7 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
 };
 
 export const userUpdate = async (req: Request, res: Response, next: NextFunction) => {
-    const { id, firstName, lastName, email, password, phone, DOB, imageUrl, role }: createNewUserInterface = req.body;
+    const { id, firstName, lastName, password, phone, DOB, imageUrl, role }: createNewUserInterface = req.body;
     console.log(userUpdate);
 
     try {
@@ -104,12 +104,11 @@ export const userUpdate = async (req: Request, res: Response, next: NextFunction
                     user.update({
                         firstName,
                         lastName,
-                        email,
                         password,
                         phone: phone ?? '',
                         DOB: DOB ?? '1999-09-09',
                         imageUrl: imageUrl ?? '',
-                        role
+                        role: role ?? 'user'
                     });
                     res.status(201).json({ user, message: `User ${firstName} ${lastName} updated successfully` });
                 } catch (err) {

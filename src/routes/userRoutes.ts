@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { createUser, userLogin, userLogout, prohibitedRoute, userUpdate } from '../controllers/userController';
-import { validateLogin, validateUser } from '../middleware/validateUser';
-import { verifyToken } from '../middleware/authorizeMiddleware';
+import { validateLogin, validateUpdateUser, validateUser } from '../middleware/validateUser';
+// import { verifyToken } from '../middleware/authorizeMiddleware';
 import authenticateToken from '../utils/tokenUtils';
 
 const userRouter: Router = Router();
@@ -10,7 +10,7 @@ const userRouter: Router = Router();
 userRouter.post('/register', validateUser, createUser);
 userRouter.post('/login', userLogin);
 userRouter.post('/logout', userLogout);
-userRouter.post('/update', authenticateToken, validateUser, userUpdate);
+userRouter.post('/update', authenticateToken, validateUpdateUser, userUpdate);
 
 // get wishlist
 // get getUserById
