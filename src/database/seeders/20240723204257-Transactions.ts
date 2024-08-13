@@ -20,7 +20,7 @@ module.exports = {
                 shipingStatus: 'pending',
                 shipingAddress: 'nablus',
                 totalPrice: 12,
-                userId: 2,
+                userId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -29,7 +29,7 @@ module.exports = {
                 shipingStatus: 'pending',
                 shipingAddress: 'nablus',
                 totalPrice: 12,
-                userId: 5,
+                userId: 4,
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -38,7 +38,7 @@ module.exports = {
                 shipingStatus: 'pending',
                 shipingAddress: 'nablus',
                 totalPrice: 12,
-                userId: 2,
+                userId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -47,7 +47,7 @@ module.exports = {
                 shipingStatus: 'pending',
                 shipingAddress: 'nablus',
                 totalPrice: 12,
-                userId: 3,
+                userId: 8,
                 createdAt: new Date(),
                 updatedAt: new Date()
             }

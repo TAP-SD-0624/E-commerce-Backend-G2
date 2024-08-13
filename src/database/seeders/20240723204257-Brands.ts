@@ -30,7 +30,7 @@ module.exports = {
             //     }
             // ]
         );
-        await sequelize.query('ALTER SEQUENCE "Brands_id_seq" RESTART WITH 11', { type: QueryTypes.RAW });
+        await sequelize.query('ALTER SEQUENCE "Brands_id_seq" RESTART WITH 12', { type: QueryTypes.RAW });
     },
     async down(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
         /**

@@ -390,5 +390,210 @@
             "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/3.png"
         ],
         "imageUrl": "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/thumbnail.png"
+    },
+    {
+        "id": 11,
+        "label": "Blue Women's Handbag",
+        "description": "The Blue Women's Handbag is a stylish and spacious accessory for everyday use. With a vibrant blue color and multiple compartments, it combines fashion and functionality.",
+        "category": "womens-bags",
+        "price": 49.99,
+        "discount": 5.24,
+        "rating": 3.6666,
+        "quantity": 76,
+        "tags": ["fashion accessories", "handbags"],
+        "title": "Dior",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "John Doe",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Aria Parker",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            },
+            {
+                "rating": 1,
+                "comment": "Poor quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Hazel Gardner",
+                "reviewerEmail": "james.davis@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/womens-bags/Blue%20Women's%20Handbag/1.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Blue%20Women's%20Handbag/2.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Blue%20Women's%20Handbag/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/womens-bags/Blue%20Women's%20Handbag/imageUrl.png"
+    },
+    {
+        "id": 12,
+        "label": "Dior Women's Leather Bag",
+        "description": "The Dior Women's Leather Bag is a luxurious and high-quality leather bag for the sophisticated woman. With a timeless design and durable craftsmanship, it's a versatile accessory.",
+        "category": "womens-bags",
+        "price": 129.99,
+        "discount": 7.74,
+        "rating": 4.333,
+        "quantity": 9,
+        "tags": ["fashion accessories", "leather bags"],
+        "title": "Dior",
+        "reviews": [
+            {
+                "rating": 4,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Hunter Gordon",
+                "reviewerEmail": "james.davis@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Ethan Fletcher",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Aaron Cook",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/womens-bags/Heshe%20Women's%20Leather%20Bag/1.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Heshe%20Women's%20Leather%20Bag/2.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Heshe%20Women's%20Leather%20Bag/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/womens-bags/Heshe%20Women's%20Leather%20Bag/imageUrl.png"
+    },
+    {
+        "id": 13,
+        "label": "Prada Women Bag",
+        "description": "The Prada Women Bag is an iconic designer bag that exudes elegance and luxury. Crafted with precision and featuring the Prada logo, it's a statement piece for fashion enthusiasts.",
+        "category": "womens-bags",
+        "price": 599.99,
+        "discount": 18.3,
+        "rating": 4,
+        "quantity": 43,
+        "tags": ["fashion accessories", "designer bags"],
+        "title": "Prada",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Samantha Howard",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Henry Hill",
+                "reviewerEmail": "emma.miller@x.dummyjson.com"
+            },
+            {
+                "rating": 3,
+                "comment": "Not worth the price!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Lucas Ramirez",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/womens-bags/Prada%20Women%20Bag/1.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Prada%20Women%20Bag/2.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Prada%20Women%20Bag/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/womens-bags/Prada%20Women%20Bag/imageUrl.png"
+    },
+    {
+        "id": 14,
+        "label": "White Faux Leather Backpack",
+        "description": "The White Faux Leather Backpack is a trendy and practical backpack for the modern woman. With a sleek white design and ample storage space, it's perfect for both casual and on-the-go styles.",
+        "category": "womens-bags",
+        "price": 39.99,
+        "discount": 7.76,
+        "rating": 3.666,
+        "quantity": 89,
+        "tags": ["fashion accessories", "backpacks"],
+        "title": "Gucci",
+        "reviews": [
+            {
+                "rating": 1,
+                "comment": "Would not recommend!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Harper Kelly",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Sofia Mitchell",
+                "reviewerEmail": "emma.miller@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Eli Bennett",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/womens-bags/White%20Faux%20Leather%20Backpack/1.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/White%20Faux%20Leather%20Backpack/2.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/White%20Faux%20Leather%20Backpack/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/womens-bags/White%20Faux%20Leather%20Backpack/imageUrl.png"
+    },
+    {
+        "id": 15,
+        "label": "Women Handbag Black",
+        "description": "The Women Handbag in Black is a classic and versatile accessory that complements various outfits. With a timeless black color and functional design, it's a must-have in every woman's wardrobe.",
+        "category": "womens-bags",
+        "price": 59.99,
+        "discount": 3.08,
+        "rating": 3.33,
+        "quantity": 24,
+        "tags": ["fashion accessories", "handbags"],
+        "title": "Gucci",
+        "reviews": [
+            {
+                "rating": 1,
+                "comment": "Not as described!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Leah Hughes",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Lila Hudson",
+                "reviewerEmail": "olivia.wilson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Ethan Martinez",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/womens-bags/Women%20Handbag%20Black/1.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Women%20Handbag%20Black/2.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Women%20Handbag%20Black/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/womens-bags/Women%20Handbag%20Black/imageUrl.png"
     }
 ]

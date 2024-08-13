@@ -11,31 +11,31 @@ module.exports = {
                 productId: 1,
                 userId: 2,
                 transactionId: 1,
-                addressId: 4,
+                addressId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
             {
                 productId: 1,
-                userId: 2,
-                transactionId: 1,
-                addressId: 5,
+                userId: 8,
+                transactionId: 5,
+                addressId: 2,
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
             {
                 productId: 2,
-                userId: 2,
-                transactionId: 1,
-                addressId: 5,
-                createdAt: new Date(),
-                updatedAt: new Date()
-            },
-            {
-                productId: 2,
-                userId: 2,
+                userId: 1,
                 transactionId: 2,
-                addressId: 4,
+                addressId: 1,
+                createdAt: new Date(),
+                updatedAt: new Date()
+            },
+            {
+                productId: 2,
+                userId: 2,
+                transactionId: 1,
+                addressId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -43,7 +43,7 @@ module.exports = {
                 productId: 5,
                 userId: 4,
                 transactionId: 3,
-                addressId: 6,
+                addressId: 1,
 
                 createdAt: new Date(),
                 updatedAt: new Date()
@@ -52,15 +52,15 @@ module.exports = {
                 productId: 1,
                 userId: 4,
                 transactionId: 3,
-                addressId: 6,
+                addressId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
             {
-                productId: 1,
-                userId: 1,
+                productId: 9,
+                userId: 4,
                 transactionId: 3,
-                addressId: 2,
+                addressId: 1,
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -82,7 +82,7 @@ module.exports = {
             },
             {
                 productId: 7,
-                userId: 1,
+                userId: 8,
                 addressId: 2,
                 transactionId: 5,
                 createdAt: new Date(),
