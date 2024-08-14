@@ -8,6 +8,7 @@ import productRouter from './routes/productsRoutes';
 import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
+import { deleteFromCart, reduceFromCart, updateProductById } from './utils/ProductsUtils';
 
 export const app: Express = express();
 const server = createServer(app);
@@ -30,14 +31,18 @@ app.use('/products', productRouter);
 
 app.get('/homePage', homePageController);
 
+// app.get('/', async (req, res) => {
+//     const x = await deleteFromCart(Number(req.body.productId), Number(req.body.userId));
+//     res.send(x);
+// });
 app.use(errorHandler);
 
 if (process.env.NODE_ENV !== 'test') {
     sequelize
         .authenticate()
         .then(async () => {
-            console.log('connected to the database');
             await sequelize.sync({ alter: true });
+            console.log('connected to the database');
         })
         .catch(() => console.log('couldnt connect to the database'));
 }

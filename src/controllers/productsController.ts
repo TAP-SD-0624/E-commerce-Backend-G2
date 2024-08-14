@@ -14,7 +14,6 @@ export const getItemPageById = async (req: Request, res: Response, next: NextFun
     try {
         const id: number = Number(req.query.id);
         const result = await getProductPageById(id);
-        console.log(result);
         return res.send(result);
     } catch (error) {
         next(error);

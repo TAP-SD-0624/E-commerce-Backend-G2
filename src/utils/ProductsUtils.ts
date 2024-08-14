@@ -1,82 +1,51 @@
-import { Op } from 'sequelize';
+import { Op, where } from 'sequelize';
 import { db } from '../database';
 import sequelize from '../database/connection';
 import Products from '../database/models/products';
 import Categories from '../database/models/categories';
 import Brands from '../database/models/brands';
 
-export async function updateUserReviewTransaction(productId: number, userId: number, newReview?: string, newRating?: number): Promise<boolean> {
-    // dont forget to add limitaion to the new review and the new rating like rating should be between 1 and 5
-    // productId and userId are mandetory
-    // to avoid 0 and '' it should be givin new review and rating in case of creating how ever no error will be thrown
-    // add rule for so eather one of rating or review needs to exist
+//////////// Delete / Create / Update
+export async function updateProductById(
+    id: number,
+    brandId?: number,
+    label?: string,
+    description?: string,
+    price?: number,
+    discount?: number,
+    title?: string,
+    imageUrl?: string,
+    quantity?: number,
+    tags?: Array<string>
+) {
+    const currentProduct = await db.Products.findByPk(id);
     try {
-        const result = await sequelize.transaction(async (t) => {
-            //checking if user has review already
-            const userHasReview = await db.Ratings.findOne({
-                where: { userId, productId }
-            });
-            if (userHasReview) {
-                // if user has a review lets update it
-                try {
-                    await db.Ratings.update(
-                        {
-                            // if no new parameters were givin it will inject the old data
-                            rating: newRating || userHasReview.rating,
-                            review: newReview || userHasReview.review
-                        },
-                        { where: { id: userHasReview.id } }
-                    );
-                } catch (error) {
-                    throw new Error("couldn't update user existing review");
+        if (!currentProduct) {
+            throw new Error('here');
+        } else {
+            const update = await db.Products.update(
+                {
+                    brandId: brandId || currentProduct.brandId,
+                    label: label || currentProduct.label,
+                    description: description || currentProduct.description,
+                    price: price || currentProduct.price,
+                    discount: discount || currentProduct.discount,
+                    title: title || currentProduct.title,
+                    imageUrl: imageUrl || currentProduct.imageUrl,
+                    quantity: quantity || currentProduct.quantity,
+                    tags: tags || currentProduct.tags
+                },
+                {
+                    where: { id }
                 }
-            } else {
-                // if user has no review lets create it
-                try {
-                    await db.Ratings.create({
-                        userId,
-                        rating: newRating || 0,
-                        review: newReview || '',
-                        productId
-                    });
-                } catch (error) {
-                    throw new Error("couldn't create new review");
-                }
-            }
-            // now let's calculate the new avg
-            try {
-                const newTotalRatings = await db.Ratings.findOne({
-                    where: { productId },
-                    attributes: [[sequelize.fn('count', sequelize.col('rating')), 'totalRatings']]
-                });
-                const newAvgRating = await db.Ratings.findOne({
-                    where: { productId },
-                    attributes: [[sequelize.fn('avg', sequelize.col('rating')), 'rating']]
-                });
-                if (newAvgRating && newTotalRatings) {
-                    // if we have a new rating then we need to update it in the products table
-                    try {
-                        await Products.update(
-                            { rating: newAvgRating.dataValues.rating, totalRatings: newTotalRatings.dataValues.totalRatings },
-                            { where: { id: productId } }
-                        );
-                    } catch (error) {
-                        throw new Error("couldn't update the new rating");
-                    }
-                } else {
-                    throw new Error("couldn't calculate the rating");
-                }
-            } catch (error) {
-                throw new Error("couldn't calculate the rating");
-            }
-        });
-        return true;
+            );
+        }
     } catch (error) {
-        throw new Error("couldn't complete");
+        throw new Error('ops');
     }
 }
 export async function createNewProductTransaction(
-    // rating and orders can be givin however realistically new product should have any orders or rating
+    // rating and orders can be givin however realistically new product should'nt have any orders or rating
     // always remember that categories and brands should exist first
     brandId: number,
     label: string,
@@ -127,34 +96,17 @@ export async function createNewProductTransaction(
         throw new Error('couldent complete');
     }
 }
+export async function deleteProductById(productId: number) {
+    //edit database to allow null in forign keys
+    try {
+        const result = await sequelize.transaction(async (trans) => {
+            await db.Products.destroy({ where: { id: productId }, transaction: trans });
+            await db.Images.destroy({ where: { productId }, transaction: trans });
+        });
+    } catch (error) {}
+}
 
-// export async function getProductCardById(productId: number): Promise<Products> {
-//     try {
-//         const product = await db.Products.findByPk(productId, {
-//             attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'rating'],
-//             include: [
-//                 {
-//                     model: db.Brands,
-//                     attributes: [
-//                         ['id', 'brandId'],
-//                         ['name', 'brandTitle']
-//                     ]
-//                 },
-//                 {
-//                     model: db.Categories,
-//                     attributes: [
-//                         ['id', 'categoryId'],
-//                         ['title', 'categoryTitle']
-//                     ],
-//                     through: { attributes: [] }
-//                 }
-//             ]
-//         });
-//         return product ? product : false;
-//     } catch (error) {
-//         throw new Error("could'nt do it");
-//     }
-// }
+/////////////////
 export async function getProductPageById(productId: number): Promise<Products> {
     const product = await db.Products.findByPk(productId, {
         attributes: ['id', 'title', 'label', 'description', 'price', 'discount', 'imageUrl', 'rating', 'orders', 'quantity'],
@@ -265,16 +217,6 @@ export async function searchForProductsOrBrands(searchValue: string): Promise<Ar
     if (products.length < 1 && brands.length < 1) throw new Error('no result was found 204');
     return [...products!, ...brands!];
 }
-export async function deleteProductById(productId: number) {
-    //edit database to allow null in forign keys
-    try {
-        const result = await sequelize.transaction(async (trans) => {
-            await db.Products.destroy({ where: { id: productId }, transaction: trans });
-            await db.Images.destroy({ where: { productId }, transaction: trans });
-        });
-    } catch (error) {}
-}
-
 export async function getCardOneProducts(): Promise<Array<Products>> {
     const x = await db.Products.findAll({
         attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'rating'],
@@ -426,7 +368,7 @@ export async function getProductsByBrandId(id: number): Promise<Array<Products>>
     }
 }
 
-//preparing the home page
+//the home page
 export async function getAllCategories(): Promise<Array<Categories>> {
     const categories = await db.Categories.findAll({ attributes: ['id', 'title', 'imageUrl'] });
     return categories;
@@ -496,5 +438,100 @@ export async function getHandPickedCollections(id: number): Promise<Array<Produc
         return x;
     } else {
         throw new Error('nothing');
+    }
+}
+
+// user functions
+//reviews
+export async function updateUserReviewTransaction(productId: number, userId: number, newReview?: string, newRating?: number): Promise<boolean> {
+    // dont forget to add limitaion to the new review and the new rating like rating should be between 1 and 5
+    // productId and userId are mandetory
+    // to avoid 0 and '' it should be givin new review and rating in case of creating how ever no error will be thrown
+    // add rule for so eather one of rating or review needs to exist
+    try {
+        const result = await sequelize.transaction(async (t) => {
+            //checking if user has review already
+            const userHasReview = await db.Ratings.findOne({
+                where: { userId, productId }
+            });
+            if (userHasReview) {
+                // if user has a review lets update it
+                try {
+                    await db.Ratings.update(
+                        {
+                            // if no new parameters were givin it will inject the old data
+                            rating: newRating || userHasReview.rating,
+                            review: newReview || userHasReview.review
+                        },
+                        { where: { id: userHasReview.id } }
+                    );
+                } catch (error) {
+                    throw new Error("couldn't update user existing review");
+                }
+            } else {
+                // if user has no review lets create it
+                try {
+                    await db.Ratings.create({
+                        userId,
+                        rating: newRating || 0,
+                        review: newReview || '',
+                        productId
+                    });
+                } catch (error) {
+                    throw new Error("couldn't create new review");
+                }
+            }
+            // now let's calculate the new avg
+            try {
+                const newTotalRatings = await db.Ratings.findOne({
+                    where: { productId },
+                    attributes: [[sequelize.fn('count', sequelize.col('rating')), 'totalRatings']]
+                });
+                const newAvgRating = await db.Ratings.findOne({
+                    where: { productId },
+                    attributes: [[sequelize.fn('avg', sequelize.col('rating')), 'rating']]
+                });
+                if (newAvgRating && newTotalRatings) {
+                    // if we have a new rating then we need to update it in the products table
+                    try {
+                        await Products.update(
+                            { rating: newAvgRating.dataValues.rating, totalRatings: newTotalRatings.dataValues.totalRatings },
+                            { where: { id: productId } }
+                        );
+                    } catch (error) {
+                        throw new Error("couldn't update the new rating");
+                    }
+                } else {
+                    throw new Error("couldn't calculate the rating");
+                }
+            } catch (error) {
+                throw new Error("couldn't calculate the rating");
+            }
+        });
+        return true;
+    } catch (error) {
+        throw new Error("couldn't complete");
+    }
+}
+//cart
+export async function reduceFromCart(productId: number, userId: number) {
+    const cartItem = await db.Cart.findOne({ where: { productId, userId } });
+    if (cartItem) {
+        const x = await db.Cart.destroy({ where: { id: cartItem.id } });
+    }
+}
+export async function deleteFromCart(productId: number, userId: number) {
+    const x = await db.Cart.destroy({ where: { productId, userId } });
+}
+export async function addToCart(productId: number, userId: number) {
+    const x = await db.Cart.create({ productId, userId });
+}
+//whishlist
+export async function toggleWishList(productId: number, userId: number) {
+    const exist = await db.Wishlist.findOne({ where: { productId, userId } });
+    if (exist) {
+        await db.Wishlist.destroy({ where: { id: exist.id } });
+    } else {
+        await db.Wishlist.create({ productId, userId });
     }
 }
