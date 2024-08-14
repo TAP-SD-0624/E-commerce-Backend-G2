@@ -11,8 +11,13 @@ export const createToken = (id: number) => jwt.sign({ id }, process.env.ACCESS_T
 
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const { firstName, lastName, email, password, phone, DOB, imageUrl, role }: createNewUserInterface = req.body;
-
+    console.log('**********');
     try {
+        if (req.headers['content-type'] === 'application/json' && !req.body) {
+            console.log(req.body);
+
+            return new CustomError('Request body cannot be empty', 400, 'Request body cannot be empty');
+        }
         // Create the user
         const user: Users = await dbHelper.createUser({
             firstName,
@@ -41,9 +46,10 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
 
         res.status(201).json({ user, token, message: `User ${firstName} ${lastName} created successfully` });
     } catch (err) {
-        // new CustomError('Data not found', 404, 'DATA_NOT_FOUND');
+        new CustomError('Data not found', 500);
+        console.error('-----------------');
         console.error(err);
-        res.status(400).json({ error: 'An error occurred while creating the user' });
+        // res.status(400).json({ error: 'An error occurred while creating the user' });
     }
 };
 
@@ -72,7 +78,12 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
         res.status(200).json({ message: `User ${user.firstName} ${user.lastName} logged in successfully`, token });
     } catch (error) {
         console.error('Error during login:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        if (res.statusCode == 500) {
+            // res.status(500).json({ error: 'Internal server error' });
+            throw new CustomError('Data not found', 400);
+        } else {
+            throw new CustomError('Server error', 500);
+        }
     }
 };
 
@@ -85,15 +96,18 @@ export const userUpdate = async (req: Request, res: Response, next: NextFunction
         const { decoded } = req.body; // Decoded JWT payload from the middleware
         console.log(id);
         console.log(decoded);
+        console.log(decoded.userId);
 
         if (id != decoded.userId) {
-            console.log('----------');
-            console.log(id);
-            console.log('----------');
-            console.log(decoded.userId);
-            console.log('----------');
+            console.log('---------------------');
+            console.log(id != decoded.userId);
 
-            return res.status(403).json({ message: 'User ID mismatch' });
+            console.log(id);
+            console.log(decoded);
+            console.log(decoded.userId);
+
+            return next(new CustomError('User ID mismatch', 404));
+            // return res.status(403).json({ message: 'User ID mismatch' });
         } else {
             const user = await Users.findByPk(id);
             console.log(user);
@@ -115,17 +129,17 @@ export const userUpdate = async (req: Request, res: Response, next: NextFunction
                 } catch (err) {
                     console.error(err);
                     // res.status(400).json({ error: 'An error occurred while updating the user' });
-                    throw new CustomError('An error occurred while updating the user', 422, '422');
+                    return next(new CustomError('An error occurred while updating the user', 422));
                 }
             } else {
-                throw new CustomError('An error occurred while updating the user', 422, '422');
+                return next(new CustomError('An error occurred while updating the user', 422));
             }
         }
     } catch (err) {
         // new CustomError('Data not found', 404, 'DATA_NOT_FOUND');
         // console.error(err);
         // res.status(400).json({ error: 'An error occurred while updating the user' });
-        throw new CustomError('An error occurred while updating the user', 422, '422');
+        return next(new CustomError('An error occurred while updating the user', 422));
     }
 };
 

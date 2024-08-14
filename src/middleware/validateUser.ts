@@ -24,8 +24,8 @@ export const validateUser = [
         .normalizeEmail()
         .custom(async (value) => {
             if (await checkIfUserEmailExists(value)) {
-                throw new Error('E-mail already in use');
-                // throw new CustomError('E-mail already in use', 4000, 'DATA_NOT_FOUND');
+                // throw new Error('E-mail already in use');
+                throw new CustomError('E-mail already in use', 400);
             }
         }),
     body('password')

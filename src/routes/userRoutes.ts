@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { createUser, userLogin, userLogout, prohibitedRoute, userUpdate } from '../controllers/userController';
 import { validateLogin, validateUpdateUser, validateUser } from '../middleware/validateUser';
+import { errorMiddleware } from '../middleware/customError';
 // import { verifyToken } from '../middleware/authorizeMiddleware';
 import authenticateToken from '../utils/tokenUtils';
 
