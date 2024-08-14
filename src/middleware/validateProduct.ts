@@ -1,6 +1,28 @@
-import { body, validationResult } from 'express-validator';
+import { body, param, validationResult } from 'express-validator';
 import { Request, Response, NextFunction } from 'express';
-
+import { query } from 'express-validator';
+export const validateId = [
+    query('id').isNumeric().notEmpty(),
+    (req: Request, res: Response, next: NextFunction): Response | void => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).send(errors.mapped());
+        } else {
+            next();
+        }
+    }
+];
+export const validateSearchValue = [
+    query('searchValue').isString().notEmpty(),
+    (req: Request, res: Response, next: NextFunction): Response | void => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).send(errors.mapped());
+        } else {
+            next();
+        }
+    }
+];
 // export const validateProduct = [
 //     body('brandId')
 //         .isInt({ min: 1 }).withMessage('Brand ID must be a positive integer'),

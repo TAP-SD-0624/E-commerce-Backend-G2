@@ -20,6 +20,10 @@ export interface ProductsInterface {
     imageUrl: string;
     categoriesIds?: Array<{}>;
     imagesUrls?: Array<{}>;
+    tags: Array<string>;
+    rating?: Number;
+    orders?: number;
+    totalRatings?: number;
     readonly createdAt?: Date;
     readonly updatedAt?: Date;
 }
@@ -33,6 +37,10 @@ class Products extends Model<ProductsInterface> implements ProductsInterface {
     declare title: string;
     declare quantity: number;
     declare imageUrl: string;
+    declare tags: Array<string>;
+    declare rating: Number;
+    declare orders: number;
+    declare totalRatings: number;
     declare categoriesIds: Array<{}>;
     declare imagesUrls: Array<{}>;
     declare readonly createdAt?: Date;
@@ -89,6 +97,26 @@ Products.init(
         imageUrl: {
             type: new DataTypes.STRING(),
             allowNull: false
+        },
+        tags: {
+            type: new DataTypes.ARRAY(DataTypes.STRING),
+            allowNull: false
+        },
+
+        rating: {
+            type: new DataTypes.FLOAT(),
+            allowNull: false,
+            defaultValue: 0
+        },
+        totalRatings: {
+            type: new DataTypes.INTEGER(),
+            allowNull: false,
+            defaultValue: 0
+        },
+        orders: {
+            type: new DataTypes.INTEGER(),
+            allowNull: false,
+            defaultValue: 0
         }
     },
     {

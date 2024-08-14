@@ -4,6 +4,7 @@ import { db } from '../database';
 import { CustomError } from './customError';
 import { customErrorInterface } from '../utils/interfaces';
 import { json } from 'body-parser';
+import { checkIfUserEmailExists } from '../utils/userDatabase';
 
 export const validateUser = [
     body('firstName').notEmpty().withMessage('First name is required').isString().withMessage('First name must be a string').trim().escape(),
@@ -24,7 +25,6 @@ export const validateUser = [
         .normalizeEmail()
         .custom(async (value) => {
             if (await checkIfUserEmailExists(value)) {
-                // throw new Error('E-mail already in use');
                 throw new CustomError('E-mail already in use', 400);
             }
         }),
@@ -62,25 +62,6 @@ export const validateUpdateUser = [
     body('firstName').notEmpty().withMessage('First name is required').isString().withMessage('First name must be a string').trim().escape(),
 
     body('lastName').notEmpty().withMessage('Last name is required').isString().withMessage('Last name must be a string').trim().escape(),
-
-    // body('email')
-    //     .notEmpty()
-    //     .withMessage('Email is required')
-    //     .isEmail()
-    //     .withMessage('Invalid email format')
-    //     .normalizeEmail()
-    //     .withMessage('missing email address!')
-    //     .isString()
-    //     .exists()
-    //     .bail()
-    //     .trim()
-    //     .normalizeEmail()
-    //     .custom(async (value) => {
-    //         if (await checkIfUserEmailExists(value)) {
-    //             throw new Error('E-mail already in use');
-    //             // throw new CustomError('E-mail already in use', 4000, 'DATA_NOT_FOUND');
-    //         }
-    //     }),
     body('password')
         .notEmpty()
         .withMessage('Password is required')
@@ -138,14 +119,3 @@ export const validateLogin = [
         next();
     }
 ];
-
-export async function findUserByEmail(email: string): Promise<null | {}> {
-    return await db.Users.findOne({
-        where: { email }
-    });
-}
-
-export async function checkIfUserEmailExists(email: string): Promise<boolean> {
-    const results = await findUserByEmail(email);
-    return !!results;
-}

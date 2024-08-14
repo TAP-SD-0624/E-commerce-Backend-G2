@@ -1,21 +1,18 @@
-import {Router} from 'express';
-import {createAdmin, prohibitedRoute} from '../controllers/userController';
-import {checkRole} from '../middleware/checkRole';
-import {verifyToken} from '../middleware/authorizeMiddleware';
-import {validateUser} from '../middleware/validateUser';
+import { Router } from 'express';
+// import {createAdmin, prohibitedRoute} from '../controllers/userController';
+import { checkRole } from '../middleware/checkRole';
+import { verifyToken } from '../middleware/authorizeMiddleware';
+import { validateUser } from '../middleware/validateUser';
 //import {validateProduct} from "../middleware/validateProduct";
-import {createProduct} from "../controllers/productController";
-
+// import {createProduct} from "../controllers/productsController";
 
 const adminRouter: Router = Router();
 
 // Admin checks routes
 //adminRouter.use(checkRole(['admin']));
 
-adminRouter.post("/", validateUser, createAdmin);
-adminRouter.get('/', verifyToken, prohibitedRoute);
-
-
+// adminRouter.post("/", validateUser, createAdmin);
+// adminRouter.get('/', verifyToken, prohibitedRoute);
 
 // adminRouter.delete('/product/:id', verifyToken, deleteProductById);
 // adminRouter.patch('/product/:id', verifyToken, updateProductById);
@@ -31,10 +28,4 @@ adminRouter.get('/', verifyToken, prohibitedRoute);
 // get all items by country / geolocation
 // get all items sold where to ten sold items by country
 
-
-
 export default adminRouter;
-
-
-
-
