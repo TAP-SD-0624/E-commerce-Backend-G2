@@ -78,8 +78,8 @@ for (const productJson of data) {
         imageUrl: productJson.imageUrl,
         tags: productJson.tags,
         rating: productJson.rating,
-
-        orders: 2,
+        totalRatings: productJson.reviews.length,
+        orders: 0,
         createdAt: new Date(),
         updatedAt: new Date()
     };

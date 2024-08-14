@@ -7,6 +7,7 @@ export interface BrandsInterface {
     imageUrl: string;
     createdAt?: Date;
     updatedAt?: Date;
+    Products?: {};
 }
 class Brands extends Model<BrandsInterface> implements BrandsInterface {
     declare id?: number;
@@ -15,7 +16,7 @@ class Brands extends Model<BrandsInterface> implements BrandsInterface {
     declare name: string;
     declare imageUrl: string;
     static associate() {
-        Brands.hasMany(Products, { foreignKey: 'brandId' });
+        Brands.hasMany(Products, { foreignKey: 'brandId', as: 'Products' });
     }
 }
 Brands.init(

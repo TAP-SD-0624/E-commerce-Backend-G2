@@ -50,13 +50,19 @@ module.exports = {
             },
             rating: {
                 type: new Sequelize.FLOAT(),
-                allowNull: false
+                allowNull: false,
+                defaultValue: 0
             },
             orders: {
                 type: new Sequelize.INTEGER(),
-                allowNull: false
+                allowNull: false,
+                defaultValue: 0
             },
-
+            totalRatings: {
+                type: new Sequelize.INTEGER(),
+                allowNull: false,
+                defaultValue: 0
+            },
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE
