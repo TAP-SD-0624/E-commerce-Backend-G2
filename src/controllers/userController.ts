@@ -143,6 +143,52 @@ export const userUpdate = async (req: Request, res: Response, next: NextFunction
     }
 };
 
+export const userProfile = async (req: Request, res: Response, next: NextFunction) => {
+    const id = req.query.id as string;
+    console.log('get user profile data');
+    console.log(id);
+    console.log('******************');
+    try {
+        const { decoded } = req.body;
+        console.log(id);
+        console.log(decoded);
+        console.log(decoded.userId);
+
+        if (id != decoded.userId) {
+            console.log('---------------------');
+            console.log(id != decoded.userId);
+
+            console.log(id);
+            console.log(decoded);
+            console.log(decoded.userId);
+
+            return next(new CustomError('User ID mismatch', 404));
+            // return res.status(403).json({ message: 'User ID mismatch' });
+        } else {
+            const user = await Users.findByPk(id);
+            console.log(user);
+            //Update the user
+            if (user != null) {
+                try {
+                    console.log(user);
+                    res.status(201).json({ user, message: `User ${user.firstName} ${user.lastName} data fetched successfully` });
+                } catch (err) {
+                    console.error(err);
+                    // res.status(400).json({ error: 'An error occurred while updating the user' });
+                    return next(new CustomError('An error occurred while fetching the user', 422));
+                }
+            } else {
+                return next(new CustomError('An error occurred while fetching the user', 422));
+            }
+        }
+    } catch (err) {
+        // new CustomError('Data not found', 404, 'DATA_NOT_FOUND');
+        // console.error(err);
+        // res.status(400).json({ error: 'An error occurred while fetching the user' });
+        return next(new CustomError('An error occurred while fetching the user', 400));
+    }
+};
+
 export const userLogout = async (req: Request, res: Response, next: NextFunction) => {
     const email = req.body.email;
     try {

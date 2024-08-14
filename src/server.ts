@@ -23,6 +23,7 @@ app.use('/register', userRouter);
 app.use('/login', userRouter);
 app.use('/logout', userRouter);
 app.use('/update', userRouter);
+app.use('/profile', userRouter);
 
 app.use(errorMiddleware);
 

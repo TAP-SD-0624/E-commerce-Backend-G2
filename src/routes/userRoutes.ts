@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createUser, userLogin, userLogout, prohibitedRoute, userUpdate } from '../controllers/userController';
+import { createUser, userLogin, userLogout, prohibitedRoute, userUpdate, userProfile } from '../controllers/userController';
 import { validateLogin, validateUpdateUser, validateUser } from '../middleware/validateUser';
 import { errorMiddleware } from '../middleware/customError';
 // import { verifyToken } from '../middleware/authorizeMiddleware';
@@ -12,6 +12,7 @@ userRouter.post('/register', validateUser, createUser);
 userRouter.post('/login', userLogin);
 userRouter.post('/logout', userLogout);
 userRouter.post('/update', authenticateToken, validateUpdateUser, userUpdate);
+userRouter.get('/profile', authenticateToken, userProfile);
 
 // get wishlist
 // get getUserById
