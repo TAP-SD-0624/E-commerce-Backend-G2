@@ -30,7 +30,7 @@ module.exports = {
             //     }
             // ]
         );
-        await sequelize.query('ALTER SEQUENCE "Categories_id_seq" RESTART WITH 3', { type: QueryTypes.RAW });
+        await sequelize.query('ALTER SEQUENCE "Categories_id_seq" RESTART WITH 4', { type: QueryTypes.RAW });
     },
     async down(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
         /**

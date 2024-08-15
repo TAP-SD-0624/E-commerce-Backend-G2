@@ -62,7 +62,7 @@ module.exports = {
             //     }
             // ]
         );
-        await sequelize.query('ALTER SEQUENCE "ProductsCategories_id_seq" RESTART WITH 11', { type: QueryTypes.RAW });
+        await sequelize.query('ALTER SEQUENCE "ProductsCategories_id_seq" RESTART WITH 20', { type: QueryTypes.RAW });
     },
     async down(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
         /**
