@@ -1,6 +1,6 @@
 # IDE-specific files
 .idea/
-.vscode/
+# .vscode/
 
 # OS-generated files
 .DS_Store
@@ -14,7 +14,7 @@ build/
 dist/
 
 node_modules
-# .env
+.env
 # .env.local
 # .env.development.local
 # .env.test.local

@@ -1,130 +1,129 @@
-// import {Request, Response, NextFunction} from 'express';
-// // import User from "../models/userModel";
-// import bcrypt from 'bcrypt';
-// import jwt from 'jsonwebtoken';
+import { Request, Response, NextFunction } from 'express';
+import Users from '../database/models/users';
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import { createNewUserInterface } from '../utils/interfaces';
+import { dbHelper } from '../database/dbHelper';
+import { CustomError } from '../middleware/customError';
+import { generateToken } from '../utils/tokenUtils';
+import { db } from '../database';
 
+export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+    const { firstName, lastName, email, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
+    try {
+        // Create the user
+        const user: Users = await dbHelper.createUser({
+            firstName,
+            lastName,
+            email,
+            password,
+            phone,
+            DOB,
+            imageUrl,
+            role: 'user'
+        } as Users);
+        const token = generateToken(user.id as number, user.role);
 
-// export const createToken = (id: number) => jwt.sign(
-//     /* payload */
-//     {id},
-//     /* secret */
-//     process.env.ACCESS_TOKEN_SECRET as string,
-//     /* options */
-//     {expiresIn: '3d'});
-// export const createUser = async (req: Request, res: Response, next: NextFunction) => {
-//     let name: string = req.body.name;
-//     let email: string = req.body.email.toLowerCase();
-//     let password: string = req.body.password;
+        res.status(201).json({ user, token, message: `User ${firstName} ${lastName} created successfully` });
+    } catch (err) {
+        new CustomError('Data not found', 500);
+        // res.status(400).json({ error: 'An error occurred while creating the user' });
+    }
+};
 
-//     try {
-//         // Hash and salt the password
-//         const salt = await bcrypt.genSalt(10);
-//         password = await bcrypt.hash(password, salt);
+export const userLogin = async (req: Request, res: Response, next: NextFunction) => {
+    const { email, password } = req.body as { email: string; password: string };
 
-//         // Create the user
-//         const user: User = await User.create({name, email, password});
+    try {
+        // Use LOWER function for case-insensitive comparison
+        const user = await Users.findOne({
+            where: {
+                email
+            }
+        });
 
-//         // create jwt token and send in cookie
-//         let token: string = createToken(user.id as number);
-//         res.cookie('jwt', token, {
-//             httpOnly: true,
-//             secure: process.env.NODE_ENV === 'production',
-//             maxAge: 3 * 24 * 60 * 60 * 1000
-//         });
-//         res.status(201).json({user: user.id, token});
+        if (!user) {
+            return res.status(400).json({ error: 'User not found' });
+        }
 
-//     } catch (err) {
-//         console.error(err);
-//         res.status(400).json({error: 'An error occurred while creating the user'});
-//     }
-// }
+        if (user.password !== password) {
+            return res.status(400).json({ error: 'Invalid password' });
+        }
+        // token = createToken(user.id as number, user.email as string);
+        const token = generateToken(user.id as number, user.role);
+        res.status(200).json({ message: `User ${user.firstName} ${user.lastName} logged in successfully`, token });
+    } catch (error) {
+        console.error('Error during login:', error);
+        if (res.statusCode == 500) {
+            // res.status(500).json({ error: 'Internal server error' });
+            throw new CustomError('Data not found', 400);
+        } else {
+            throw new CustomError('Server error', 500);
+        }
+    }
+};
 
-// export const updateUser = async (req: Request, res: Response, next: NextFunction) => {
-//     const {name, email, password, login, id} = req.body as {
-//         name: string,
-//         email: string,
-//         password: string,
-//         login: boolean,
-//         id: number
-//     };
+export const userUpdate = async (req: Request, res: Response, next: NextFunction) => {
+    const { id, firstName, lastName, password, phone, DOB, imageUrl, role }: createNewUserInterface = req.body;
+    console.log(userUpdate);
 
-//     if (!id) {
-//         return res.status(400).json({error: 'Please enter a user id'});
-//     }
+    try {
+        // const { id } = req.body; // User ID passed in the request body
+        const { decoded } = req.body; // Decoded JWT payload from the middleware
 
-//     const user = await User.findByPk(id);
-//     if (!user) {
-//         return res.status(404).json({error: 'User not found'});
-//     }
+        if (id != decoded.userId) {
+            return next(new CustomError('User ID mismatch', 404));
+            // return res.status(403).json({ message: 'User ID mismatch' });
+        } else {
+            const user = await Users.findByPk(id);
+            console.log(user);
+            //Update the user
+            if (user != null) {
+                try {
+                    console.log(user);
 
-//     await user.update({name, email, password, login});
-//     res.status(200).json({user});
-// }
+                    user.update({
+                        firstName,
+                        lastName,
+                        password,
+                        phone: phone ?? '',
+                        DOB: DOB ?? '1999-09-09',
+                        imageUrl: imageUrl ?? '',
+                        role: role ?? 'user'
+                    });
+                    res.status(201).json({ user, message: `User ${firstName} ${lastName} updated successfully` });
+                } catch (err) {
+                    console.error(err);
+                    // res.status(400).json({ error: 'An error occurred while updating the user' });
+                    return next(new CustomError('An error occurred while updating the user', 422));
+                }
+            } else {
+                return next(new CustomError('An error occurred while updating the user', 422));
+            }
+        }
+    } catch (err) {
+        // new CustomError('Data not found', 404, 'DATA_NOT_FOUND');
+        // console.error(err);
+        // res.status(400).json({ error: 'An error occurred while updating the user' });
+        return next(new CustomError('An error occurred while updating the user', 422));
+    }
+};
 
-// export const deleteUser = async (req: Request, res: Response, next: NextFunction) => {
-//     const {id} = req.params;
-
-//     if (!id) {
-//         return res.status(400).json({error: 'Please enter a user id'});
-//     }
-
-//     const user = await User.findByPk(id);
-//     if (!user) {
-//         return res.status(404).json({error: 'Could not delete user. User not found'});
-//     }
-//     await user.destroy();
-//     res.status(200).send({message: 'User deleted successfully'});
-// }
-
-// export const userLogin = async (req: Request, res: Response, next: NextFunction) => {
-//     const {email, password} = req.body as { email: string; password: string };
-
-//     try {
-//         // Use LOWER function for case-insensitive comparison
-//         const user = await User.findOne({
-//             where: {
-//                 email
-//             }
-//         });
-
-//         console.log(user);
-
-//         if (!user) {
-//             return res.status(400).json({error: 'User not found'});
-//         }
-
-//         if (user.password !== password) {
-//             return res.status(400).json({error: 'Invalid password'});
-//         }
-//         let token: string = '';
-//         token = createToken(user.id as number);
-//         res.cookie('jwt', token, {httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000});
-//         res.cookie('userLogin', true, {httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000});
-//         res.status(200).json({user:user.id, token});
-
-//     } catch (error) {
-//         console.error('Error during login:', error);
-//         res.status(500).json({error: 'Internal server error'});
-//     }
-// };
-
-// export const userLogout = async (req: Request, res: Response, next: NextFunction) => {
-//     const id = req.body.id;
-//     try {
-//         const user = await User.findByPk(id);
-//         if (!user) {
-//             return res.status(404).json({ error: 'User not found' });
-//         }
-
-//         await user.update({ login: false });
-
-//         // Clear cookies
-//         res.clearCookie('jwt');
-//         res.clearCookie('userLogin');
-
-//         res.status(200).json({ user: user.id, message: 'User logged out successfully' });
-//     } catch (error) {
-//         console.error('Error during logout:', error);
-//         res.status(500).json({ error: 'Internal server error' });
-//     }
-// };
+export const userProfile = async (req: Request, res: Response, next: NextFunction) => {
+    const { decoded } = req.body;
+    const id = req.query.id as string;
+    try {
+        if (id != decoded.userId) throw new CustomError('unauthorized', 403);
+        const user = await Users.findByPk(id, {
+            attributes: { exclude: ['password'] },
+            include: [db.Cart, db.Address, db.Orders, db.Tranactions, db.Wishlist, db.Ratings]
+        });
+        if (user) {
+            return res.send(user);
+        } else {
+            throw new CustomError('An error occurred while fetching the user', 422);
+        }
+    } catch (err) {
+        next(err);
+    }
+};

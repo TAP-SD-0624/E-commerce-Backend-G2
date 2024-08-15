@@ -1,0 +1,599 @@
+[
+    {
+        "id": 1,
+        "label": "Essence Mascara Lash Princess",
+        "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
+        "category": "beauty",
+        "price": 9.99,
+        "discount": 7.17,
+        "rating": 3,
+        "quantity": 5,
+        "tags": ["beauty", "mascara"],
+        "title": "Essence",
+        "reviews": [
+            {
+                "rating": 2,
+                "comment": "Very unhappy with my purchase!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "John Doe",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 2,
+                "comment": "Not as described!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Nolan Gonzalez",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Scarlett Wright",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            }
+        ],
+        "images": ["https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png"],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png"
+    },
+    {
+        "id": 2,
+        "label": "Eyeshadow Palette with Mirror",
+        "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+        "category": "beauty",
+        "price": 19.99,
+        "discount": 5.5,
+        "rating": 3.333,
+        "quantity": 44,
+        "tags": ["beauty", "eyeshadow"],
+        "title": "Glamour Beauty",
+        "reviews": [
+            {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Liam Garcia",
+                "reviewerEmail": "liam.garcia@x.dummyjson.com"
+            },
+            {
+                "rating": 1,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Nora Russell",
+                "reviewerEmail": "james.davis@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Elena Baker",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            }
+        ],
+        "images": ["https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/1.png"],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png"
+    },
+    {
+        "id": 3,
+        "label": "Powder Canister",
+        "description": "The Powder Canister is a finely milled setting powder designed to set makeup and control shine. With a lightweight and translucent formula, it provides a smooth and matte finish.",
+        "category": "beauty",
+        "price": 14.99,
+        "discount": 18.14,
+        "rating": 4.666,
+        "quantity": 59,
+        "tags": ["beauty", "face powder"],
+        "title": "Velvet Touch",
+
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Ethan Thompson",
+                "reviewerEmail": "olivia.wilson@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Levi Hicks",
+                "reviewerEmail": "alexander.jones@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Hazel Gardner",
+                "reviewerEmail": "ava.taylor@x.dummyjson.com"
+            }
+        ],
+        "images": ["https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/1.png"],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png"
+    },
+    {
+        "id": 4,
+        "label": "Red Lipstick",
+        "description": "The Red Lipstick is a classic and bold choice for adding a pop of color to your lips. With a creamy and pigmented formula, it provides a vibrant and long-lasting finish.",
+        "category": "beauty",
+        "price": 12.99,
+        "discount": 19.03,
+        "rating": 4.666,
+        "quantity": 68,
+        "tags": ["beauty", "lipstick"],
+        "title": "Chic Cosmetics",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Leo Rivera",
+                "reviewerEmail": "ava.taylor@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Oscar Powers",
+                "reviewerEmail": "ethan.martinez@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Carter Rivera",
+                "reviewerEmail": "isabella.anderson@x.dummyjson.com"
+            }
+        ],
+        "images": ["https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/1.png"],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png"
+    },
+    {
+        "id": 5,
+        "label": "Red Nail Polish",
+        "description": "The Red Nail Polish offers a rich and glossy red hue for vibrant and polished nails. With a quick-drying formula, it provides a salon-quality finish at home.",
+        "category": "beauty",
+        "price": 8.99,
+        "discount": 2.46,
+        "rating": 4.666,
+        "quantity": 71,
+        "tags": ["beauty", "nail polish"],
+        "title": "Nail Couture",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Leo Rivera",
+                "reviewerEmail": "isabella.anderson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Evan Reed",
+                "reviewerEmail": "liam.garcia@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Evelyn Sanchez",
+                "reviewerEmail": "olivia.wilson@x.dummyjson.com"
+            }
+        ],
+        "images": ["https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/1.png"],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/thumbnail.png"
+    },
+    {
+        "id": 6,
+        "label": "Calvin Klein CK One",
+        "description": "CK One by Calvin Klein is a classic unisex fragrance, known for its fresh and clean scent. It's a versatile fragrance suitable for everyday wear.",
+        "category": "fragrances",
+        "price": 49.99,
+        "discount": 0.32,
+        "rating": 3.0,
+        "quantity": 17,
+        "tags": ["fragrances", "perfumes"],
+        "title": "Calvin Klein",
+        "weight": 5,
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Sophia Brown",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            },
+            {
+                "rating": 3,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Madison Collins",
+                "reviewerEmail": "mia.rodriguez@x.dummyjson.com"
+            },
+            {
+                "rating": 1,
+                "comment": "Poor quality!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Maya Reed",
+                "reviewerEmail": "noah.hernandez@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/fragrances/Calvin%20Klein%20CK%20One/1.png",
+            "https://cdn.dummyjson.com/products/images/fragrances/Calvin%20Klein%20CK%20One/2.png",
+            "https://cdn.dummyjson.com/products/images/fragrances/Calvin%20Klein%20CK%20One/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/fragrances/Calvin%20Klein%20CK%20One/thumbnail.png"
+    },
+    {
+        "id": 7,
+        "label": "Chanel Coco Noir Eau De",
+        "description": "Coco Noir by Chanel is an elegant and mysterious fragrance, featuring notes of grapefruit, rose, and sandalwood. Perfect for evening occasions.",
+        "category": "fragrances",
+        "price": 129.99,
+        "discount": 18.64,
+        "rating": 3.0,
+        "quantity": 41,
+        "tags": ["fragrances", "perfumes"],
+        "title": "Chanel",
+        "reviews": [
+            {
+                "rating": 1,
+                "comment": "Disappointing product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Lincoln Kelly",
+                "reviewerEmail": "noah.hernandez@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Lincoln Kelly",
+                "reviewerEmail": "charlotte.lopez@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Lucas Allen",
+                "reviewerEmail": "william.gonzalez@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/fragrances/Chanel%20Coco%20Noir%20Eau%20De/1.png",
+            "https://cdn.dummyjson.com/products/images/fragrances/Chanel%20Coco%20Noir%20Eau%20De/2.png",
+            "https://cdn.dummyjson.com/products/images/fragrances/Chanel%20Coco%20Noir%20Eau%20De/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/fragrances/Chanel%20Coco%20Noir%20Eau%20De/thumbnail.png"
+    },
+    {
+        "id": 8,
+        "label": "Dior J'adore",
+        "description": "J'adore by Dior is a luxurious and floral fragrance, known for its blend of ylang-ylang, rose, and jasmine. It embodies femininity and sophistication.",
+        "category": "fragrances",
+        "price": 89.99,
+        "discount": 17.44,
+        "rating": 4.3333,
+        "quantity": 91,
+        "tags": ["fragrances", "perfumes"],
+        "title": "Dior",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Fast shipping!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Zoe Nicholson",
+                "reviewerEmail": "william.gonzalez@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Addison Wright",
+                "reviewerEmail": "avery.perez@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Clara Berry",
+                "reviewerEmail": "noah.hernandez@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/1.png",
+            "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/2.png",
+            "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/thumbnail.png"
+    },
+    {
+        "id": 9,
+        "label": "Dolce Shine Eau de",
+        "description": "Dolce Shine by Dolce & Gabbana is a vibrant and fruity fragrance, featuring notes of mango, jasmine, and blonde woods. It's a joyful and youthful scent.",
+        "category": "fragrances",
+        "price": 69.99,
+        "discount": 11.47,
+        "rating": 3.3333,
+        "quantity": 3,
+        "tags": ["fragrances", "perfumes"],
+        "title": "Dolce & Gabbana",
+        "reviews": [
+            {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Xavier Wright",
+                "reviewerEmail": "noah.hernandez@x.dummyjson.com"
+            },
+            {
+                "rating": 1,
+                "comment": "Poor quality!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Mila Hernandez",
+                "reviewerEmail": "charlotte.lopez@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Sophia Brown",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/fragrances/Dolce%20Shine%20Eau%20de/1.png",
+            "https://cdn.dummyjson.com/products/images/fragrances/Dolce%20Shine%20Eau%20de/2.png",
+            "https://cdn.dummyjson.com/products/images/fragrances/Dolce%20Shine%20Eau%20de/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/fragrances/Dolce%20Shine%20Eau%20de/thumbnail.png"
+    },
+    {
+        "id": 10,
+        "label": "Gucci Bloom Eau de",
+        "description": "Gucci Bloom by Gucci is a floral and captivating fragrance, with notes of tuberose, jasmine, and Rangoon creeper. It's a modern and romantic scent.",
+        "category": "fragrances",
+        "price": 79.99,
+        "discount": 8.9,
+        "rating": 4.3333,
+        "quantity": 93,
+        "tags": ["fragrances", "perfumes"],
+        "title": "Gucci",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Aria Parker",
+                "reviewerEmail": "logan.torres@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Natalie Harris",
+                "reviewerEmail": "abigail.rivera@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Fast shipping!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Ava Harris",
+                "reviewerEmail": "ava.taylor@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/1.png",
+            "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/2.png",
+            "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/fragrances/Gucci%20Bloom%20Eau%20de/thumbnail.png"
+    },
+    {
+        "id": 11,
+        "label": "Blue Women's Handbag",
+        "description": "The Blue Women's Handbag is a stylish and spacious accessory for everyday use. With a vibrant blue color and multiple compartments, it combines fashion and functionality.",
+        "category": "womens-bags",
+        "price": 49.99,
+        "discount": 5.24,
+        "rating": 3.6666,
+        "quantity": 76,
+        "tags": ["fashion accessories", "handbags"],
+        "title": "Dior",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "John Doe",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Aria Parker",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            },
+            {
+                "rating": 1,
+                "comment": "Poor quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Hazel Gardner",
+                "reviewerEmail": "james.davis@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/womens-bags/Blue%20Women's%20Handbag/1.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Blue%20Women's%20Handbag/2.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Blue%20Women's%20Handbag/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/womens-bags/Blue%20Women's%20Handbag/imageUrl.png"
+    },
+    {
+        "id": 12,
+        "label": "Dior Women's Leather Bag",
+        "description": "The Dior Women's Leather Bag is a luxurious and high-quality leather bag for the sophisticated woman. With a timeless design and durable craftsmanship, it's a versatile accessory.",
+        "category": "womens-bags",
+        "price": 129.99,
+        "discount": 7.74,
+        "rating": 4.333,
+        "quantity": 9,
+        "tags": ["fashion accessories", "leather bags"],
+        "title": "Dior",
+        "reviews": [
+            {
+                "rating": 4,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Hunter Gordon",
+                "reviewerEmail": "james.davis@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Ethan Fletcher",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Aaron Cook",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/womens-bags/Heshe%20Women's%20Leather%20Bag/1.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Heshe%20Women's%20Leather%20Bag/2.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Heshe%20Women's%20Leather%20Bag/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/womens-bags/Heshe%20Women's%20Leather%20Bag/imageUrl.png"
+    },
+    {
+        "id": 13,
+        "label": "Prada Women Bag",
+        "description": "The Prada Women Bag is an iconic designer bag that exudes elegance and luxury. Crafted with precision and featuring the Prada logo, it's a statement piece for fashion enthusiasts.",
+        "category": "womens-bags",
+        "price": 599.99,
+        "discount": 18.3,
+        "rating": 4,
+        "quantity": 43,
+        "tags": ["fashion accessories", "designer bags"],
+        "title": "Prada",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Samantha Howard",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Henry Hill",
+                "reviewerEmail": "emma.miller@x.dummyjson.com"
+            },
+            {
+                "rating": 3,
+                "comment": "Not worth the price!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Lucas Ramirez",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/womens-bags/Prada%20Women%20Bag/1.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Prada%20Women%20Bag/2.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Prada%20Women%20Bag/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/womens-bags/Prada%20Women%20Bag/imageUrl.png"
+    },
+    {
+        "id": 14,
+        "label": "White Faux Leather Backpack",
+        "description": "The White Faux Leather Backpack is a trendy and practical backpack for the modern woman. With a sleek white design and ample storage space, it's perfect for both casual and on-the-go styles.",
+        "category": "womens-bags",
+        "price": 39.99,
+        "discount": 7.76,
+        "rating": 3.666,
+        "quantity": 89,
+        "tags": ["fashion accessories", "backpacks"],
+        "title": "Gucci",
+        "reviews": [
+            {
+                "rating": 1,
+                "comment": "Would not recommend!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Harper Kelly",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Sofia Mitchell",
+                "reviewerEmail": "emma.miller@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Eli Bennett",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/womens-bags/White%20Faux%20Leather%20Backpack/1.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/White%20Faux%20Leather%20Backpack/2.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/White%20Faux%20Leather%20Backpack/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/womens-bags/White%20Faux%20Leather%20Backpack/imageUrl.png"
+    },
+    {
+        "id": 15,
+        "label": "Women Handbag Black",
+        "description": "The Women Handbag in Black is a classic and versatile accessory that complements various outfits. With a timeless black color and functional design, it's a must-have in every woman's wardrobe.",
+        "category": "womens-bags",
+        "price": 59.99,
+        "discount": 3.08,
+        "rating": 3.33,
+        "quantity": 24,
+        "tags": ["fashion accessories", "handbags"],
+        "title": "Gucci",
+        "reviews": [
+            {
+                "rating": 1,
+                "comment": "Not as described!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Leah Hughes",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Lila Hudson",
+                "reviewerEmail": "olivia.wilson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Ethan Martinez",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://cdn.dummyjson.com/products/images/womens-bags/Women%20Handbag%20Black/1.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Women%20Handbag%20Black/2.png",
+            "https://cdn.dummyjson.com/products/images/womens-bags/Women%20Handbag%20Black/3.png"
+        ],
+        "imageUrl": "https://cdn.dummyjson.com/products/images/womens-bags/Women%20Handbag%20Black/imageUrl.png"
+    }
+]
