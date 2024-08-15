@@ -1,7 +1,9 @@
 'use strict';
 //3
 import { DataTypes, QueryInterface, QueryTypes } from 'sequelize';
+import { DataTypes, QueryInterface, QueryTypes } from 'sequelize';
 import { brands } from '../creation';
+import sequelize from '../connection';
 import sequelize from '../connection';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {

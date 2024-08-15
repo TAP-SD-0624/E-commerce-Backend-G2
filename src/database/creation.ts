@@ -165,30 +165,3 @@ for (const userJson of people) {
 }
 
 export { imagesP, ratings, products, productCategories, categories, users, addresses, brands };
-
-// interface UserInterface {
-//     id?: number;
-//     firstName: string;
-//     lastName: string;
-//     email: string;
-//     phone: string;
-//     password: string;
-//     DOB: number;
-//     imageUrl: string;
-//     createdAt?: number;
-//     updatedAt?: number;
-//     role: string;
-// }
-
-// interface AddressInterface {
-//     id?: number;
-//     userId: number;
-//     state: string;
-//     street: string;
-//     city: string;
-//     zipcode: number;
-//     fullName: string;
-//     mobile: string;
-//     createdAt?: number;
-//     updatedAt?: number;
-// }
