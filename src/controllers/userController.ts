@@ -21,7 +21,13 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
         } as Users);
         if (user) {
             const token = generateToken(user.id as number, user.role);
-            res.status(201).json({ user, token, message: `User ${firstName} ${lastName} created successfully`, status: 201 });
+            const { password, role, ...userWithoutSensitiveData } = user;
+            res.status(201).json({
+                user: userWithoutSensitiveData,
+                token,
+                message: `User ${firstName} ${lastName} created successfully`,
+                status: 201
+            });
         } else {
             throw new CustomError('Something went wrong, cannot create user', 422);
         }
@@ -32,9 +38,7 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
 
 export const userLogin = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body as { email: string; password: string };
-
     try {
-        // Use LOWER function for case-insensitive comparison
         const user = await Users.findOne({
             where: {
                 email
@@ -42,23 +46,16 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
         });
 
         if (!user) {
-            return res.status(400).json({ error: 'User not found' });
+            throw new CustomError('User not found', 400);
         }
 
         if (user.password !== password) {
-            return res.status(400).json({ error: 'Invalid password' });
+            throw new CustomError('Invalid password', 422);
         }
-        // token = createToken(user.id as number, user.email as string);
         const token = generateToken(user.id as number, user.role);
         res.status(200).json({ message: `User ${user.firstName} ${user.lastName} logged in successfully`, token });
-    } catch (error) {
-        console.error('Error during login:', error);
-        if (res.statusCode == 500) {
-            // res.status(500).json({ error: 'Internal server error' });
-            throw new CustomError('Data not found', 400);
-        } else {
-            throw new CustomError('Server error', 500);
-        }
+    } catch (err) {
+        next(err);
     }
 };
 
