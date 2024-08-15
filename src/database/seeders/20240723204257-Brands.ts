@@ -1,9 +1,7 @@
 'use strict';
 //3
 import { DataTypes, QueryInterface, QueryTypes } from 'sequelize';
-import { DataTypes, QueryInterface, QueryTypes } from 'sequelize';
 import { brands } from '../creation';
-import sequelize from '../connection';
 import sequelize from '../connection';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -32,7 +30,7 @@ module.exports = {
             //     }
             // ]
         );
-        await sequelize.query('ALTER SEQUENCE "Brands_id_seq" RESTART WITH 11', { type: QueryTypes.RAW });
+        await sequelize.query('ALTER SEQUENCE "Brands_id_seq" RESTART WITH 12', { type: QueryTypes.RAW });
     },
     async down(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
         /**
