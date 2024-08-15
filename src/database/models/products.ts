@@ -14,7 +14,7 @@ export interface ProductsInterface {
     label: string;
     description: string;
     price: number;
-    discount: number;
+    discount?: number;
     title: string;
     quantity: number;
     imageUrl: string;
@@ -84,7 +84,8 @@ Products.init(
         },
         discount: {
             type: new DataTypes.INTEGER(),
-            allowNull: true
+            allowNull: true,
+            defaultValue: 0
         },
         title: {
             type: new DataTypes.STRING(),

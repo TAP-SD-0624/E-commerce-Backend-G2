@@ -48,18 +48,19 @@ export async function updateProductById(
 export async function createNewProductTransaction(
     // rating and orders can be givin however realistically new product should'nt have any orders or rating
     // always remember that categories and brands should exist first
+    // intial value for discount is 0
     brandId: number,
     label: string,
     description: string,
     price: number,
-    discount: number,
     title: string,
     imageUrl: string,
     quantity: number,
     categoriesIdsList: Array<number>,
     imagesUrlList: Array<string>,
-    tags: Array<string>
-) {
+    tags: Array<string>,
+    discount?: number
+): Promise<void> {
     const bulkCategories: Array<{}> = categoriesIdsList.map((i: number): {} => {
         return { categoryId: i };
     });
@@ -72,7 +73,7 @@ export async function createNewProductTransaction(
                 {
                     brandId,
                     description,
-                    discount,
+                    discount: discount || 0,
                     imageUrl,
                     label,
                     price,
@@ -92,19 +93,21 @@ export async function createNewProductTransaction(
                 }
             );
         });
-        return true;
     } catch (error) {
-        throw new Error('couldent complete');
+        throw new CustomError('couldent complete', 500);
     }
 }
 export async function deleteProductById(productId: number) {
-    //edit database to allow null in forign keys
+    // edit database to allow null in forign keys
     try {
         const result = await sequelize.transaction(async (trans) => {
             await db.Products.destroy({ where: { id: productId }, transaction: trans });
             await db.Images.destroy({ where: { productId }, transaction: trans });
         });
-    } catch (error) {}
+    } catch (error) {
+        console.log(error);
+        throw new CustomError("could'nt complete", 500);
+    }
 }
 
 /////////////////
@@ -442,13 +445,13 @@ export async function getHandPickedCollections(id: number): Promise<Array<Produc
     }
 }
 
-// user functions
 //reviews
 export async function updateUserReviewTransaction(productId: number, userId: number, newReview?: string, newRating?: number): Promise<boolean> {
     // dont forget to add limitaion to the new review and the new rating like rating should be between 1 and 5
     // productId and userId are mandetory
     // to avoid 0 and '' it should be givin new review and rating in case of creating how ever no error will be thrown
     // add rule for so eather one of rating or review needs to exist
+    if (!newReview && !newRating) throw new CustomError('when updating you should provide at least one new entry as a new review or new rating', 422);
     try {
         const result = await sequelize.transaction(async (t) => {
             //checking if user has review already
@@ -467,7 +470,7 @@ export async function updateUserReviewTransaction(productId: number, userId: num
                         { where: { id: userHasReview.id } }
                     );
                 } catch (error) {
-                    throw new Error("couldn't update user existing review");
+                    throw new CustomError("couldn't update user existing review", 500);
                 }
             } else {
                 // if user has no review lets create it
@@ -479,7 +482,7 @@ export async function updateUserReviewTransaction(productId: number, userId: num
                         productId
                     });
                 } catch (error) {
-                    throw new Error("couldn't create new review");
+                    throw new CustomError("couldn't create new review", 500);
                 }
             }
             // now let's calculate the new avg
@@ -500,40 +503,60 @@ export async function updateUserReviewTransaction(productId: number, userId: num
                             { where: { id: productId } }
                         );
                     } catch (error) {
-                        throw new CustomError("couldn't update the new rating", 400);
+                        throw new CustomError("couldn't update the new rating", 500);
                     }
                 } else {
-                    throw new Error("couldn't calculate the rating");
+                    throw new CustomError("couldn't calculate the rating", 500);
                 }
             } catch (error) {
                 if (error instanceof CustomError) throw new CustomError(error.message, error.statusCode);
-                throw new Error("couldn't calculate the rating");
+                throw new CustomError("couldn't calculate the rating", 500);
             }
         });
         return true;
     } catch (error) {
-        throw new Error("couldn't complete");
+        if (error instanceof CustomError) throw new CustomError(error.message, error.statusCode);
+        throw new CustomError("couldn't complete", 500);
     }
 }
+
 //cart
 export async function reduceFromCart(productId: number, userId: number) {
-    const cartItem = await db.Cart.findOne({ where: { productId, userId } });
-    if (cartItem) {
-        const x = await db.Cart.destroy({ where: { id: cartItem.id } });
+    try {
+        const cartItem = await db.Cart.findOne({ where: { productId, userId } });
+        if (cartItem) {
+            const x = await db.Cart.destroy({ where: { id: cartItem.id } });
+        } else {
+            throw new CustomError('cant find the product', 404);
+        }
+    } catch (error) {
+        throw new CustomError('cant remove the product from cart', 500);
     }
 }
 export async function deleteFromCart(productId: number, userId: number) {
-    const x = await db.Cart.destroy({ where: { productId, userId } });
+    try {
+        const x = await db.Cart.destroy({ where: { productId, userId } });
+    } catch (error) {
+        throw new CustomError('cant delete the product from cart', 500);
+    }
 }
 export async function addToCart(productId: number, userId: number) {
-    const x = await db.Cart.create({ productId, userId });
+    try {
+        const x = await db.Cart.create({ productId, userId });
+    } catch (error) {
+        throw new CustomError('cant add the product to cart', 500);
+    }
 }
 //whishlist
 export async function toggleWishList(productId: number, userId: number) {
-    const exist = await db.Wishlist.findOne({ where: { productId, userId } });
-    if (exist) {
-        await db.Wishlist.destroy({ where: { id: exist.id } });
-    } else {
-        await db.Wishlist.create({ productId, userId });
+    try {
+        const exist = await db.Wishlist.findOne({ where: { productId, userId } });
+        if (exist) {
+            await db.Wishlist.destroy({ where: { id: exist.id } });
+        } else {
+            await db.Wishlist.create({ productId, userId });
+        }
+    } catch (error) {
+        throw new CustomError("couldn't complete", 500);
     }
 }

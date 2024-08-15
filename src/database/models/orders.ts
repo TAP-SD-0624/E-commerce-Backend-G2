@@ -39,25 +39,25 @@ Orders.init(
         },
         productId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },
         transactionId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },
         addressId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },

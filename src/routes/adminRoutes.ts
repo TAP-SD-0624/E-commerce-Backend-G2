@@ -1,7 +1,7 @@
 import { Router } from 'express';
 // import {createAdmin, prohibitedRoute} from '../controllers/userController';
 import { checkRole } from '../middleware/checkRole';
-import { verifyToken } from '../middleware/authorizeMiddleware';
+// import { verifyToken } from '../middleware/authorizeMiddleware';
 import { validateUser } from '../middleware/validateUser';
 //import {validateProduct} from "../middleware/validateProduct";
 // import {createProduct} from "../controllers/productsController";

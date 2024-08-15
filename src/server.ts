@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+import express, { Express, Response, Request } from 'express';
 import cors from 'cors';
 import sequelize from './database/connection';
 import { syncDatabase } from './database';
@@ -7,27 +7,24 @@ import productRouter from './routes/productsRoutes';
 import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
-
+syncDatabase();
 export const app: Express = express();
 const server = createServer(app);
-
 export const shutdown = () => {
     server.close();
 };
-const PORT: number | string = process.env.PORT || 3000;
 
+const PORT: number | string = process.env.PORT || 3000;
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-syncDatabase();
-
 app.use('/user', userRouter);
-
 app.use('/products', productRouter);
-
 app.get('/homePage', homePageController);
-
 app.use(errorHandler);
+app.use('/', (req: Request, res: Response): Response => {
+    return res.sendStatus(404);
+});
 
 if (process.env.NODE_ENV !== 'test') {
     sequelize

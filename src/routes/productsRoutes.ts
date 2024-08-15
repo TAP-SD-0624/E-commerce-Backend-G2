@@ -1,28 +1,39 @@
 import { Router } from 'express';
+import * as PC from '../controllers/productsController';
 import {
-    addItemToCart,
-    getHandPickedCollectionItems,
-    getItemByBrandId,
-    getItemByCategoryId,
-    getItemPageById,
-    itemsCardOne,
-    itemsCardThree,
-    itemsCardTwo,
-    searchInItems
-} from '../controllers/productsController';
-import { validateId, validateSearchValue } from '../middleware/validateProduct';
+    validateId,
+    validateSearchValue,
+    validateProductId,
+    validateUserReview,
+    validateProduct,
+    validateProductUpdate
+} from '../middleware/validateProduct';
 import authenticateToken from '../utils/tokenUtils';
 
 const productRouter: Router = Router();
+//general
+productRouter.get('/itemPage', validateId, PC.getItemPageById);
+productRouter.get('/itemByCategory', validateId, PC.getItemByCategoryId);
+productRouter.get('/itemByBrand', validateId, PC.getItemByBrandId);
+productRouter.get('/handPickedCollection', validateId, PC.getHandPickedCollectionItems);
+productRouter.get('/productSearch', validateSearchValue, PC.searchInItems);
+//cards
+productRouter.get('/itemCardOne', PC.itemsCardOne);
+productRouter.get('/itemCardTwo', PC.itemsCardTwo);
+productRouter.get('/itemCardThree', PC.itemsCardThree);
+//cart
+productRouter.post('/addItemToCart', [authenticateToken('user'), ...validateProductId], PC.addItemToCart);
+productRouter.delete('/reduceItemFromCart', [authenticateToken('user'), ...validateProductId], PC.reduceItemFromCart);
+productRouter.delete('/removeItemFromCart', [authenticateToken('user'), ...validateProductId], PC.removeItemFromCart);
+//wishlist
+productRouter.post('/toggleItemInWishList', [authenticateToken('user'), ...validateProductId], PC.toggleItemInWishList);
+//reviews and rating
+productRouter.post('/upsertUserReview', [authenticateToken('user'), ...validateUserReview], PC.upsertUserReviewOrRating);
 
-productRouter.get('/itemPage', validateId, getItemPageById);
-productRouter.get('/itemByCategory', validateId, getItemByCategoryId);
-productRouter.get('/itemByBrand', validateId, getItemByBrandId);
-productRouter.get('/handPickedCollection', validateId, getHandPickedCollectionItems);
-productRouter.get('/productSearch', validateSearchValue, searchInItems);
-productRouter.get('/itemCardOne', itemsCardOne);
-productRouter.get('/itemCardTwo', itemsCardTwo);
-productRouter.get('/itemCardThree', itemsCardThree);
-productRouter.post('/addItemToCart', [authenticateToken('user')], addItemToCart);
+//////// Admin Only ///////
+//crud on products
+productRouter.post('/createNewProduct', [authenticateToken('admin'), ...validateProduct], PC.createNewProduct);
+productRouter.delete('/deleteProduct', [authenticateToken('admin'), ...validateProductId], PC.deleteProduct);
+productRouter.put('/updateProduct', [authenticateToken('user'), ...validateProductUpdate], PC.updateProduct);
 
 export default productRouter;
