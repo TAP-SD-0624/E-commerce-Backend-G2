@@ -5,28 +5,23 @@ import { dbHelper } from '../database/dbHelper';
 import { CustomError } from '../middleware/customError';
 import { generateToken } from '../utils/tokenUtils';
 import { db } from '../database';
+import { createUserDB } from '../utils/userDatabase';
+import bcrypt from 'bcrypt';
 
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const { firstName, lastName, email, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
     try {
-        const user: Users = await dbHelper.createUser({
-            firstName,
-            lastName,
-            email,
-            password,
-            phone,
-            DOB,
-            imageUrl,
-            role: 'user'
-        } as Users);
+        const hashedPassword = bcrypt.hashSync(password, 10);
+
+        const user = await createUserDB('user', firstName, lastName, email, hashedPassword, phone, DOB, imageUrl);
+
         if (user) {
             const token = generateToken(user.id as number, user.role);
-            const { password, role, ...userWithoutSensitiveData } = user;
-            res.status(201).json({
+            const { password, role, ...userWithoutSensitiveData } = user.dataValues;
+            return res.status(201).json({
                 user: userWithoutSensitiveData,
                 token,
-                message: `User ${firstName} ${lastName} created successfully`,
-                status: 201
+                message: `User ${firstName} ${lastName} created successfully`
             });
         } else {
             throw new CustomError('Something went wrong, cannot create user', 422);
