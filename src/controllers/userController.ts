@@ -1,7 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import Users from '../database/models/users';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { createNewUserInterface } from '../utils/interfaces';
 import { dbHelper } from '../database/dbHelper';
 import { CustomError } from '../middleware/customError';
@@ -11,7 +9,6 @@ import { db } from '../database';
 export const createUser = async (req: Request, res: Response, next: NextFunction) => {
     const { firstName, lastName, email, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
     try {
-        // Create the user
         const user: Users = await dbHelper.createUser({
             firstName,
             lastName,
@@ -22,12 +19,14 @@ export const createUser = async (req: Request, res: Response, next: NextFunction
             imageUrl,
             role: 'user'
         } as Users);
-        const token = generateToken(user.id as number, user.role);
-
-        res.status(201).json({ user, token, message: `User ${firstName} ${lastName} created successfully` });
+        if (user) {
+            const token = generateToken(user.id as number, user.role);
+            res.status(201).json({ user, token, message: `User ${firstName} ${lastName} created successfully`, status: 201 });
+        } else {
+            throw new CustomError('Something went wrong, cannot create user', 422);
+        }
     } catch (err) {
-        new CustomError('Data not found', 500);
-        // res.status(400).json({ error: 'An error occurred while creating the user' });
+        next(err);
     }
 };
 
