@@ -79,7 +79,7 @@ for (const productJson of data) {
         tags: productJson.tags,
         rating: productJson.rating,
         totalRatings: productJson.reviews.length,
-        orders: 0,
+        unitsSold: 0,
         createdAt: new Date(),
         updatedAt: new Date()
     };

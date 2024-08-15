@@ -113,7 +113,7 @@ export async function deleteProductById(productId: number) {
 /////////////////
 export async function getProductPageById(productId: number): Promise<Products> {
     const product = await db.Products.findByPk(productId, {
-        attributes: ['id', 'title', 'label', 'description', 'price', 'discount', 'imageUrl', 'rating', 'orders', 'quantity'],
+        attributes: ['id', 'title', 'label', 'description', 'price', 'discount', 'imageUrl', 'rating', 'unitsSold', 'quantity'],
         include: [
             {
                 model: db.Brands,
@@ -156,7 +156,7 @@ export async function getProductPageById(productId: number): Promise<Products> {
 }
 export async function searchByBrandName(searchValue: string): Promise<Array<Products>> {
     const results = await db.Products.findAll({
-        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'rating'],
+        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
         include: [
             {
                 model: db.Brands,
@@ -223,7 +223,7 @@ export async function searchForProductsOrBrands(searchValue: string): Promise<Ar
 }
 export async function getCardOneProducts(): Promise<Array<Products>> {
     const x = await db.Products.findAll({
-        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'rating'],
+        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
         include: [
             {
                 model: db.Brands,
@@ -283,7 +283,7 @@ export async function getCardTwoProducts(): Promise<Array<Products>> {
 }
 export async function getCardThreeProducts(): Promise<Array<Products>> {
     const x = await db.Products.findAll({
-        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'rating'],
+        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
         include: [
             {
                 model: db.Brands,
@@ -313,7 +313,7 @@ export async function getCardThreeProducts(): Promise<Array<Products>> {
 }
 export async function getProductsByCategoryId(id: number): Promise<Array<Products>> {
     const x = await db.Products.findAll({
-        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'rating'],
+        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
         include: [
             {
                 model: db.Brands,
@@ -343,7 +343,7 @@ export async function getProductsByCategoryId(id: number): Promise<Array<Product
 }
 export async function getProductsByBrandId(id: number): Promise<Array<Products>> {
     const x = await db.Products.findAll({
-        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'rating'],
+        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
         include: [
             {
                 model: db.Brands,
@@ -415,7 +415,7 @@ export async function getNewArrivals(): Promise<Array<Products>> {
 }
 export async function getHandPickedCollections(id: number): Promise<Array<Products>> {
     const x = await db.Products.findAll({
-        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'rating'],
+        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
         include: [
             {
                 model: db.Brands,
@@ -530,6 +530,7 @@ export async function reduceFromCart(productId: number, userId: number) {
             throw new CustomError('cant find the product', 404);
         }
     } catch (error) {
+        if (error instanceof CustomError) throw new CustomError(error.message, error.statusCode);
         throw new CustomError('cant remove the product from cart', 500);
     }
 }

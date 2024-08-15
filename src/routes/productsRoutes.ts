@@ -34,6 +34,6 @@ productRouter.post('/upsertUserReview', [authenticateToken('user'), ...validateU
 //crud on products
 productRouter.post('/createNewProduct', [authenticateToken('admin'), ...validateProduct], PC.createNewProduct);
 productRouter.delete('/deleteProduct', [authenticateToken('admin'), ...validateProductId], PC.deleteProduct);
-productRouter.put('/updateProduct', [authenticateToken('user'), ...validateProductUpdate], PC.updateProduct);
+productRouter.put('/updateProduct', [authenticateToken('admin'), ...validateProductUpdate], PC.updateProduct);
 
 export default productRouter;
