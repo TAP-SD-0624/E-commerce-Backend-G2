@@ -1,128 +1,63 @@
 import { Request, Response, NextFunction } from 'express';
-import Users from '../database/models/users';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import { createNewUserInterface } from '../utils/interfaces';
-import { dbHelper } from '../database/dbHelper';
 import { CustomError } from '../middleware/customError';
 import { generateToken } from '../utils/tokenUtils';
-import { db } from '../database';
-
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
-    const { firstName, lastName, email, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
-    try {
-        // Create the user
-        const user: Users = await dbHelper.createUser({
-            firstName,
-            lastName,
-            email,
-            password,
-            phone,
-            DOB,
-            imageUrl,
-            role: 'user'
-        } as Users);
-        const token = generateToken(user.id as number, user.role);
-
-        res.status(201).json({ user, token, message: `User ${firstName} ${lastName} created successfully` });
-    } catch (err) {
-        new CustomError('Data not found', 500);
-        // res.status(400).json({ error: 'An error occurred while creating the user' });
-    }
+import { createUserDB, findUserByEmail, getUserProfile, updateUserById } from '../utils/UsersUtils';
+import bcrypt from 'bcrypt';
+export const createUser = (role: string) => {
+    return async (req: Request, res: Response, next: NextFunction) => {
+        const { firstName, lastName, email, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
+        try {
+            const hashedPassword = await bcrypt.hash(String(password), 10);
+            const user = await createUserDB(role, firstName, lastName, email, hashedPassword, phone, DOB, imageUrl);
+            if (user) {
+                const token = generateToken(user.dataValues.id as number, user.dataValues.role);
+                const { password, role, ...userWithoutSensitiveData } = user.dataValues;
+                return res.status(201).json({
+                    user: userWithoutSensitiveData,
+                    token
+                });
+            } else {
+                throw new CustomError('Something went wrong, cannot create user', 422);
+            }
+        } catch (err) {
+            next(err);
+        }
+    };
 };
 
 export const userLogin = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body as { email: string; password: string };
-
     try {
-        // Use LOWER function for case-insensitive comparison
-        const user = await Users.findOne({
-            where: {
-                email
-            }
-        });
-
-        if (!user) {
-            return res.status(400).json({ error: 'User not found' });
-        }
-
-        if (user.password !== password) {
-            return res.status(400).json({ error: 'Invalid password' });
-        }
-        // token = createToken(user.id as number, user.email as string);
-        const token = generateToken(user.id as number, user.role);
-        res.status(200).json({ message: `User ${user.firstName} ${user.lastName} logged in successfully`, token });
-    } catch (error) {
-        console.error('Error during login:', error);
-        if (res.statusCode == 500) {
-            // res.status(500).json({ error: 'Internal server error' });
-            throw new CustomError('Data not found', 400);
+        const user = await findUserByEmail(email);
+        const verPass = await bcrypt.compare(String(password), `${user.dataValues.password.trim()}`);
+        if (verPass) {
+            const token = generateToken(user.dataValues.id!, user.dataValues.role);
+            const { password, role, ...userWithoutSensitiveData } = user.dataValues;
+            return res.status(201).json({
+                user: userWithoutSensitiveData,
+                token
+            });
         } else {
-            throw new CustomError('Server error', 500);
-        }
-    }
-};
-
-export const userUpdate = async (req: Request, res: Response, next: NextFunction) => {
-    const { id, firstName, lastName, password, phone, DOB, imageUrl, role }: createNewUserInterface = req.body;
-    console.log(userUpdate);
-
-    try {
-        // const { id } = req.body; // User ID passed in the request body
-        const { decoded } = req.body; // Decoded JWT payload from the middleware
-
-        if (id != decoded.userId) {
-            return next(new CustomError('User ID mismatch', 404));
-            // return res.status(403).json({ message: 'User ID mismatch' });
-        } else {
-            const user = await Users.findByPk(id);
-            console.log(user);
-            //Update the user
-            if (user != null) {
-                try {
-                    console.log(user);
-
-                    user.update({
-                        firstName,
-                        lastName,
-                        password,
-                        phone: phone ?? '',
-                        DOB: DOB ?? '1999-09-09',
-                        imageUrl: imageUrl ?? '',
-                        role: role ?? 'user'
-                    });
-                    res.status(201).json({ user, message: `User ${firstName} ${lastName} updated successfully` });
-                } catch (err) {
-                    console.error(err);
-                    // res.status(400).json({ error: 'An error occurred while updating the user' });
-                    return next(new CustomError('An error occurred while updating the user', 422));
-                }
-            } else {
-                return next(new CustomError('An error occurred while updating the user', 422));
-            }
+            throw new CustomError('Invalid password', 422);
         }
     } catch (err) {
-        // new CustomError('Data not found', 404, 'DATA_NOT_FOUND');
-        // console.error(err);
-        // res.status(400).json({ error: 'An error occurred while updating the user' });
-        return next(new CustomError('An error occurred while updating the user', 422));
+        next(err);
     }
 };
-
-export const userProfile = async (req: Request, res: Response, next: NextFunction) => {
-    const { decoded } = req.body;
-    const id = req.query.id as string;
+export const userUpdate = async (req: Request, res: Response, next: NextFunction) => {
+    const { firstName, lastName, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
     try {
-        if (id != decoded.userId) throw new CustomError('unauthorized', 403);
-        const user = await Users.findByPk(id, {
-            attributes: { exclude: ['password'] },
-            include: [db.Cart, db.Address, db.Orders, db.Tranactions, db.Wishlist, db.Ratings]
-        });
-        if (user) {
-            return res.send(user);
-        } else {
-            throw new CustomError('An error occurred while fetching the user', 422);
-        }
+        const user = await updateUserById(req.body.decoded.userId, firstName, lastName, phone, DOB, imageUrl);
+        return res.status(201);
+    } catch (err) {
+        return next(err);
+    }
+};
+export const userProfile = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const user = await getUserProfile(req.body.decoded.userId);
+        return res.send(user);
     } catch (err) {
         next(err);
     }
