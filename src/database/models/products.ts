@@ -14,7 +14,7 @@ export interface ProductsInterface {
     label: string;
     description: string;
     price: number;
-    discount: number;
+    discount?: number;
     title: string;
     quantity: number;
     imageUrl: string;
@@ -22,7 +22,7 @@ export interface ProductsInterface {
     imagesUrls?: Array<{}>;
     tags: Array<string>;
     rating?: Number;
-    orders?: number;
+    unitsSold?: number;
     totalRatings?: number;
     readonly createdAt?: Date;
     readonly updatedAt?: Date;
@@ -39,7 +39,7 @@ class Products extends Model<ProductsInterface> implements ProductsInterface {
     declare imageUrl: string;
     declare tags: Array<string>;
     declare rating: Number;
-    declare orders: number;
+    declare unitsSold: number;
     declare totalRatings: number;
     declare categoriesIds: Array<{}>;
     declare imagesUrls: Array<{}>;
@@ -84,7 +84,8 @@ Products.init(
         },
         discount: {
             type: new DataTypes.INTEGER(),
-            allowNull: true
+            allowNull: true,
+            defaultValue: 0
         },
         title: {
             type: new DataTypes.STRING(),
@@ -113,7 +114,7 @@ Products.init(
             allowNull: false,
             defaultValue: 0
         },
-        orders: {
+        unitsSold: {
             type: new DataTypes.INTEGER(),
             allowNull: false,
             defaultValue: 0

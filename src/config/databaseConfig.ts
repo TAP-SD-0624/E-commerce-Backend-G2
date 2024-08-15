@@ -10,11 +10,12 @@ interface configsInterface {
     port: string;
 }
 export let configs: configsInterface;
+
 if (process.env.NODE_ENV === 'test') {
     configs = {
         username: process.env.DB_TESTING_USERNAME || 'postgres',
         password: process.env.DB_TESTING_PASSWORD || '12345',
-        database: process.env.DB_TESTING_DATABASE || 'testing',
+        database: process.env.DB_TESTING_DATABASE || 'ecommerce_test',
         dialect: (process.env.DB_TESTING_DIALECT as Dialect) || 'postgres',
         host: process.env.DB_TESTING_HOST || 'localhost',
         port: process.env.DB_TESTING_PORT || '5432'

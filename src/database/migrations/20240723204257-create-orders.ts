@@ -11,13 +11,13 @@ module.exports = {
             },
             productId: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
+                allowNull: true,
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL'
             },
             userId: {
                 type: Sequelize.INTEGER,
-                allowNull: false,
+                allowNull: true,
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL'
             },
@@ -29,7 +29,7 @@ module.exports = {
             },
             addressId: {
                 type: DataTypes.INTEGER,
-                allowNull: false,
+                allowNull: true,
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL'
             },

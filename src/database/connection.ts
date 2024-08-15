@@ -4,10 +4,17 @@ const sequelize: Sequelize = new Sequelize(configs.database, configs.username, c
     host: configs.host,
     dialect: configs.dialect,
     port: Number(configs.port),
-    // logging: false,
+    logging: false,
     define: {
         timestamps: true,
         freezeTableName: true
+    },
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000
     }
 });
+
 export default sequelize;

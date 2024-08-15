@@ -36,13 +36,13 @@ Ratings.init(
         },
         productId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },
         userId: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },
