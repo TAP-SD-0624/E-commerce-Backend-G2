@@ -20,6 +20,15 @@ if (process.env.NODE_ENV === 'test') {
         host: process.env.DB_TESTING_HOST || 'localhost',
         port: process.env.DB_TESTING_PORT || '5432'
     };
+} else if (process.env.NODE_ENV === 'production') {
+    configs = {
+        username: process.env.DB_PRODUCTION_USERNAME || 'postgres',
+        password: process.env.DB_PRODUCTION_PASSWORD || '12345',
+        database: process.env.DB_PRODUCTION_DATABASE || 'ecommerce_dev',
+        dialect: (process.env.DB_PRODUCTION_DIALECT as Dialect) || 'postgres',
+        host: process.env.DB_PRODUCTION_HOST || 'localhost',
+        port: process.env.DB_PRODUCTION_PORT || '5432'
+    };
 } else {
     configs = {
         username: process.env.DB_USERNAME || 'postgres',
