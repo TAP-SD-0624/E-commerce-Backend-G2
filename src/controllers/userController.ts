@@ -39,14 +39,14 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
                 token
             });
         } else {
-            throw new CustomError('Invalid password', 422);
+            throw new CustomError('Invalid password', 401);
         }
     } catch (err) {
         next(err);
     }
 };
 export const userUpdate = async (req: Request, res: Response, next: NextFunction) => {
-    const { firstName, lastName, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
+    const { firstName, lastName, phone, DOB, imageUrl }: createNewUserInterface = req.body;
     try {
         const user = await updateUserById(req.body.decoded.userId, firstName, lastName, phone, DOB, imageUrl);
         return res.status(201);
