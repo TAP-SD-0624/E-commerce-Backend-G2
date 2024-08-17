@@ -22,7 +22,7 @@ export async function updateProductById(
     const currentProduct = await db.Products.findByPk(id);
     try {
         if (!currentProduct) {
-            throw new Error('here');
+            throw new CustomError('Couldnt find product', 404);
         } else {
             const update = await db.Products.update(
                 {
@@ -42,13 +42,10 @@ export async function updateProductById(
             );
         }
     } catch (error) {
-        throw new Error('ops');
+        throw new CustomError('Opps something went wrong', 500);
     }
 }
 export async function createNewProductTransaction(
-    // rating and orders can be givin however realistically new product should'nt have any orders or rating
-    // always remember that categories and brands should exist first
-    // intial value for discount is 0
     brandId: number,
     label: string,
     description: string,
@@ -94,33 +91,32 @@ export async function createNewProductTransaction(
             );
         });
     } catch (error) {
-        throw new CustomError('couldent complete', 500);
+        throw new CustomError('Opps something went wrong', 500);
     }
 }
-export async function deleteProductById(productId: number) {
-    // edit database to allow null in forign keys
+export async function deleteProductById(productId: number): Promise<void> {
     try {
         const result = await sequelize.transaction(async (trans) => {
             await db.Products.destroy({ where: { id: productId }, transaction: trans });
             await db.Images.destroy({ where: { productId }, transaction: trans });
         });
     } catch (error) {
-        console.log(error);
-        throw new CustomError("could'nt complete", 500);
+        throw new CustomError('Opps something went wrong', 500);
     }
 }
 
 /////////////////
 export async function getProductPageById(productId: number): Promise<Products> {
     const product = await db.Products.findByPk(productId, {
-        attributes: ['id', 'title', 'label', 'description', 'price', 'discount', 'imageUrl', 'rating', 'unitsSold', 'quantity'],
+        attributes: ['id', 'title', 'label', 'description', 'price', 'discount', 'imageUrl', 'rating', 'unitsSold', 'quantity', 'totalRatings'],
         include: [
             {
                 model: db.Brands,
                 attributes: [
                     ['id', 'brandId'],
                     ['name', 'brandTitle']
-                ]
+                ],
+                as: 'brand'
             },
             {
                 model: db.Categories,
@@ -132,7 +128,7 @@ export async function getProductPageById(productId: number): Promise<Products> {
             },
             {
                 model: db.Images,
-                attributes: [['imageUrl', 'galleryImages']],
+                attributes: ['imageUrl'],
                 as: 'imagesUrls'
             },
             {
@@ -150,11 +146,40 @@ export async function getProductPageById(productId: number): Promise<Products> {
     if (product) {
         return product;
     } else {
-        //add status code after firas
-        throw new Error('Product was not found');
+        throw new CustomError('Product was not found', 404);
     }
 }
-export async function searchByBrandName(searchValue: string): Promise<Array<Products>> {
+// export async function searchByBrandName(searchValue: string): Promise<Array<Products>> {
+//     const results = await db.Products.findAll({
+//         attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
+//         include: [
+//             {
+//                 model: db.Brands,
+//                 attributes: [
+//                     ['id', 'brandId'],
+//                     ['name', 'brandTitle']
+//                 ],
+//                 where: {
+//                     name: { [Op.iLike]: `%${searchValue}%` }
+//                 }
+//             },
+//             {
+//                 model: db.Categories,
+//                 attributes: [
+//                     ['id', 'categoryId'],
+//                     ['title', 'categoryTitle']
+//                 ],
+//                 through: { attributes: [] }
+//             }
+//         ]
+//     });
+//     if (results.length > 0) {
+//         return results;
+//     } else {
+//         return [];
+//     }
+// }
+export async function searchBar(searchValue: string): Promise<Array<Products>> {
     const results = await db.Products.findAll({
         attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
         include: [
@@ -164,36 +189,7 @@ export async function searchByBrandName(searchValue: string): Promise<Array<Prod
                     ['id', 'brandId'],
                     ['name', 'brandTitle']
                 ],
-                where: {
-                    name: { [Op.iLike]: `%${searchValue}%` }
-                }
-            },
-            {
-                model: db.Categories,
-                attributes: [
-                    ['id', 'categoryId'],
-                    ['title', 'categoryTitle']
-                ],
-                through: { attributes: [] }
-            }
-        ]
-    });
-    if (results.length > 0) {
-        return results;
-    } else {
-        return [];
-    }
-}
-export async function searchByProductNameOrTags(searchValue: string): Promise<Array<Products>> {
-    const results = await db.Products.findAll({
-        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'rating'],
-        include: [
-            {
-                model: db.Brands,
-                attributes: [
-                    ['id', 'brandId'],
-                    ['name', 'brandTitle']
-                ]
+                as: 'brand'
             },
             {
                 model: db.Categories,
@@ -205,22 +201,25 @@ export async function searchByProductNameOrTags(searchValue: string): Promise<Ar
             }
         ],
         where: {
-            [Op.or]: [{ title: { [Op.iLike]: `%${searchValue}%` } }, { tags: { [Op.contains]: [searchValue] } }]
+            [Op.or]: [
+                { title: { [Op.iLike]: `%${searchValue}%` } },
+                { tags: { [Op.contains]: [searchValue] } },
+                { '$brand.name$': { [Op.iLike]: `%${searchValue}%` } }
+            ]
         }
     });
     if (results.length > 0) {
         return results;
     } else {
-        return [];
+        throw new CustomError('no result were found', 404);
     }
 }
-export async function searchForProductsOrBrands(searchValue: string): Promise<Array<Products>> {
-    const products = await searchByProductNameOrTags(searchValue);
-    const brands = await searchByBrandName(searchValue);
-    //error should be added from feras
-    if (products.length < 1 && brands.length < 1) throw new Error('no result was found 204');
-    return [...products!, ...brands!];
-}
+// export async function searchForProductsOrBrands(searchValue: string): Promise<Array<Products>> {
+//     const products = await searchByProductNameOrTags(searchValue);
+//     const brands = await searchByBrandName(searchValue);
+//     if (products.length < 1 && brands.length < 1) throw new CustomError('no result were found', 404);
+//     return [...products!, ...brands!];
+// }
 export async function getCardOneProducts(): Promise<Array<Products>> {
     const x = await db.Products.findAll({
         attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
@@ -230,7 +229,8 @@ export async function getCardOneProducts(): Promise<Array<Products>> {
                 attributes: [
                     ['id', 'brandId'],
                     ['name', 'brandTitle']
-                ]
+                ],
+                as: 'brand'
             },
             {
                 model: db.Categories,
@@ -242,25 +242,26 @@ export async function getCardOneProducts(): Promise<Array<Products>> {
             }
         ],
         where: {
-            quantity: { [Op.lt]: 20 }
+            quantity: { [Op.lte]: 20 }
         }
     });
     if (x.length > 0) {
         return x;
     } else {
-        throw new Error('nothing');
+        throw new CustomError('no result were found', 404);
     }
 }
 export async function getCardTwoProducts(): Promise<Array<Products>> {
     const x = await db.Products.findAll({
-        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'rating'],
+        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
         include: [
             {
                 model: db.Brands,
                 attributes: [
                     ['id', 'brandId'],
                     ['name', 'brandTitle']
-                ]
+                ],
+                as: 'brand'
             },
             {
                 model: db.Categories,
@@ -278,7 +279,7 @@ export async function getCardTwoProducts(): Promise<Array<Products>> {
     if (x.length > 0) {
         return x;
     } else {
-        throw new Error('nothing');
+        throw new CustomError('no result were found', 404);
     }
 }
 export async function getCardThreeProducts(): Promise<Array<Products>> {
@@ -290,7 +291,8 @@ export async function getCardThreeProducts(): Promise<Array<Products>> {
                 attributes: [
                     ['id', 'brandId'],
                     ['name', 'brandTitle']
-                ]
+                ],
+                as: 'brand'
             },
             {
                 model: db.Categories,
@@ -308,7 +310,7 @@ export async function getCardThreeProducts(): Promise<Array<Products>> {
     if (x.length > 0) {
         return x;
     } else {
-        throw new Error('nothing');
+        throw new CustomError('no result were found', 404);
     }
 }
 export async function getProductsByCategoryId(id: number): Promise<Array<Products>> {
@@ -320,7 +322,8 @@ export async function getProductsByCategoryId(id: number): Promise<Array<Product
                 attributes: [
                     ['id', 'brandId'],
                     ['name', 'brandTitle']
-                ]
+                ],
+                as: 'brand'
             },
             {
                 model: db.Categories,
@@ -338,7 +341,7 @@ export async function getProductsByCategoryId(id: number): Promise<Array<Product
     if (x.length > 0) {
         return x;
     } else {
-        throw new Error('nothing');
+        throw new CustomError('no result were found', 404);
     }
 }
 export async function getProductsByBrandId(id: number): Promise<Array<Products>> {
@@ -351,6 +354,7 @@ export async function getProductsByBrandId(id: number): Promise<Array<Products>>
                     ['id', 'brandId'],
                     ['name', 'brandTitle']
                 ],
+                as: 'brand',
                 where: {
                     id
                 }
@@ -368,7 +372,7 @@ export async function getProductsByBrandId(id: number): Promise<Array<Products>>
     if (x.length > 0) {
         return x;
     } else {
-        throw new Error('nothing');
+        throw new CustomError('no result were found', 404);
     }
 }
 
@@ -385,14 +389,15 @@ export async function getNewArrivals(): Promise<Array<Products>> {
     const nowDate = new Date();
     const threeMonthsBefore = nowDate.setMonth(nowDate.getMonth() - 3);
     const x = await db.Products.findAll({
-        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'rating'],
+        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
         include: [
             {
                 model: db.Brands,
                 attributes: [
                     ['id', 'brandId'],
                     ['name', 'brandTitle']
-                ]
+                ],
+                as: 'brand'
             },
             {
                 model: db.Categories,
@@ -404,13 +409,47 @@ export async function getNewArrivals(): Promise<Array<Products>> {
             }
         ],
         where: {
-            createdAt: { [Op.gt]: threeMonthsBefore }
+            createdAt: { [Op.gte]: threeMonthsBefore }
         }
     });
     if (x.length > 0) {
         return x;
     } else {
-        throw new Error('nothing');
+        throw new CustomError('no result were found', 404);
+    }
+}
+export async function getNewArrivalsHome(): Promise<Array<Products>> {
+    const nowDate = new Date();
+    const threeMonthsBefore = nowDate.setMonth(nowDate.getMonth() - 3);
+    const x = await db.Products.findAll({
+        attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
+        include: [
+            {
+                model: db.Brands,
+                attributes: [
+                    ['id', 'brandId'],
+                    ['name', 'brandTitle']
+                ],
+                as: 'brand'
+            },
+            {
+                model: db.Categories,
+                attributes: [
+                    ['id', 'categoryId'],
+                    ['title', 'categoryTitle']
+                ],
+                through: { attributes: [] }
+            }
+        ],
+        limit: 4,
+        where: {
+            createdAt: { [Op.gte]: threeMonthsBefore }
+        }
+    });
+    if (x.length > 0) {
+        return x;
+    } else {
+        throw new CustomError('no result were found', 404);
     }
 }
 export async function getHandPickedCollections(id: number): Promise<Array<Products>> {
@@ -422,7 +461,8 @@ export async function getHandPickedCollections(id: number): Promise<Array<Produc
                 attributes: [
                     ['id', 'brandId'],
                     ['name', 'brandTitle']
-                ]
+                ],
+                as: 'brand'
             },
             {
                 model: db.Categories,
@@ -441,7 +481,7 @@ export async function getHandPickedCollections(id: number): Promise<Array<Produc
     if (x.length > 0) {
         return x;
     } else {
-        throw new Error('nothing');
+        throw new CustomError('no result were found', 404);
     }
 }
 
@@ -516,10 +556,9 @@ export async function updateUserReviewTransaction(productId: number, userId: num
         return true;
     } catch (error) {
         if (error instanceof CustomError) throw new CustomError(error.message, error.statusCode);
-        throw new CustomError("couldn't complete", 500);
+        throw new CustomError('Opps something went wrong', 500);
     }
 }
-
 //cart
 export async function reduceFromCart(productId: number, userId: number) {
     try {

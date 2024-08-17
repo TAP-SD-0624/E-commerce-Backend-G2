@@ -9,7 +9,7 @@ export async function findUserByEmail(email: string): Promise<Users> {
     if (user) {
         return user;
     } else {
-        throw new CustomError('User not found', 400);
+        throw new CustomError('User not found', 404);
     }
 }
 
@@ -51,24 +51,25 @@ export async function createUserDB(
 export async function getUserById(id: number): Promise<Users> {
     const user = await Users.findByPk(id);
     if (user) return user;
-    throw new CustomError('User not found', 400);
+    throw new CustomError('User not found', 404);
 }
 export async function updateUserById(id: number, firstName: string, lastName: string, phone: string, DOB: number, imageUrl: string) {
     try {
+        const oldUser = await getUserById(id);
         const user = await db.Users.update(
             {
-                firstName,
-                lastName,
-                phone: phone ?? '',
-                DOB: DOB ?? '1999-09-09',
-                imageUrl: imageUrl ?? ''
+                firstName: firstName || oldUser.dataValues.firstName,
+                lastName: lastName || oldUser.dataValues.lastName,
+                phone: phone || oldUser.dataValues.phone,
+                DOB: DOB || oldUser.dataValues.DOB,
+                imageUrl: imageUrl || oldUser.dataValues.imageUrl
             },
             {
                 where: { id }
             }
         );
     } catch (error) {
-        throw new CustomError('unable to update', 500);
+        throw new CustomError('unable to update user profile', 500);
     }
 }
 
@@ -80,6 +81,6 @@ export async function getUserProfile(id: number): Promise<Users> {
     if (user) {
         return user;
     } else {
-        throw new CustomError('unable to get profile', 400);
+        throw new CustomError('unable to get profile', 404);
     }
 }

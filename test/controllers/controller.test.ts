@@ -19,7 +19,6 @@ afterAll(async () => {
 describe('nothing', () => {
     it('should', async () => {
         const result = await request(app).get('/products/itemPage').query({ id: 1 });
-        // console.log(result.body.title);
         expect(result.status).toBe(500);
     });
 });

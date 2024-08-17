@@ -17,6 +17,8 @@ productRouter.get('/itemByCategory', validateId, PC.getItemByCategoryId);
 productRouter.get('/itemByBrand', validateId, PC.getItemByBrandId);
 productRouter.get('/handPickedCollection', validateId, PC.getHandPickedCollectionItems);
 productRouter.get('/productSearch', validateSearchValue, PC.searchInItems);
+productRouter.get('/newArrivals', PC.getNewArrivalsItems);
+
 //cards
 productRouter.get('/itemCardOne', PC.itemsCardOne);
 productRouter.get('/itemCardTwo', PC.itemsCardTwo);
