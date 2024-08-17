@@ -32,8 +32,7 @@ export const validateUser = [
             }));
 
             return res.status(422).json({
-                errors: errorObjects,
-                status: 424
+                errors: errorObjects
             });
         }
         next();
@@ -64,8 +63,7 @@ export const validateUpdateUser = [
                 message: err.msg
             }));
             return res.status(422).json({
-                errors: errorObjects,
-                status: 422
+                errors: errorObjects
             });
         }
         next();
@@ -91,8 +89,36 @@ export const validateLogin = [
             }));
 
             return res.status(422).json({
-                errors: errorObjects,
-                status: 422
+                errors: errorObjects
+            });
+        }
+        next();
+    }
+];
+export const loginValidate = [
+    body('email')
+        .notEmpty()
+        .withMessage('Email is required')
+        .isEmail()
+        .withMessage('Invalid email format')
+        .isString()
+        .bail()
+        .trim()
+        .normalizeEmail()
+        .custom(async (value) => {
+            if (!(await checkIfUserEmailExists(value))) {
+                throw new CustomError('E-mail doesnt exist', 401);
+            }
+        }),
+    body('password').notEmpty().withMessage('Password is required').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
+    (req: Request, res: Response, next: NextFunction) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const errorObjects = errors.array().map((err) => ({
+                message: err.msg
+            }));
+            return res.status(422).json({
+                errors: errorObjects
             });
         }
         next();
