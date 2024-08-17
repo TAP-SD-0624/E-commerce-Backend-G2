@@ -51,7 +51,7 @@ class Products extends Model<ProductsInterface> implements ProductsInterface {
         Products.hasMany(Images, { foreignKey: 'productId', as: 'imagesUrls' });
         Products.hasMany(Cart, { foreignKey: 'productId' });
         Products.hasMany(Wishlist, { foreignKey: 'productId' });
-        Products.belongsTo(Brands, { foreignKey: 'brandId' });
+        Products.belongsTo(Brands, { foreignKey: 'brandId', as: 'brand' });
         Products.belongsToMany(Categories, { through: ProductsCategories, foreignKey: 'productId' });
         Products.hasMany(ProductsCategories, { foreignKey: 'productId', as: 'categoriesIds' });
     }

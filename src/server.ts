@@ -7,6 +7,8 @@ import productRouter from './routes/productsRoutes';
 import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
+
+import { body } from 'express-validator';
 syncDatabase();
 export const app: Express = express();
 const server = createServer(app);

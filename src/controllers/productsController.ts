@@ -24,7 +24,7 @@ export const getItemByCategoryId = async (req: Request, res: Response, next: Nex
 export const searchInItems = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const searchValue: string = req.query.searchValue as string;
-        const x = await DBU.searchForProductsOrBrands(searchValue);
+        const x = await DBU.searchBar(searchValue);
         return res.send(x);
     } catch (error) {
         next(error);
@@ -55,7 +55,15 @@ export const itemsCardThree = async (req: Request, res: Response, next: NextFunc
         next(error);
     }
 };
-
+export const getNewArrivalsItems = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+    try {
+        const x = await DBU.getNewArrivals();
+        return res.send(x);
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
+};
 export const getItemByBrandId = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const id: number = Number(req.query.id);
