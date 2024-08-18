@@ -8,12 +8,14 @@ module.exports = {
             {
                 userId: 1,
                 productId: 1,
+                quantityOrdered: 3,
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
             {
                 userId: 1,
                 productId: 5,
+                quantityOrdered:0,
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -21,6 +23,7 @@ module.exports = {
             {
                 userId: 3,
                 productId: 2,
+                quantityOrdered: 2,
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
@@ -28,6 +31,7 @@ module.exports = {
             {
                 userId: 4,
                 productId: 4,
+                quantityOrdered: 0,
                 createdAt: new Date(),
                 updatedAt: new Date()
             }

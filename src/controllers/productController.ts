@@ -2,35 +2,35 @@ import { Request, Response, NextFunction } from 'express';
 import Products from "../database/models/products";
 import {Op} from "sequelize";
 
-export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
-    const {
-        brandId,
-        label,
-        description,
-        price,
-        discount,
-        title,
-        quantity,
-        imageUrl
-    } = req.body;
-    console.log("clicked");
-    try {
-        const product = await Products.create({
-            brandId,
-            label,
-            description,
-            price,
-            discount,
-            title,
-            quantity,
-            imageUrl
-        });
-    console.log(product);
-        res.status(201).json({ product });
-    } catch (error) {
-        next(error);
-    }
-};
+// export const createProduct = async (req: Request, res: Response, next: NextFunction) => {
+//     const {
+//         brandId,
+//         label,
+//         description,
+//         price,
+//         discount,
+//         title,
+//         quantity,
+//         imageUrl
+//     } = req.body;
+//     console.log("clicked");
+//     try {
+//         const product = await Products.create({
+//             brandId,
+//             label,
+//             description,
+//             price,
+//             discount,
+//             title,
+//             quantity,
+//             imageUrl
+//         });
+//     console.log(product);
+//         res.status(201).json({ product });
+//     } catch (error) {
+//         next(error);
+//     }
+// };
 
 export const deleteProductById = async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;

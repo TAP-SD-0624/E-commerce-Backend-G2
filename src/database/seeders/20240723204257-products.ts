@@ -24,7 +24,7 @@ module.exports = {
             //         brandId: 1,
             //         tags: ['black', 'women'],
             //         rating: 3,
-            //         orders: 7,
+            //         unitsSold: 7,
             //         createdAt: new Date(),
             //         updatedAt: new Date()
             //     },
@@ -39,7 +39,7 @@ module.exports = {
             //         brandId: 1,
             //         tags: ['black', 'women'],
             //         rating: 3,
-            //         orders: 7,
+            //         unitsSold: 7,
             //         createdAt: new Date(),
             //         updatedAt: new Date()
             //     },
@@ -54,7 +54,7 @@ module.exports = {
             //         brandId: 1,
             //         tags: ['black', 'women'],
             //         rating: 3,
-            //         orders: 7,
+            //         unitsSold: 7,
             //         createdAt: new Date(),
             //         updatedAt: new Date()
             //     },
@@ -69,7 +69,7 @@ module.exports = {
             //         brandId: 1,
             //         tags: ['black', 'women'],
             //         rating: 3,
-            //         orders: 7,
+            //         unitsSold: 7,
             //         createdAt: new Date(),
             //         updatedAt: new Date()
             //     },
@@ -84,7 +84,7 @@ module.exports = {
             //         brandId: 1,
             //         tags: ['black', 'women'],
             //         rating: 3,
-            //         orders: 7,
+            //         unitsSold: 7,
             //         createdAt: new Date(),
             //         updatedAt: new Date()
             //     },
@@ -99,7 +99,7 @@ module.exports = {
             //         brandId: 1,
             //         tags: ['black', 'women'],
             //         rating: 3,
-            //         orders: 7,
+            //         unitsSold: 7,
             //         createdAt: new Date(),
             //         updatedAt: new Date()
             //     },
@@ -114,7 +114,7 @@ module.exports = {
             //         brandId: 1,
             //         tags: ['black', 'women'],
             //         rating: 3,
-            //         orders: 7,
+            //         unitsSold: 7,
             //         createdAt: new Date(),
             //         updatedAt: new Date()
             //     },
@@ -129,7 +129,7 @@ module.exports = {
             //         brandId: 1,
             //         tags: ['black', 'women'],
             //         rating: 3,
-            //         orders: 7,
+            //         unitsSold: 7,
             //         createdAt: new Date(),
             //         updatedAt: new Date()
             //     },
@@ -144,7 +144,7 @@ module.exports = {
             //         brandId: 1,
             //         tags: ['black', 'women'],
             //         rating: 3,
-            //         orders: 7,
+            //         unitsSold: 7,
             //         createdAt: new Date(),
             //         updatedAt: new Date()
             //     },
@@ -159,7 +159,7 @@ module.exports = {
             //         brandId: 1,
             //         tags: ['black', 'women'],
             //         rating: 3,
-            //         orders: 7,
+            //         unitsSold: 7,
             //         createdAt: new Date(),
             //         updatedAt: new Date()
             //     }

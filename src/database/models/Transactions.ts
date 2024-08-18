@@ -6,10 +6,10 @@ interface TransactionsInterface {
     id?: number;
     userId: number;
     paymentStatus: string;
-    shipingStatus: string;
+    shippingStatus: string;
     updatedAt?: Date;
     createdAt?: Date;
-    shipingAddress: string;
+    shippingAddress: string;
     totalPrice: number;
 }
 
@@ -17,9 +17,9 @@ class Transactions extends Model<TransactionsInterface> implements TransactionsI
     declare id?: number;
     declare userId: number;
     declare paymentStatus: string;
-    declare shipingStatus: string;
+    declare shippingStatus: string;
     declare totalPrice: number;
-    declare shipingAddress: string;
+    declare shippingAddress: string;
     declare readonly updatedAt?: Date;
     declare readonly createdAt?: Date;
     static associate() {
@@ -38,10 +38,10 @@ Transactions.init(
         paymentStatus: {
             type: DataTypes.STRING
         },
-        shipingStatus: {
+        shippingStatus: {
             type: DataTypes.STRING
         },
-        shipingAddress: {
+        shippingAddress: {
             type: DataTypes.STRING
         },
         totalPrice: {

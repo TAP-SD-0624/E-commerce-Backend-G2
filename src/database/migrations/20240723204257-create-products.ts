@@ -40,6 +40,11 @@ module.exports = {
                 type: new Sequelize.INTEGER(),
                 allowNull: false
             },
+            unitsSold: {
+                type: new Sequelize.INTEGER(),
+                allowNull: false,
+                defaultValue: 0
+            },
             imageUrl: {
                 type: new Sequelize.STRING(),
                 allowNull: false
