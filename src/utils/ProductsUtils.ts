@@ -56,7 +56,9 @@ export async function createNewProductTransaction(
     categoriesIdsList: Array<number>,
     imagesUrlList: Array<string>,
     tags: Array<string>,
-    discount?: number
+    discount?: number,
+    rating?: number,
+    unitsSold?: number
 ): Promise<void> {
     const bulkCategories: Array<{}> = categoriesIdsList.map((i: number): {} => {
         return { categoryId: i };
@@ -78,7 +80,9 @@ export async function createNewProductTransaction(
                     title,
                     categoriesIds: bulkCategories,
                     imagesUrls: bulkImages,
-                    tags
+                    tags,
+                    rating,
+                    unitsSold
                 },
                 {
                     include: [
@@ -91,6 +95,7 @@ export async function createNewProductTransaction(
             );
         });
     } catch (error) {
+        console.log(error);
         throw new CustomError('Opps something went wrong', 500);
     }
 }
@@ -104,8 +109,6 @@ export async function deleteProductById(productId: number): Promise<void> {
         throw new CustomError('Opps something went wrong', 500);
     }
 }
-
-/////////////////
 export async function getProductPageById(productId: number): Promise<Products> {
     const product = await db.Products.findByPk(productId, {
         attributes: ['id', 'title', 'label', 'description', 'price', 'discount', 'imageUrl', 'rating', 'unitsSold', 'quantity', 'totalRatings'],
@@ -149,36 +152,6 @@ export async function getProductPageById(productId: number): Promise<Products> {
         throw new CustomError('Product was not found', 404);
     }
 }
-// export async function searchByBrandName(searchValue: string): Promise<Array<Products>> {
-//     const results = await db.Products.findAll({
-//         attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
-//         include: [
-//             {
-//                 model: db.Brands,
-//                 attributes: [
-//                     ['id', 'brandId'],
-//                     ['name', 'brandTitle']
-//                 ],
-//                 where: {
-//                     name: { [Op.iLike]: `%${searchValue}%` }
-//                 }
-//             },
-//             {
-//                 model: db.Categories,
-//                 attributes: [
-//                     ['id', 'categoryId'],
-//                     ['title', 'categoryTitle']
-//                 ],
-//                 through: { attributes: [] }
-//             }
-//         ]
-//     });
-//     if (results.length > 0) {
-//         return results;
-//     } else {
-//         return [];
-//     }
-// }
 export async function searchBar(searchValue: string): Promise<Array<Products>> {
     const results = await db.Products.findAll({
         attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
@@ -214,12 +187,6 @@ export async function searchBar(searchValue: string): Promise<Array<Products>> {
         throw new CustomError('no result were found', 404);
     }
 }
-// export async function searchForProductsOrBrands(searchValue: string): Promise<Array<Products>> {
-//     const products = await searchByProductNameOrTags(searchValue);
-//     const brands = await searchByBrandName(searchValue);
-//     if (products.length < 1 && brands.length < 1) throw new CustomError('no result were found', 404);
-//     return [...products!, ...brands!];
-// }
 export async function getCardOneProducts(): Promise<Array<Products>> {
     const x = await db.Products.findAll({
         attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
@@ -598,5 +565,22 @@ export async function toggleWishList(productId: number, userId: number) {
         }
     } catch (error) {
         throw new CustomError("couldn't complete", 500);
+    }
+}
+//testing
+export async function createCategory(title: string, imageUrl: string) {
+    try {
+        await db.Categories.create({ title, imageUrl });
+    } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
+    }
+}
+export async function createBrand(name: string, imageUrl: string) {
+    try {
+        await db.Brands.create({ name, imageUrl });
+    } catch (error) {
+        const err = error as Error;
+        console.log(err.message);
     }
 }

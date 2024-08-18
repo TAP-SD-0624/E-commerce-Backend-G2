@@ -8,8 +8,7 @@ export const createUser = (role: string) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         const { firstName, lastName, email, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
         try {
-            const hashedPassword = await bcrypt.hash(String(password), 10);
-            const user = await createUserDB(role, firstName, lastName, email, hashedPassword, phone, DOB, imageUrl);
+            const user = await createUserDB(role, firstName, lastName, email, password, phone, DOB, imageUrl);
             if (user) {
                 const token = generateToken(user.dataValues.id as number, user.dataValues.role);
                 const { password, role, ...userWithoutSensitiveData } = user.dataValues;
@@ -42,6 +41,7 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
             throw new CustomError('Invalid password', 401);
         }
     } catch (err) {
+        console.log(err);
         next(err);
     }
 };

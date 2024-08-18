@@ -1,6 +1,8 @@
 import { db } from '../database';
 import Users from '../database/models/users';
 import { CustomError } from '../middleware/customError';
+import { BelongsToManyCreateAssociationMixinOptions } from 'sequelize';
+import bcrypt from 'bcrypt';
 
 export async function findUserByEmail(email: string): Promise<Users> {
     const user = await db.Users.findOne({
@@ -33,11 +35,12 @@ export async function createUserDB(
     imageUrl: string
 ) {
     try {
+        const hashedPassword = await bcrypt.hash(String(password), 10);
         const result = await db.Users.create({
             firstName,
             lastName,
             email,
-            password,
+            password: hashedPassword,
             phone,
             DOB,
             imageUrl,
