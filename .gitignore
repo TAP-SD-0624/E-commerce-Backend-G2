@@ -12,7 +12,7 @@ Thumbs.db
 *.bak
 build/
 dist/
-
+coverage
 node_modules
 .env
 # .env.local
