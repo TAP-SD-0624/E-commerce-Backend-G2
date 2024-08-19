@@ -1,41 +1,19 @@
 import { Request, Response, NextFunction } from 'express';
-import { Op, Transaction } from 'sequelize';
-import { db } from '../database';
-import sequelize from '../database/connection';
-import Users from '../database/models/users';
-import Address from '../database/models/address';
-import Cart from '../database/models/cart';
-import Products from '../database/models/products';
-import Orders from '../database/models/orders';
-import Transactions from '../database/models/Transactions';
 import { Card, NewAddress, CheckoutData, CartUser, newOrder } from '../utils/interfaces';
 
 
-// const user: CartUser = {
-//     id: 1,
-//     firstName: "Emily",
-//     lastName: "Johnson",
-//     email: "emily.johnson@x.dummyjson.com",
-//     password: "emilyspass",
-//     phone: "+81 965-431-3024",
-//     imageUrl: "",
-//     role: "user",
-// };
 
 // Payment using a credit card user can have ccv saved and can confirm ccv
-export const creditCardInformation = (req: Request, res: Response, next: NextFunction): Response => {
-    const { cardHolder, cardNumber, expiration, ccv, amount } = req.body as Card;
-    const balance = 5000;
-
-    if (!cardHolder || !cardNumber || !expiration || !ccv || !amount) {
-        return res.status(400).json({ message: 'Please enter all required fields' });
-    }
-    if (balance < amount) {
-        return res.status(400).json({ message: 'Transaction could not go through, insufficient balance' });
-    }
-    const newBalance = balance - amount;
-    return res.status(200).json({ message: 'Payment successful', newBalance });
-};
+// export const getCreditCardInformation = (req: Request, res: Response, next: NextFunction): number=> {
+//     const { cardHolder, cardNumber, expiration, ccv, amount } = req.body as Card;
+//
+//     if (!cardHolder || !cardNumber || !expiration || !ccv || !amount) {
+//         res.status(400).json({ message: 'Please enter all required fields' });
+//     }
+//
+//    res.status(200).json({ message: 'Payment successful', amount });
+//     return amount;
+// };
 
 // // Create a payment
 // export const createPayment = (req: Request, res: Response, next: NextFunction): Response => {

@@ -3,18 +3,19 @@ import Router from 'express';
 
 import {
 
-    createAddress,
+    //createAddress,
     createOrder,
     createPayment,
-    createTransaction,
+    createTransaction, decreaseProductQuantity,
     GetShoppingCart
 } from '../controllers/cashOut';
 
 const transactionRouter = Router();
 
 transactionRouter.get('/:userId', GetShoppingCart);
-transactionRouter.post('/address/:userId', createAddress);
-transactionRouter.post('/payment/:userId', createPayment); // Assuming this handles payment logic
+//transactionRouter.post('/address/:userId', createAddress);
+transactionRouter.post('/payment/:userId', createPayment);
+transactionRouter.post('/updateQuantity/:userId', decreaseProductQuantity);
 //transactionRouter.post('/checkout/:userId', completeCheckout);
 
 
