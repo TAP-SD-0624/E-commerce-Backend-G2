@@ -94,7 +94,9 @@ Products.init(
         },
         quantity: {
             type: new DataTypes.INTEGER(),
-            allowNull: false
+            allowNull: false,
+            defaultValue: 0,
+
         },
         imageUrl: {
             type: new DataTypes.STRING(),
