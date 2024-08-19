@@ -62,7 +62,6 @@ export interface newOrder {
     productId: number;
     transactionId: number;
     addressId:number,
-
 }
 
 // Converts JSON strings to/from your types

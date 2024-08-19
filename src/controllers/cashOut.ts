@@ -147,18 +147,6 @@ export const createOrder = async (userId: number, productId: number, transaction
     }
 };
 
-
-// export const updateUnitsSold = async (productId: number, unitsSold: number) => {
-//     try {
-//         const product = await Products.findByPk(productId);
-//         if (product) {
-//             product.unitsSolid += unitsSold;
-//             await product.save();
-//         }
-//     } catch (error) {
-//         console.error('Error updating number of products sold:', error);
-//     }
-// };
 export const deleteCart = async (req: Request, res: Response, next: NextFunction) => {
     const { userId, cartId } = req.body;
     try {
@@ -175,9 +163,9 @@ export const deleteCart = async (req: Request, res: Response, next: NextFunction
     }
 };
 
-export const decreaseProductQuantity = async (req: Request, res: Response, next: NextFunction) => {
+export const updateUnitsSold = async (req: Request, res: Response, next: NextFunction) => {
     const { userId } = req.params;
-    const{ quantity} = req.body;
+    const { quantity } = req.body;
     if (!userId) {
         res.status(400).json({ message: 'User id is required' });
     }
@@ -187,14 +175,44 @@ export const decreaseProductQuantity = async (req: Request, res: Response, next:
         for (const product of cart) {
             const productData = await Products.findOne({ where: { id: product.productId } });
             if (productData) {
-                console.log(productData.unitsSold)
-                const newQuantity = productData.quantity - quantity;
                 const newUnitsSold = productData.unitsSold + quantity;
                 await productData.update(
-                    { quantity: newQuantity, unitsSold: newUnitsSold },
+                    { unitsSold: newUnitsSold },
                     { where: { id: product.productId } }
                 );
-        res.json({ message: 'Product quantity updated successfully', newQuantity, newUnitsSold });
+                res.json({ message: 'Product number of units sold updated successfully', newUnitsSold });
+            } else {
+                console.log('product not found');
+            }
+        }
+        // Add a success response here if needed
+    } catch (error) {
+        console.error('Error updating number of units sold:', error);
+        // Add an error response here
+    }
+};
+
+
+
+export const decreaseProductQuantity = async (req: Request, res: Response, next: NextFunction) => {
+    const { userId } = req.params;
+    const { quantity } = req.body;
+    if (!userId) {
+        res.status(400).json({ message: 'User id is required' });
+    }
+    const cart = await Cart.findAll({ where: { userId } });
+
+    try {
+        for (const product of cart) {
+            const productData = await Products.findOne({ where: { id: product.productId } });
+            if (productData) {
+                console.log(productData.unitsSold);
+                const newQuantity = productData.quantity - quantity;
+                await productData.update(
+                    { quantity: newQuantity },
+                    { where: { id: product.productId } }
+                );
+                res.json({ message: 'Product stock quantity updated successfully', newQuantity});
             } else {
                 console.log('product not found');
             }
