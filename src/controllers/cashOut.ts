@@ -26,11 +26,12 @@ export const GetShoppingCart = async (req: Request, res: Response, next: NextFun
                 {
                     model: Products,
                     as: 'Product',
-                    attributes: ['id', 'label', 'description', 'price', 'imageUrl', 'unitsSold']
+                    attributes: ['id', 'label', 'description', 'price', 'imageUrl', 'quantity']
                 }
 
             ]
         });
+
         res.status(200).json(cartItems);
         return cartItems;
     } catch (error) {
