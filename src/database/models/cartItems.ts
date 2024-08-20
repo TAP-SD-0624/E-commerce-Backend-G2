@@ -22,7 +22,7 @@ class CartItems extends Model<CartItemsInterface> implements CartItemsInterface 
 
     static associate() {
         CartItems.belongsTo(Cart, { foreignKey: 'cartId' });
-        CartItems.belongsTo(Products, { foreignKey: 'productId' });
+        CartItems.belongsTo(Products, { as: 'Product', foreignKey: 'productId' });
     }
 }
 

@@ -7,7 +7,7 @@ import {
     createPayment,
     createTransaction, decreaseProductQuantity,
     GetShoppingCart, updateUnitsSold
-} from '../controllers/cashOut';
+} from '../controllers/cashOutController';
 
 const transactionRouter = Router();
 

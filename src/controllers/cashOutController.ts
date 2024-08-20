@@ -67,28 +67,26 @@ export const createAddress = async (req: Request, res: Response, next: NextFunct
     }
 };
 
-
-export const getCreditCardInformation = (req: Request, res: Response, next: NextFunction): Promise<number> => {
+export const getCreditCardInformation = (req: Request, res: Response, next: NextFunction): number=> {
     const { cardHolder, cardNumber, expiration, ccv, amount } = req.body as Card;
 
     if (!cardHolder || !cardNumber || !expiration || !ccv || !amount) {
-        return Promise.reject(new Error('Please enter all required fields'));
+        res.status(500).json({message:'Please enter all required fields'});
     }
-
-    return Promise.resolve(amount);
+   return amount;
 };
 
 export const createPayment = async (req: Request, res: Response, next: NextFunction) => {
-    let balance: number = 5000;
+    let balance: number = 900;
 
     try {
-        const amount = await getCreditCardInformation(req, res, next);
+        const amount = getCreditCardInformation(req, res, next);
         if (balance < amount)
-            return res.status(400).json({ message: 'Insufficient balance' });
+            return res.status(400).json({ message: 'Insufficient balance, please check your credit card or use a different one' });
         balance -= amount;
-        return res.status(200).json({ message: 'Payment processed', balance });
+        return res.status(200).json({ message: 'Payment processed successfully', balance });
     } catch (error) {
-        return res.status(400).json({ message: 'error creating payment, please check your credit card information' });
+        return res.status(400).json({ message: 'Error creating payment, please check your credit card information' });
     }
 };
 export const createTransaction = async (userId: number, totalPrice: number, shippingAddress: string, paymentStatus: string = 'pending', shippingStatus: string = 'pending') => {
@@ -181,11 +179,12 @@ export const decreaseProductQuantity = async (req: Request, res: Response, next:
             const productData = await Products.findOne({ where: { id: product.productId } });
             if (productData) {
                 const newQuantity = productData.quantity - quantity;
+                if(newQuantity < 0) return res.json({message: "Not enough stock, please adjust your cart"});
                 await productData.update(
                     { quantity: newQuantity },
                     { where: { id: product.productId } }
                 );
-                res.json({ message: 'Product stock quantity updated successfully' });
+                res.json({ message: 'Product stock quantity updated successfully, new product quantity:', newQuantity , productData});
             } else {
                 console.log('product not found');
             }
@@ -196,6 +195,7 @@ export const decreaseProductQuantity = async (req: Request, res: Response, next:
         // Add an error response here
     }
 };
+
 // export const completeCheckout = async (req: Request, res: Response, next: NextFunction) => {
 //     const userId = parseInt(req.params.userId);
 //
