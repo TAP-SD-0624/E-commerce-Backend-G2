@@ -39,15 +39,10 @@ export const validateUser = [
     }
 ];
 export const validateUpdateUser = [
-    body('firstName').notEmpty().withMessage('First name is required').isString().withMessage('First name must be a string').trim().escape(),
+    body('firstName').optional().isString().withMessage('First name must be a string').trim().escape(),
 
-    body('lastName').notEmpty().withMessage('Last name is required').isString().withMessage('Last name must be a string').trim().escape(),
-    body('password')
-        .notEmpty()
-        .withMessage('Password is required')
-        .isLength({ min: 6 })
-        .withMessage('Password must be at least 6 characters long')
-        .trim(),
+    body('lastName').optional().isString().withMessage('Last name must be a string').trim().escape(),
+    body('password').optional().isLength({ min: 6 }).withMessage('Password must be at least 6 characters long').trim(),
 
     body('phone').optional().isString().withMessage('Phone number must be a string').trim().escape(),
 
