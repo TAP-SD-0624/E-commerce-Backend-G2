@@ -42,24 +42,26 @@ export const GetShoppingCart = async (req: Request, res: Response, next: NextFun
 export const createAddress = async (req: Request, res: Response, next: NextFunction) => {
     const { fullName, mobile, street, city, state, zipcode, userId } = req.body as NewAddress;
 
-    const user = await Address.findAll({
+    const existingUserAddress = await Address.findAll({
         where: { userId }
     });
-    if (!user) {
-        res.status(404).json({ error: 'User not found' });
+    console.log(existingUserAddress);
+    if (!existingUserAddress) {
+        res.status(404).json({ error: 'No address found' });
     }
 
     if (req.body) {
         const newAddress = await Address.create({ fullName, mobile, street, city, state, zipcode, userId });
-        res.json(newAddress.id);
+        res.json({ message: 'New addressId is:', addressId: newAddress.id });
 
     } else {
         const address = await Address.findOne({ where: { userId } });
-        if(!address){
+        if (!address) {
 
             res.status(404).json({ error: 'Address not found' });
-        }
-        else{ res.json(address.id)
+        } else {
+            res.json({ message: 'AddressId is:', addressId: address.id });
+
         }
     }
 };
