@@ -22,7 +22,7 @@ module.exports = {
                 onDelete: 'SET NULL'
             },
             rating: {
-                type: Sequelize.INTEGER,
+                type: Sequelize.FLOAT,
                 allowNull: false
             },
             review: {

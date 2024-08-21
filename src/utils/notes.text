@@ -1,45 +1,59 @@
 /// task amr
-1. create admin token
-2. create multiple products
 //create brand
 //create category
-//deleteProduct
-//updateProduct
-3. integration Test :
-    1.itemPage
-    2.itemByCategory
-    3.itemByBrand
-    4.handPickedCollection
-    5.productSearch
-    6.newArrivals
-    7.itemCardOne
-    8.itemCardTwo
-    9.itemCardThree
-    10.test Home Page route
+1. create admin token-
 
-4. Validation Test / token:
-    1.itemPage
-    2.itemByCategory
-    3.itemByBrand
-    4.handPickedCollection
-    5.productSearch
-    6.newArrivals
-    7.itemCardOne
-    8.itemCardTwo
-    9.itemCardThree
-    10.addItemToCart
-    11.reduceItemFromCart
-    12.removeItemFromCart
-    13.toggleItemInWishList
-    14.upsertUserReview
-    15.createNewProduct
-    16.deleteProduct
-    17.updateProduct
-    18.register
-    19.registerAdmin
-    20.login
-    21.update
-    22.profile
+2. createproduct --
+3. deleteProduct--
+4. updateProduct--
+
+5. integration Test :--
+    1.itemPage--
+    2.itemByCategory--
+    3.itemByBrand--
+    4.handPickedCollection--
+    5.productSearch--
+    6.newArrivals--
+    7.itemCardOne--
+    8.itemCardTwo--
+    9.itemCardThree--
+    10.test Home Page route--
+
+6. Validation Test / token:
+
+
+    1.itemPage-
+    2.itemByCategory-
+    3.itemByBrand-
+    4.handPickedCollection-
+
+
+    5.productSearch-
+
+
+    10.addItemToCart-
+    11.reduceItemFromCart-
+    12.removeItemFromCart-
+    13.toggleItemInWishList-
+    16.deleteProduct-
+
+
+    14.upsertUserReview--
+
+
+    15.createNewProduct--
+
+
+    17.updateProduct--
+
+
+    18.register--
+    19.registerAdmin--
+
+    20.login--
+
+    21.update--
+  
 
 /// task feras
 1. register user

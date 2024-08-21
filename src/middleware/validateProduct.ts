@@ -13,7 +13,7 @@ export const validateId = [
     }
 ];
 export const validateSearchValue = [
-    query('searchValue').isString().notEmpty(),
+    query('searchValue').isString().notEmpty().trim(),
     (req: Request, res: Response, next: NextFunction): Response | void => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -35,6 +35,7 @@ export const validateProductId = [
         }
     }
 ];
+
 export const validateUserReview = [
     body('productId').notEmpty().isNumeric().isInt({ min: 1 }),
     body('newReview').optional().isString().isLength({ min: 3, max: 200 }).not().matches(/^\s*$/).withMessage('cant be just spaces').trim(),
@@ -42,7 +43,7 @@ export const validateUserReview = [
     (req: Request, res: Response, next: NextFunction): Response | void => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).send(errors.mapped());
+            return res.status(422).send(errors.mapped());
         } else {
             next();
         }
@@ -73,7 +74,7 @@ export const validateProduct = [
         .trim()
         .escape(),
     body('price').isFloat({ min: 1 }).withMessage('Price must be a non-negative number'),
-    body('discount').optional().isFloat({ min: 0 }).withMessage('Discount must be a non-negative number'),
+    body('discount').isFloat({ min: 0 }).withMessage('Discount must be a non-negative number'),
     body('title')
         .notEmpty()
         .withMessage('required')
@@ -89,7 +90,7 @@ export const validateProduct = [
     body('imageUrl').notEmpty().isURL().withMessage('Invalid URL format').trim(),
     body('categoriesIdsList').notEmpty().isArray({ min: 1, max: 10 }),
     body('imagesUrlList').notEmpty().isArray({ min: 1, max: 10 }),
-
+    body('tags').notEmpty().isArray({ min: 1, max: 10 }),
     (req: Request, res: Response, next: NextFunction) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -99,7 +100,7 @@ export const validateProduct = [
     }
 ];
 export const validateProductUpdate = [
-    body('id').notEmpty().isNumeric().isInt({ min: 1 }),
+    body('productId').notEmpty().isNumeric().isInt({ min: 1 }),
     body('brandId').optional().isInt({ min: 1 }).withMessage('Brand ID must be a positive integer'),
     body('label')
         .optional()

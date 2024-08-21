@@ -10,13 +10,13 @@ beforeAll(async () => {
             await sequelize.sync({ alter: true });
         })
         .catch(() => console.log('couldnt connect to the database for testing'));
-    server.listen(3001, () => {
-        console.log(`server is listening at port ${3001}`);
+    server.listen(process.env.PORT || 3000, () => {
+        console.log(`server is listening at port ${process.env.PORT || 3000}`);
     });
 });
 afterAll(async () => {
     shutdown();
-    await sequelize.sync({ force: true, match: /_test$/ });
+    // await sequelize.sync({ force: true, match: /_test$/ });
     await sequelize.close();
 });
 
@@ -30,8 +30,6 @@ describe('integrate user and gest tasks', () => {
             .post('/user/login')
             .set({ 'Content-type': 'Application/json' })
             .send({ email: 'amr@gmail.com', password: '123456' });
-        console.log(resp.body.token);
-
         expect(resp.status).toEqual(201);
     });
 });

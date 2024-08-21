@@ -47,7 +47,7 @@ Ratings.init(
             onDelete: 'SET NULL'
         },
         rating: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.FLOAT,
             allowNull: false
         },
         review: {

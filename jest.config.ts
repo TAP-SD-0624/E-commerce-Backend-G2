@@ -7,6 +7,6 @@ module.exports = {
         '^.+.tsx?$': ['ts-jest', {}]
     },
     preset: 'ts-jest',
-    maxWorkers: 8,
+    maxWorkers: 1,
     detectOpenHandles: true
 };

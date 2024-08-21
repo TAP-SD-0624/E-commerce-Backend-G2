@@ -1,725 +1,425 @@
-import sequelize from '../src/database/connection';
 import { shutdown, app, server } from '../src/server';
 import request from 'supertest';
-import { registerTE } from '../src/utils/testErorrs';
+import { generateToken } from '../src/utils/tokenUtils';
+let adminToken: string;
+let userToken: string;
 beforeAll(async () => {
-    server.listen(3002, () => {
-        console.log(`server is listening at port ${3002}`);
+    server.listen(process.env.PORT || 3000, () => {
+        console.log(`server is listening at port ${process.env.PORT || 3000}`);
     });
+    adminToken = generateToken(999, 'admin');
+    userToken = generateToken(999, 'user');
 });
 afterAll(async () => {
     shutdown();
 });
 
-describe('register route', () => {
-    it('should response with 404', async () => {
-        const resp = await request(app).post('/user/register');
-        expect(resp.body).toEqual(registerTE);
+describe('validateId', () => {
+    /* target routes
+    1.itemPage
+    2.itemByCategory
+    3.itemByBrand
+    4.handPickedCollection
+    */
+    it('should response with 422 because of string', async () => {
+        const resp = await request(app).get('/products/itemPage').query({ id: 'asd' });
         expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            id: {
+                type: 'field',
+                value: 'asd',
+                msg: 'Invalid value',
+                path: 'id',
+                location: 'query'
+            }
+        });
+    });
+    it('should response with 422 because of empty', async () => {
+        const resp = await request(app).get('/products/itemByCategory').query({ id: '' });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            id: {
+                type: 'field',
+                value: '',
+                msg: 'Invalid value',
+                path: 'id',
+                location: 'query'
+            }
+        });
+    });
+    it('should response with 422 because of 0 value', async () => {
+        const resp = await request(app).get('/products/handPickedCollection').query({ id: 0 });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            id: {
+                type: 'field',
+                value: '0',
+                msg: 'Invalid value',
+                path: 'id',
+                location: 'query'
+            }
+        });
     });
 });
-
-// // describe('Get Products By Category Id ', () => {
-// //     const mockProducts = [
-// //         {
-// //             id: 1,
-// //             title: 'Essence',
-// //             label: 'Essence Mascara Lash Princess',
-// //             price: 10,
-// //             discount: 7,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png',
-// //             rating: 3,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 1,
-// //                 brandTitle: 'Essence'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 2,
-// //             title: 'Glamour Beauty',
-// //             label: 'Eyeshadow Palette with Mirror',
-// //             price: 20,
-// //             discount: 6,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png',
-// //             rating: 3.333,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 2,
-// //                 brandTitle: 'Glamour Beauty'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 3,
-// //             title: 'Velvet Touch',
-// //             label: 'Powder Canister',
-// //             price: 15,
-// //             discount: 18,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png',
-// //             rating: 4.666,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 3,
-// //                 brandTitle: 'Velvet Touch'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 4,
-// //             title: 'Chic Cosmetics',
-// //             label: 'Red Lipstick',
-// //             price: 13,
-// //             discount: 19,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png',
-// //             rating: 4.666,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 4,
-// //                 brandTitle: 'Chic Cosmetics'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 5,
-// //             title: 'Nail Couture',
-// //             label: 'Red Nail Polish',
-// //             price: 9,
-// //             discount: 2,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/thumbnail.png',
-// //             rating: 4.666,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 5,
-// //                 brandTitle: 'Nail Couture'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         }
-// //     ];
-
-// //     beforeEach(() => {
-// //         jest.clearAllMocks();
-// //     });
-
-// //     it('should return products for a valid category ID', async () => {
-// //         const response = await request(app).get('/products/itemByCategory').query({ id: 1 });
-
-// //         expect(response.status).toBe(200);
-// //         expect(response.body).toEqual(mockProducts);
-// //     });
-
-// //     it('should return a 404 error if no category are found', async () => {
-// //         const response = await request(app).get('/products/itemByCategory').query({ id: 16 });
-
-// //         expect(response.status).toBe(404);
-// //         expect(response.body).toEqual({});
-// //     });
-
-// //     it('should return a 422 error if the id not valid', async () => {
-// //         const response = await request(app).get('/products/itemByCategory').query({ id: 'K' });
-
-// //         expect(response.status).toBe(422);
-// //         expect(response.body).toEqual({
-// //             id: {
-// //                 type: 'field',
-// //                 value: 'K',
-// //                 msg: 'Invalid value',
-// //                 path: 'id',
-// //                 location: 'query'
-// //             }
-// //         });
-// //     });
-// // });
-
-// // describe('Get Products by Brand Id', () => {
-// //     const mockProducts = [
-// //         {
-// //             id: 1,
-// //             title: 'Essence',
-// //             label: 'Essence Mascara Lash Princess',
-// //             price: 10,
-// //             discount: 7,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png',
-// //             rating: 3,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 1,
-// //                 brandTitle: 'Essence'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         }
-// //     ];
-// //     beforeEach(() => {
-// //         jest.clearAllMocks();
-// //     });
-
-// //     it('should return products for a valid Brand ID', async () => {
-// //         const response = await request(app).get('/products/itemByBrand').query({ id: 1 });
-
-// //         expect(response.status).toBe(200);
-// //         expect(response.body).toEqual(mockProducts);
-// //     });
-
-// //     it('should return a 404 error if no Brand are found', async () => {
-// //         const response = await request(app).get('/products/itemByBrand').query({ id: 12 });
-
-// //         expect(response.status).toBe(404);
-// //         expect(response.body).toEqual({});
-// //     });
-
-// //     it('should return a 422 error if the id not valid', async () => {
-// //         const response = await request(app).get('/products/itemByBrand').query({ id: ' ' });
-
-// //         expect(response.status).toBe(422);
-// //         expect(response.body).toEqual({
-// //             id: {
-// //                 type: 'field',
-// //                 value: ' ',
-// //                 msg: 'Invalid value',
-// //                 path: 'id',
-// //                 location: 'query'
-// //             }
-// //         });
-// //     });
-// // });
-
-// // describe('Get hand Picked Collection Where the product have rating more than 4.5 and the price is more than 100', () => {
-// //     const mockProducts = [
-// //         {
-// //             id: 3,
-// //             title: 'Velvet Touch',
-// //             label: 'Powder Canister',
-// //             price: 15,
-// //             discount: 18,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png',
-// //             rating: 4.666,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 3,
-// //                 brandTitle: 'Velvet Touch'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 4,
-// //             title: 'Chic Cosmetics',
-// //             label: 'Red Lipstick',
-// //             price: 13,
-// //             discount: 19,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png',
-// //             rating: 4.666,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 4,
-// //                 brandTitle: 'Chic Cosmetics'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 5,
-// //             title: 'Nail Couture',
-// //             label: 'Red Nail Polish',
-// //             price: 9,
-// //             discount: 2,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/thumbnail.png',
-// //             rating: 4.666,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 5,
-// //                 brandTitle: 'Nail Couture'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         }
-// //     ];
-
-// //     beforeEach(() => {
-// //         jest.clearAllMocks();
-// //     });
-
-// //     it('should return products which meet the required qualifications', async () => {
-// //         const response = await request(app).get('/products/handPickedCollection').query({ id: 1 });
-
-// //         expect(response.status).toBe(200);
-// //         expect(response.body).toEqual(mockProducts);
-// //     });
-
-// //     it('should return a 404 error if there is no products meet the required qualifications', async () => {
-// //         const response = await request(app).get('/products/handPickedCollection').query({ id: 2 });
-
-// //         expect(response.status).toBe(404);
-// //         expect(response.body).toEqual({});
-// //     });
-
-// //     it('should return a 422 error if the id not valid', async () => {
-// //         const response = await request(app).get('/products/handPickedCollection').query({ id: '*' });
-
-// //         expect(response.status).toBe(422);
-// //         expect(response.body).toEqual({
-// //             id: {
-// //                 type: 'field',
-// //                 value: '*',
-// //                 msg: 'Invalid value',
-// //                 path: 'id',
-// //                 location: 'query'
-// //             }
-// //         });
-// //     });
-// // });
-
-// // describe('Get Product by Product Id', () => {
-// //     const mockProducts = {
-// //         id: 1,
-// //         title: 'Essence',
-// //         label: 'Essence Mascara Lash Princess',
-// //         description:
-// //             'The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.',
-// //         price: 10,
-// //         discount: 7,
-// //         imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png',
-// //         rating: 3,
-// //         unitsSold: 0,
-// //         quantity: 5,
-// //         totalRatings: 3,
-// //         brand: {
-// //             brandId: 1,
-// //             brandTitle: 'Essence'
-// //         },
-// //         Categories: [
-// //             {
-// //                 categoryId: 1,
-// //                 categoryTitle: 'beauty'
-// //             }
-// //         ],
-// //         imagesUrls: [
-// //             {
-// //                 imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/1.png'
-// //             }
-// //         ],
-// //         Ratings: [
-// //             {
-// //                 review: 'Very unhappy with my purchase!',
-// //                 rating: 2,
-// //                 User: {
-// //                     firstName: 'Emily',
-// //                     lastName: 'Johnson'
-// //                 }
-// //             },
-// //             {
-// //                 review: 'Not as described!',
-// //                 rating: 2,
-// //                 User: {
-// //                     firstName: 'Michael',
-// //                     lastName: 'Williams'
-// //                 }
-// //             },
-// //             {
-// //                 review: 'Very satisfied!',
-// //                 rating: 5,
-// //                 User: {
-// //                     firstName: 'Sophia',
-// //                     lastName: 'Brown'
-// //                 }
-// //             }
-// //         ]
-// //     };
-
-// //     beforeEach(() => {
-// //         jest.clearAllMocks();
-// //     });
-
-// //     it('should return product for a valid Brand ID', async () => {
-// //         const response = await request(app).get('/products/itemPage').query({ id: 1 });
-
-// //         expect(response.status).toBe(200);
-// //         expect(response.body).toEqual(mockProducts);
-// //     });
-
-// //     it('should return a 404 error if no Product found', async () => {
-// //         const response = await request(app).get('/products/itemPage').query({ id: 40 });
-
-// //         expect(response.status).toBe(404);
-// //         expect(response.body).toEqual({});
-// //     });
-
-// //     it('should return a 422 error if the id not valid', async () => {
-// //         const response = await request(app).get('/products/itemPage').query({ id: '/' });
-
-// //         expect(response.status).toBe(422);
-// //         expect(response.body).toEqual({
-// //             id: {
-// //                 type: 'field',
-// //                 value: '/',
-// //                 msg: 'Invalid value',
-// //                 path: 'id',
-// //                 location: 'query'
-// //             }
-// //         });
-// //     });
-// // });
-
-// // describe('Get All the Products that have less than 20 item', () => {
-// //     const mockProducts = [
-// //         {
-// //             id: 1,
-// //             title: 'Essence',
-// //             label: 'Essence Mascara Lash Princess',
-// //             price: 10,
-// //             discount: 7,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Essence%20Mascara%20Lash%20Princess/thumbnail.png',
-// //             rating: 3,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 1,
-// //                 brandTitle: 'Essence'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 6,
-// //             title: 'Calvin Klein',
-// //             label: 'Calvin Klein CK One',
-// //             price: 50,
-// //             discount: 0,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/fragrances/Calvin%20Klein%20CK%20One/thumbnail.png',
-// //             rating: 3,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 6,
-// //                 brandTitle: 'Calvin Klein'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 2,
-// //                     categoryTitle: 'fragrances'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 9,
-// //             title: 'Dolce & Gabbana',
-// //             label: 'Dolce Shine Eau de',
-// //             price: 70,
-// //             discount: 11,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/fragrances/Dolce%20Shine%20Eau%20de/thumbnail.png',
-// //             rating: 3.3333,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 9,
-// //                 brandTitle: 'Dolce & Gabbana'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 2,
-// //                     categoryTitle: 'fragrances'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 12,
-// //             title: 'Dior',
-// //             label: "Dior Women's Leather Bag",
-// //             price: 130,
-// //             discount: 8,
-// //             imageUrl: "https://cdn.dummyjson.com/products/images/womens-bags/Heshe%20Women's%20Leather%20Bag/imageUrl.png",
-// //             rating: 4.333,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 8,
-// //                 brandTitle: 'Dior'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 3,
-// //                     categoryTitle: 'womens-bags'
-// //                 }
-// //             ]
-// //         }
-// //     ];
-// //     beforeEach(() => {
-// //         jest.clearAllMocks();
-// //     });
-
-// //     it('should return products which meet the required qualifications', async () => {
-// //         const response = await request(app).get('/products/itemCardOne');
-// //         expect(response.status).toBe(200);
-// //         expect(response.body).toEqual(mockProducts);
-// //     });
-
-// //     it('should return error 404 if no products meet the required qualifications', async () => {
-// //         const response = await request(app).get('/products/itemCardOne');
-// //         expect(response.status).toBe(404);
-// //         expect(response.body).toEqual({});
-// //     });
-// // });
-
-// // describe('Get All the Products that have more than 15% discount', () => {
-// //     const mockProducts = [
-// //         {
-// //             id: 3,
-// //             title: 'Velvet Touch',
-// //             label: 'Powder Canister',
-// //             price: 15,
-// //             discount: 18,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png',
-// //             rating: 4.666,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 3,
-// //                 brandTitle: 'Velvet Touch'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 4,
-// //             title: 'Chic Cosmetics',
-// //             label: 'Red Lipstick',
-// //             price: 13,
-// //             discount: 19,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png',
-// //             rating: 4.666,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 4,
-// //                 brandTitle: 'Chic Cosmetics'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 7,
-// //             title: 'Chanel',
-// //             label: 'Chanel Coco Noir Eau De',
-// //             price: 130,
-// //             discount: 19,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/fragrances/Chanel%20Coco%20Noir%20Eau%20De/thumbnail.png',
-// //             rating: 3,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 7,
-// //                 brandTitle: 'Chanel'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 2,
-// //                     categoryTitle: 'fragrances'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 8,
-// //             title: 'Dior',
-// //             label: "Dior J'adore",
-// //             price: 90,
-// //             discount: 17,
-// //             imageUrl: "https://cdn.dummyjson.com/products/images/fragrances/Dior%20J'adore/thumbnail.png",
-// //             rating: 4.3333,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 8,
-// //                 brandTitle: 'Dior'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 2,
-// //                     categoryTitle: 'fragrances'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 13,
-// //             title: 'Prada',
-// //             label: 'Prada Women Bag',
-// //             price: 600,
-// //             discount: 18,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/womens-bags/Prada%20Women%20Bag/imageUrl.png',
-// //             rating: 4,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 11,
-// //                 brandTitle: 'Prada'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 3,
-// //                     categoryTitle: 'womens-bags'
-// //                 }
-// //             ]
-// //         }
-// //     ];
-// //     beforeEach(() => {
-// //         jest.clearAllMocks();
-// //     });
-
-// //     it('should return products which meet the required qualifications', async () => {
-// //         const response = await request(app).get('/products/itemCardTwo');
-// //         expect(response.status).toBe(200);
-// //         expect(response.body).toEqual(mockProducts);
-// //     });
-
-// //     it('should return error 404 if no products meet the required qualifications', async () => {
-// //         const response = await request(app).get('/products/itemCardTwo');
-// //         expect(response.status).toBe(404);
-// //         expect(response.body).toEqual({});
-// //     });
-// // });
-
-// // describe('Get All the Products that have more than 4.5 Rating', () => {
-// //     const mockProducts = [
-// //         {
-// //             id: 3,
-// //             title: 'Velvet Touch',
-// //             label: 'Powder Canister',
-// //             price: 15,
-// //             discount: 18,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Powder%20Canister/thumbnail.png',
-// //             rating: 4.666,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 3,
-// //                 brandTitle: 'Velvet Touch'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 4,
-// //             title: 'Chic Cosmetics',
-// //             label: 'Red Lipstick',
-// //             price: 13,
-// //             discount: 19,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Red%20Lipstick/thumbnail.png',
-// //             rating: 4.666,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 4,
-// //                 brandTitle: 'Chic Cosmetics'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         },
-// //         {
-// //             id: 5,
-// //             title: 'Nail Couture',
-// //             label: 'Red Nail Polish',
-// //             price: 9,
-// //             discount: 2,
-// //             imageUrl: 'https://cdn.dummyjson.com/products/images/beauty/Red%20Nail%20Polish/thumbnail.png',
-// //             rating: 4.666,
-// //             totalRatings: 3,
-// //             unitsSold: 0,
-// //             brand: {
-// //                 brandId: 5,
-// //                 brandTitle: 'Nail Couture'
-// //             },
-// //             Categories: [
-// //                 {
-// //                     categoryId: 1,
-// //                     categoryTitle: 'beauty'
-// //                 }
-// //             ]
-// //         }
-// //     ];
-// //     beforeEach(() => {
-// //         jest.clearAllMocks();
-// //     });
-
-// //     it('should return products which meet the required qualifications', async () => {
-// //         const response = await request(app).get('/products/itemCardThree');
-// //         expect(response.status).toBe(200);
-// //         expect(response.body).toEqual(mockProducts);
-// //     });
-
-// //     it('should return error 404 if no products meet the required qualifications', async () => {
-// //         const response = await request(app).get('/products/itemCardThree');
-// //         expect(response.status).toBe(404);
-// //         expect(response.body).toEqual({});
-// //     });
-// // });
+describe('validateSearchValue', () => {
+    // target route productSearch
+    it('should response with 422 because of empty', async () => {
+        const resp = await request(app).get('/products/productSearch').query({ searchValue: '' });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            searchValue: {
+                type: 'field',
+                value: '',
+                msg: 'Invalid value',
+                path: 'searchValue',
+                location: 'query'
+            }
+        });
+    });
+});
+describe('validateProductId', () => {
+    /* target routes
+    10.addItemToCart
+    11.reduceItemFromCart
+    12.removeItemFromCart
+    13.toggleItemInWishList
+    16.deleteProduct
+    */
+    it('should response with 422 because of empty', async () => {
+        const resp = await request(app)
+            .post('/products/addItemToCart')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${userToken}` })
+            .send({ productId: '' });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            productId: {
+                type: 'field',
+                value: '',
+                msg: 'Invalid value',
+                path: 'productId',
+                location: 'body'
+            }
+        });
+    });
+    it('should response with 422 because of string', async () => {
+        const resp = await request(app)
+            .delete('/products/reduceItemFromCart')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${userToken}` })
+            .send({ productId: 'dsad' });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            productId: {
+                type: 'field',
+                value: 'dsad',
+                msg: 'Invalid value',
+                path: 'productId',
+                location: 'body'
+            }
+        });
+    });
+    it('should response with 422 because of zero value', async () => {
+        const resp = await request(app)
+            .post('/products/toggleItemInWishList')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${userToken}` })
+            .send({ productId: 0 });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            productId: {
+                type: 'field',
+                value: 0,
+                msg: 'Invalid value',
+                path: 'productId',
+                location: 'body'
+            }
+        });
+    });
+});
+describe('validateUserReview', () => {
+    //target route upsertUserReview
+    it('should response with 422 because of bad input', async () => {
+        const resp = await request(app)
+            .post('/products/upsertUserReview')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${userToken}` })
+            .send({ productId: 'dsad', newReview: 123, newRating: 0 });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            productId: {
+                type: 'field',
+                value: 'dsad',
+                msg: 'Invalid value',
+                path: 'productId',
+                location: 'body'
+            },
+            newReview: {
+                type: 'field',
+                value: 123,
+                msg: 'Invalid value',
+                path: 'newReview',
+                location: 'body'
+            },
+            newRating: {
+                type: 'field',
+                value: 0,
+                msg: 'Invalid value',
+                path: 'newRating',
+                location: 'body'
+            }
+        });
+    });
+});
+describe('validateProduct', () => {
+    // target end point create new item
+    //sends an empty body to check for all fields
+    it('should response with 422 for bad input', async () => {
+        const resp = await request(app)
+            .post('/products/createNewProduct')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${adminToken}` });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            brandId: {
+                type: 'field',
+                msg: 'Brand ID must be a positive integer',
+                path: 'brandId',
+                location: 'body'
+            },
+            label: { type: 'field', msg: 'required', path: 'label', location: 'body' },
+            description: {
+                type: 'field',
+                msg: 'required',
+                path: 'description',
+                location: 'body'
+            },
+            price: {
+                type: 'field',
+                msg: 'Price must be a non-negative number',
+                path: 'price',
+                location: 'body'
+            },
+            discount: {
+                type: 'field',
+                msg: 'Discount must be a non-negative number',
+                path: 'discount',
+                location: 'body'
+            },
+            title: { type: 'field', msg: 'required', path: 'title', location: 'body' },
+            quantity: {
+                type: 'field',
+                msg: 'Quantity must be a non-negative integer',
+                path: 'quantity',
+                location: 'body'
+            },
+            imageUrl: {
+                type: 'field',
+                msg: 'Invalid value',
+                path: 'imageUrl',
+                location: 'body'
+            },
+            categoriesIdsList: {
+                type: 'field',
+                msg: 'Invalid value',
+                path: 'categoriesIdsList',
+                location: 'body'
+            },
+            imagesUrlList: {
+                type: 'field',
+                msg: 'Invalid value',
+                path: 'imagesUrlList',
+                location: 'body'
+            },
+            tags: {
+                type: 'field',
+                msg: 'Invalid value',
+                path: 'tags',
+                location: 'body'
+            }
+        });
+    });
+});
+describe('validateProductUpdate', () => {
+    it('should response with 422 for bad input', async () => {
+        const resp = await request(app)
+            .put('/products/updateProduct')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${adminToken}` })
+            .send({
+                productId: 'asd',
+                brandId: 0,
+                label: 'as',
+                description: '   ',
+                price: '0',
+                title: ' a',
+                imageUrl: '1234',
+                quantity: ' hg ',
+                discount: -1
+            });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            productId: {
+                type: 'field',
+                value: 'asd',
+                msg: 'Invalid value',
+                path: 'productId',
+                location: 'body'
+            },
+            brandId: {
+                type: 'field',
+                value: 0,
+                msg: 'Brand ID must be a positive integer',
+                path: 'brandId',
+                location: 'body'
+            },
+            label: {
+                type: 'field',
+                value: 'as',
+                msg: 'Invalid value',
+                path: 'label',
+                location: 'body'
+            },
+            description: {
+                type: 'field',
+                value: '   ',
+                msg: 'cant be just spaces',
+                path: 'description',
+                location: 'body'
+            },
+            price: {
+                type: 'field',
+                value: '0',
+                msg: 'Price must be a non-negative number',
+                path: 'price',
+                location: 'body'
+            },
+            discount: {
+                type: 'field',
+                value: -1,
+                msg: 'Discount must be a non-negative number',
+                path: 'discount',
+                location: 'body'
+            },
+            title: {
+                type: 'field',
+                value: ' a',
+                msg: 'Invalid value',
+                path: 'title',
+                location: 'body'
+            },
+            quantity: {
+                type: 'field',
+                value: ' hg ',
+                msg: 'Quantity must be a non-negative integer',
+                path: 'quantity',
+                location: 'body'
+            },
+            imageUrl: {
+                type: 'field',
+                value: '1234',
+                msg: 'Invalid URL format',
+                path: 'imageUrl',
+                location: 'body'
+            }
+        });
+    });
+});
+describe('validateUser', () => {
+    // target end points
+    // register
+    // registerAdmin
+    it('should response with 422 for bad input', async () => {
+        const resp = await request(app)
+            .post('/user/registerAdmin')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${adminToken}` })
+            .send({
+                lastName: '',
+                email: 'aaa222',
+                password: '1234',
+                phone: ' ',
+                DOB: 'aaa',
+                imageUrl: 'utl'
+            });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            errors: [
+                {
+                    message: 'First name is required'
+                },
+                {
+                    message: 'First name must be a string'
+                },
+                {
+                    message: 'Last name is required'
+                },
+                {
+                    message: 'Invalid email format'
+                },
+                {
+                    message: 'Password must be at least 6 characters long'
+                },
+                {
+                    message: 'Invalid date format'
+                },
+                {
+                    message: 'Invalid URL format'
+                }
+            ]
+        });
+    });
+});
+describe('validateLogin', () => {
+    // target routes
+    // register
+    // registerAdmin
+    it('should response with 422 for bad input', async () => {
+        const resp = await request(app)
+            .post('/user/login')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${adminToken}` })
+            .send({
+                email: '',
+                password: '1234'
+            });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            errors: [
+                {
+                    message: 'Email is required'
+                },
+                {
+                    message: 'Invalid email format'
+                },
+                {
+                    message: 'E-mail doesnt exist'
+                },
+                {
+                    message: 'Password must be at least 6 characters long'
+                }
+            ]
+        });
+    });
+});
+////////////////////////////////////////////////////////////////// feras check validator
+// describe('validateUpdateUser', () => {
+//     it('should response with 422 for bad input', async () => {
+//         const resp = await request(app)
+//             .put('/user/update')
+//             .set({ 'Content-type': 'Application/json', Authorization: `bearer ${adminToken}` })
+//             .send({
+//                 firstName, lastName, phone, DOB, imageUrl
+//             });
+//         expect(resp.status).toBe(422);
+//         expect(resp.body).toEqual()
+//     });
+// });
+describe('testing tokens', () => {
+    it('should response with 401 for no token', async () => {
+        const resp = await request(app).post('/products/addItemToCart');
+        expect(resp.status).toBe(401);
+    });
+    it('should response with 403 for invalid token', async () => {
+        const resp = await request(app).post('/user/registerAdmin').set({ 'Content-type': 'Application/json', Authorization: `bearer asd` });
+        expect(resp.status).toBe(403);
+    });
+    it('should response with 403 for unauthorized role', async () => {
+        const resp = await request(app)
+            .delete('/products/deleteProduct')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${userToken}` });
+        expect(resp.status).toBe(403);
+    });
+});

@@ -12,7 +12,6 @@ export const validateUser = [
         .isEmail()
         .withMessage('Invalid email format')
         .isString()
-        .bail()
         .trim()
         .normalizeEmail()
         .custom(async (value) => {
@@ -71,30 +70,30 @@ export const validateUpdateUser = [
 ];
 
 // Define validation and sanitization for login
-export const validateLogin = [
-    body('email').notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid email format').normalizeEmail(),
+// export const validateLogin = [
+//     body('email').notEmpty().withMessage('Email is required').isEmail().withMessage('Invalid email format').normalizeEmail(),
 
-    body('password')
-        .notEmpty()
-        .withMessage('Password is required')
-        .isLength({ min: 6 })
-        .withMessage('Password must be at least 6 characters long')
-        .trim(),
+//     body('password')
+//         .notEmpty()
+//         .withMessage('Password is required')
+//         .isLength({ min: 6 })
+//         .withMessage('Password must be at least 6 characters long')
+//         .trim(),
 
-    (req: Request, res: Response, next: NextFunction) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            const errorObjects = errors.array().map((err) => ({
-                message: err.msg
-            }));
+//     (req: Request, res: Response, next: NextFunction) => {
+//         const errors = validationResult(req);
+//         if (!errors.isEmpty()) {
+//             const errorObjects = errors.array().map((err) => ({
+//                 message: err.msg
+//             }));
 
-            return res.status(422).json({
-                errors: errorObjects
-            });
-        }
-        next();
-    }
-];
+//             return res.status(422).json({
+//                 errors: errorObjects
+//             });
+//         }
+//         next();
+//     }
+// ];
 export const loginValidate = [
     body('email')
         .notEmpty()
@@ -102,7 +101,6 @@ export const loginValidate = [
         .isEmail()
         .withMessage('Invalid email format')
         .isString()
-        .bail()
         .trim()
         .normalizeEmail()
         .custom(async (value) => {

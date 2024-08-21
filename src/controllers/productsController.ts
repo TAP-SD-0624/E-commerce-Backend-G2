@@ -60,7 +60,6 @@ export const getNewArrivalsItems = async (req: Request, res: Response, next: Nex
         const x = await DBU.getNewArrivals();
         return res.send(x);
     } catch (error) {
-        console.log(error);
         next(error);
     }
 };
@@ -158,8 +157,8 @@ export const deleteProduct = async (req: Request, res: Response, next: NextFunct
 };
 export const updateProduct = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
-        const { id, brandId, label, description, price, title, imageUrl, quantity, tags, discount } = req.body;
-        await DBU.updateProductById(id, brandId, label, description, price, discount, title, imageUrl, quantity, tags);
+        const { productId, brandId, label, description, price, title, imageUrl, quantity, tags, discount } = req.body;
+        await DBU.updateProductById(productId, brandId, label, description, price, discount, title, imageUrl, quantity, tags);
         return res.sendStatus(202);
     } catch (error) {
         next(error);
