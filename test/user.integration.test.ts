@@ -16,7 +16,7 @@ beforeAll(async () => {
 });
 afterAll(async () => {
     shutdown();
-    // await sequelize.sync({ force: true, match: /_test$/ });
+    await sequelize.sync({ force: true, match: /_test$/ });
     await sequelize.close();
 });
 
