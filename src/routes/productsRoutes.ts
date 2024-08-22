@@ -9,6 +9,10 @@ import {
     validateProductUpdate
 } from '../middleware/validateProduct';
 import authenticateToken from '../utils/tokenUtils';
+import multer from 'multer';
+
+const memo = multer.memoryStorage();
+export const uploadMiddleware = multer({ storage: memo });
 const productRouter: Router = Router();
 //general
 productRouter.get('/itemPage', validateId, PC.getItemPageById);
@@ -34,5 +38,7 @@ productRouter.post('/upsertUserReview', [authenticateToken('user'), ...validateU
 productRouter.post('/createNewProduct', [authenticateToken('admin'), ...validateProduct], PC.createNewProduct);
 productRouter.delete('/deleteProduct', [authenticateToken('admin'), ...validateProductId], PC.deleteProduct);
 productRouter.put('/updateProduct', [authenticateToken('admin'), ...validateProductUpdate], PC.updateProduct);
+//upload image
+productRouter.post('/uploadProductImages', [uploadMiddleware.any()], PC.uploadProductImages);
 
 export default productRouter;

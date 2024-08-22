@@ -7,15 +7,15 @@ import productRouter from './routes/productsRoutes';
 import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
-
+import helmet from 'helmet';
 syncDatabase();
 export const app: Express = express();
 export const server = createServer(app);
 export const shutdown = () => {
     server.close();
 };
-
 const PORT: number | string = process.env.PORT || 3000;
+app.use(helmet());
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -26,7 +26,6 @@ app.use(errorHandler);
 app.use('/', (req: Request, res: Response): Response => {
     return res.sendStatus(404);
 });
-
 if (process.env.NODE_ENV !== 'test') {
     sequelize
         .authenticate()
