@@ -48,6 +48,7 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
 };
 export const userUpdate = async (req: Request, res: Response, next: NextFunction) => {
     const { firstName, lastName, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
+    if (req.body.email) return res.status(401).json({ message: 'Email cannot be updated.' });
     try {
         const user = await updateUserById(req.body.decoded.userId, firstName, lastName, password, phone, DOB, imageUrl);
         return res.status(201).json({
