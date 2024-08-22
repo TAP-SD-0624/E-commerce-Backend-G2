@@ -1,12 +1,13 @@
 import express, { Express, Response, Request } from 'express';
 import cors from 'cors';
 import sequelize from './database/connection';
-import { syncDatabase } from './database';
+import { db, syncDatabase } from './database';
 import userRouter from './routes/userRoutes';
 import productRouter from './routes/productsRoutes';
 import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
+import { where } from 'sequelize';
 
 syncDatabase();
 export const app: Express = express();
