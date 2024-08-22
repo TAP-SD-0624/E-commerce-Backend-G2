@@ -2,6 +2,13 @@ import sequelize from '../src/database/connection';
 import { shutdown, app, server } from '../src/server';
 import request from 'supertest';
 import { createUserDB } from '../src/utils/UsersUtils';
+import { createUser } from '../src/controllers/userController';
+import { log } from 'console';
+import { equal } from 'assert';
+import { registerTE } from '../src/utils/testErorrs';
+import Users from '../src/database/models/users';
+let genaratedUserToken: string;
+
 beforeAll(async () => {
     await sequelize
         .authenticate()
@@ -31,5 +38,99 @@ describe('integrate user and gest tasks', () => {
             .set({ 'Content-type': 'Application/json' })
             .send({ email: 'amr@gmail.com', password: '123456' });
         expect(resp.status).toEqual(201);
+    });
+});
+
+describe('register a user', () => {
+    const mockUser = {
+        user: {
+            firstName: 'feras',
+            lastName: 'samih',
+            email: 'samih@gmail.com',
+            phone: '88776656',
+            DOB: '1988-06-05T00:00:00.000Z',
+            imageUrl: 'bbb.jpg'
+        }
+    };
+    it('should create and register a user', async () => {
+        const response = await request(app).post('/user/register').send({
+            firstName: 'feras',
+            lastName: 'samih',
+            password: '11223344',
+            email: 'samih@gmail.com',
+            phone: '88776656',
+            DOB: '1988-06-05',
+            imageUrl: 'bbb.jpg'
+        });
+
+        genaratedUserToken = response.body.token;
+
+        expect(response.status).toBe(201);
+        expect(response.body).toHaveProperty('user');
+        expect(response.body).toHaveProperty('token');
+    });
+    it('should not create a user and response withe 422', async () => {
+        const response = await request(app).post('/user/register');
+
+        expect(response.status).toBe(422);
+        expect(response.body).toEqual(registerTE);
+    });
+});
+
+describe('login a user', () => {
+    it('should login a user succesfully', async () => {
+        const response = await request(app).post('/user/login').send({
+            email: 'samih@gmail.com',
+            password: '11223344'
+        });
+        expect(response.status).toBe(201);
+        expect(response.body).toHaveProperty('user');
+        expect(response.body).toHaveProperty('token');
+    });
+});
+
+describe('update user data', () => {
+    it('should update user data(password and DOB) succesfully', async () => {
+        const response = await request(app).put('/user/update').set('Authorization', `Bearer ${genaratedUserToken}`).send({
+            firstName: 'feras',
+            lastName: 'samih',
+            password: '111222333',
+            phone: '88776656',
+            DOB: '1988-06-05',
+            imageUrl: 'bbb.jpg'
+        });
+
+        expect(response.status).toBe(201);
+        expect(response.body).toEqual({
+            message: 'User updated succesfullly'
+        });
+    });
+    it('should not update user data(password and DOB) ', async () => {
+        const response = await request(app).put('/user/update').send({
+            firstName: 'feras',
+            lastName: 'samih',
+            password: '111222333',
+            phone: '88776656',
+            DOB: '1988-06-05',
+            imageUrl: 'bbb.jpg'
+        });
+
+        expect(response.status).toBe(401);
+        expect(response.body).toEqual({
+            message: 'No token provided'
+        });
+    });
+    it('should not update user email ', async () => {
+        const response = await request(app).put('/user/update').set('Authorization', `Bearer ${genaratedUserToken}`).send({
+            email: 'soso@gmail.com'
+        });
+        console.log('================================');
+
+        console.log(response.body);
+
+        expect(response.status).toBe(401);
+        expect(response.body).toEqual({
+            message: 'Email cannot be updated.'
+        });
     });
 });

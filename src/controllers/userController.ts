@@ -4,6 +4,7 @@ import { CustomError } from '../middleware/customError';
 import { generateToken } from '../utils/tokenUtils';
 import { createUserDB, findUserByEmail, getUserProfile, updateUserById } from '../utils/UsersUtils';
 import bcrypt from 'bcrypt';
+import { log } from 'console';
 export const createUser = (role: string) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         const { firstName, lastName, email, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
@@ -46,10 +47,13 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
     }
 };
 export const userUpdate = async (req: Request, res: Response, next: NextFunction) => {
-    const { firstName, lastName, phone, DOB, imageUrl }: createNewUserInterface = req.body;
+    const { firstName, lastName, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
+    if (req.body.email) return res.status(401).json({ message: 'Email cannot be updated.' });
     try {
-        const user = await updateUserById(req.body.decoded.userId, firstName, lastName, phone, DOB, imageUrl);
-        return res.status(201);
+        const user = await updateUserById(req.body.decoded.userId, firstName, lastName, password, phone, DOB, imageUrl);
+        return res.status(201).json({
+            message: 'User updated succesfullly'
+        });
     } catch (err) {
         return next(err);
     }
