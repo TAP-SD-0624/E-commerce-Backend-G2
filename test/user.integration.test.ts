@@ -4,6 +4,8 @@ import request from 'supertest';
 import { createUserDB } from '../src/utils/UsersUtils';
 import { createUser } from '../src/controllers/userController';
 import { log } from 'console';
+import { equal } from 'assert';
+import { registerTE } from '../src/utils/testErorrs';
 beforeAll(async () => {
     await sequelize
         .authenticate()
@@ -59,9 +61,28 @@ describe('register a user', () => {
             DOB: '1988-06-05',
             imageUrl: 'bbb.jpg'
         });
-        console.log('-----------________(((((((()&&&&&^%');
+
+        expect(response.status).toBe(201);
+        expect(response.body).toHaveProperty('user');
+        expect(response.body).toHaveProperty('token');
+    });
+    it('should not create a user and response withe 422', async () => {
+        const response = await request(app).post('/user/register');
+
+        console.log(response.status);
         console.log(response.body);
 
+        expect(response.status).toBe(422);
+        expect(response.body).toEqual(registerTE);
+    });
+});
+
+describe('login a user', () => {
+    it('should login a user succesfully', async () => {
+        const response = await request(app).post('/user/login').send({
+            email: 'samih@gmail.com',
+            password: '11223344'
+        });
         expect(response.status).toBe(201);
         expect(response.body).toHaveProperty('user');
         expect(response.body).toHaveProperty('token');
