@@ -4,7 +4,6 @@ import { CustomError } from '../middleware/customError';
 import { generateToken } from '../utils/tokenUtils';
 import { createUserDB, findUserByEmail, getUserProfile, updateUserById } from '../utils/UsersUtils';
 import bcrypt from 'bcrypt';
-import { log } from 'console';
 export const createUser = (role: string) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         const { firstName, lastName, email, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
@@ -42,7 +41,6 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
             throw new CustomError('Invalid password', 401);
         }
     } catch (err) {
-        console.log(err);
         next(err);
     }
 };
@@ -54,7 +52,6 @@ export const userUpdate = async (req: Request, res: Response, next: NextFunction
             message: 'User updated succesfullly'
         });
     } catch (err) {
-        console.log(err);
         return next(err);
     }
 };

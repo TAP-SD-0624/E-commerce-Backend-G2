@@ -1,9 +1,7 @@
 import { db } from '../database';
 import Users from '../database/models/users';
 import { CustomError } from '../middleware/customError';
-import { BelongsToManyCreateAssociationMixinOptions } from 'sequelize';
 import bcrypt from 'bcrypt';
-import { log } from 'console';
 
 export async function findUserByEmail(email: string): Promise<Users> {
     const user = await db.Users.findOne({
