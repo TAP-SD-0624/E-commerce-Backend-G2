@@ -7,7 +7,6 @@ import productRouter from './routes/productsRoutes';
 import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
-import { where } from 'sequelize';
 
 syncDatabase();
 export const app: Express = express();

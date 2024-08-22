@@ -394,19 +394,47 @@ describe('validateLogin', () => {
         });
     });
 });
-////////////////////////////////////////////////////////////////// feras check validator
-// describe('validateUpdateUser', () => {
-//     it('should response with 422 for bad input', async () => {
-//         const resp = await request(app)
-//             .put('/user/update')
-//             .set({ 'Content-type': 'Application/json', Authorization: `bearer ${adminToken}` })
-//             .send({
-//                 firstName, lastName, phone, DOB, imageUrl
-//             });
-//         expect(resp.status).toBe(422);
-//         expect(resp.body).toEqual()
-//     });
-// });
+describe('validateUpdateUser', () => {
+    it('should response with 422 for bad input', async () => {
+        const resp = await request(app)
+            .put('/user/update')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${adminToken}` })
+            .send({
+                firstName: 'aa',
+                lastName: '        ',
+                phone: '',
+                DOB: '123',
+                imageUrl: 'ddd/ddd',
+                password: '123'
+            });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            errors: [
+                {
+                    message: 'Invalid value'
+                },
+                {
+                    message: 'cant be just spaces'
+                },
+                {
+                    message: 'Password must be at least 6 characters long'
+                },
+                {
+                    message: 'Invalid value'
+                },
+                {
+                    message: 'cant be just spaces'
+                },
+                {
+                    message: 'Invalid date format'
+                },
+                {
+                    message: 'Invalid URL format'
+                }
+            ]
+        });
+    });
+});
 describe('testing tokens', () => {
     it('should response with 401 for no token', async () => {
         const resp = await request(app).post('/products/addItemToCart');

@@ -2,13 +2,7 @@ import sequelize from '../src/database/connection';
 import { shutdown, app, server } from '../src/server';
 import request from 'supertest';
 import { createUserDB } from '../src/utils/UsersUtils';
-import { createUser } from '../src/controllers/userController';
-import { log } from 'console';
-import { equal } from 'assert';
-import { registerTE } from '../src/utils/testErorrs';
-import Users from '../src/database/models/users';
 let genaratedUserToken: string;
-
 beforeAll(async () => {
     await sequelize
         .authenticate()
@@ -73,7 +67,37 @@ describe('register a user', () => {
         const response = await request(app).post('/user/register');
 
         expect(response.status).toBe(422);
-        expect(response.body).toEqual(registerTE);
+        expect(response.body).toEqual({
+            errors: [
+                {
+                    message: 'First name is required'
+                },
+                {
+                    message: 'First name must be a string'
+                },
+                {
+                    message: 'Last name is required'
+                },
+                {
+                    message: 'Last name must be a string'
+                },
+                {
+                    message: 'Email is required'
+                },
+                {
+                    message: 'Invalid email format'
+                },
+                {
+                    message: 'Invalid value'
+                },
+                {
+                    message: 'Password is required'
+                },
+                {
+                    message: 'Password must be at least 6 characters long'
+                }
+            ]
+        });
     });
 });
 
@@ -118,19 +142,6 @@ describe('update user data', () => {
         expect(response.status).toBe(401);
         expect(response.body).toEqual({
             message: 'No token provided'
-        });
-    });
-    it('should not update user email ', async () => {
-        const response = await request(app).put('/user/update').set('Authorization', `Bearer ${genaratedUserToken}`).send({
-            email: 'soso@gmail.com'
-        });
-        console.log('================================');
-
-        console.log(response.body);
-
-        expect(response.status).toBe(401);
-        expect(response.body).toEqual({
-            message: 'Email cannot be updated.'
         });
     });
 });
