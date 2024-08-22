@@ -9,6 +9,8 @@ import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
 
 import { body } from 'express-validator';
+import cartRouter from './routes/cartRoutes';
+import AdminRouter from './routes/adminRoutes';
 syncDatabase();
 export const app: Express = express();
 const server = createServer(app);
@@ -22,6 +24,8 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRouter);
 app.use('/products', productRouter);
+app.use('/cart', cartRouter);
+app.use('/admin', AdminRouter);
 app.get('/homePage', homePageController);
 app.use(errorHandler);
 app.use('/', (req: Request, res: Response): Response => {

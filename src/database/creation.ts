@@ -60,7 +60,7 @@ for (const productJson of data) {
         brand = {
             id: brands.length + 1,
             name: productJson.title,
-            imageUrl: '',
+            imageUrl: '', // Placeholder for brand imageUrl
             createdAt: new Date(),
             updatedAt: new Date()
         };
