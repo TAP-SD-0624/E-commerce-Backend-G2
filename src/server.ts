@@ -1,17 +1,16 @@
 import express, { Express, Response, Request } from 'express';
 import cors from 'cors';
 import sequelize from './database/connection';
-import { syncDatabase } from './database';
+import { db, syncDatabase } from './database';
 import userRouter from './routes/userRoutes';
 import productRouter from './routes/productsRoutes';
 import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
 
-import { body } from 'express-validator';
 syncDatabase();
 export const app: Express = express();
-const server = createServer(app);
+export const server = createServer(app);
 export const shutdown = () => {
     server.close();
 };
@@ -36,7 +35,7 @@ if (process.env.NODE_ENV !== 'test') {
             console.log('connected to the database');
         })
         .catch(() => console.log('couldnt connect to the database'));
+    server.listen(PORT, () => {
+        console.log(`server is listening at port ${PORT}`);
+    });
 }
-server.listen(PORT, () => {
-    console.log(`server is listening at port ${PORT}`);
-});
