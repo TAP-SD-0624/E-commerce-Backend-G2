@@ -29,9 +29,9 @@ export async function createUserDB(
     lastName: string,
     email: string,
     password: string,
-    phone: string,
-    DOB: number,
-    imageUrl: string
+    phone: string = '00970',
+    DOB: number = Date.parse('1980-08-08'),
+    imageUrl: string = 'https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png'
 ) {
     try {
         const hashedPassword = await bcrypt.hash(String(password), 10);
