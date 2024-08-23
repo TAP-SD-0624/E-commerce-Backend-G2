@@ -1,17 +1,8 @@
 name: CI
-
-on:
-    push:
-        branches:
-            - '**' # Run on all branches for every push
-    pull_request:
-        branches:
-            - main # Run on PRs targeting the main branch
-
+on: [push]
 jobs:
     Test:
         runs-on: ubuntu-latest
-
         services:
             postgres:
                 image: postgres
@@ -26,18 +17,19 @@ jobs:
                     - 5432:5432
 
         steps:
+            # run steps required in the workflow
             - name: Checkout repository
               uses: actions/checkout@v2
 
-            - name: Set up Node.js 16.x
-              uses: actions/setup-node@v3
+            - name: Set up Node.js 14.x
+              uses: actions/setup-node@v1
               with:
-                  node-version: 16.x
+                  node-version: 14.x
 
             - name: Install dependencies
               run: npm install
 
-            - name: init test database
+            - name: migrate database
               env:
                   DB_TESTING_USERNAME: 'postgres'
                   DB_TESTING_PASSWORD: '12345'
