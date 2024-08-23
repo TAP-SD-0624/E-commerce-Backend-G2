@@ -1,0 +1,56 @@
+name: CI
+
+on:
+    push:
+        branches:
+            - '**' # Run on all branches for every push
+    pull_request:
+        branches:
+            - main # Run on PRs targeting the main branch
+
+jobs:
+    Test:
+        runs-on: ubuntu-latest
+
+        services:
+            postgres:
+                image: postgres
+                env:
+                    POSTGRES_PASSWORD: 12345
+                    POSTGRES_USER: postgres
+                    POSTGRES_DB: ecommerce_test
+
+                options: >-
+                    --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+                ports:
+                    - 5432:5432
+
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+
+            - name: Set up Node.js 16.x
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 16.x
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Migrate database
+              env:
+                  DB_TESTING_USERNAME: 'postgres'
+                  DB_TESTING_PASSWORD: '12345'
+                  DB_TESTING_DATABASE: 'ecommerce_test'
+                  DB_TESTING_DIALECT: 'postgres'
+                  DB_TESTING_HOST: 'localhost'
+                  DB_TESTING_PORT: '5432'
+              run: npm run setDatabase
+
+            - name: Run P0 Critical Tests
+              if: github.event_name == 'push'
+              run: npm run test:p0
+
+            - name: Run P1 Additional Tests
+              if: github.event_name == 'pull_request' && github.base_ref == 'main'
+              run: npm run test:p1
