@@ -8,14 +8,13 @@ import Wishlist from './wishlist';
 import Brands from './brands';
 import Categories from './categories';
 import ProductsCategories from './ProductsCategories';
-import User from './users';
 export interface ProductsInterface {
     id?: number;
     brandId: number;
     label: string;
     description: string;
     price: number;
-    discount: number;
+    discount?: number;
     title: string;
     quantity: number;
     imageUrl: string;
@@ -40,7 +39,7 @@ class Products extends Model<ProductsInterface> implements ProductsInterface {
     declare imageUrl: string;
     declare tags: Array<string>;
     declare rating: Number;
-    declare unitsSold?: number;
+    declare unitsSold: number;
     declare totalRatings: number;
     declare categoriesIds: Array<{}>;
     declare imagesUrls: Array<{}>;
@@ -52,10 +51,9 @@ class Products extends Model<ProductsInterface> implements ProductsInterface {
         Products.hasMany(Images, { foreignKey: 'productId', as: 'imagesUrls' });
         Products.hasMany(Cart, { foreignKey: 'productId' });
         Products.hasMany(Wishlist, { foreignKey: 'productId' });
-        Products.belongsTo(Brands, { foreignKey: 'brandId' });
+        Products.belongsTo(Brands, { foreignKey: 'brandId', as: 'brand' });
         Products.belongsToMany(Categories, { through: ProductsCategories, foreignKey: 'productId' });
         Products.hasMany(ProductsCategories, { foreignKey: 'productId', as: 'categoriesIds' });
-        Products.belongsTo(User, { foreignKey: 'userId' });
     }
 }
 Products.init(
@@ -86,7 +84,8 @@ Products.init(
         },
         discount: {
             type: new DataTypes.INTEGER(),
-            allowNull: true
+            allowNull: true,
+            defaultValue: 0
         },
         title: {
             type: new DataTypes.STRING(),
@@ -94,9 +93,7 @@ Products.init(
         },
         quantity: {
             type: new DataTypes.INTEGER(),
-            allowNull: false,
-            defaultValue: 0,
-
+            allowNull: false
         },
         imageUrl: {
             type: new DataTypes.STRING(),
@@ -106,6 +103,7 @@ Products.init(
             type: new DataTypes.ARRAY(DataTypes.STRING),
             allowNull: false
         },
+
         rating: {
             type: new DataTypes.FLOAT(),
             allowNull: false,

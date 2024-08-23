@@ -1,1 +1,42 @@
-import express, {Express} from 'express';import cors from 'cors';import sequelize from './database/connection';import { syncDatabase} from './database';import userRouter from "./routes/userRoutes";import * as http from 'node:http';import transactionRouter from './routes/transactionRoutes';export const app: Express = express();export const httpServer =  http.createServer(app);export const shutdown = ()=> {  httpServer.close()}const PORT: number | string = process.env.PORT || 3000;app.use(express.json());app.use(cors());app.use(express.urlencoded({extended: true}));syncDatabase();// user routesapp.use('/', userRouter);app.use('/register', userRouter);app.use('/login', userRouter);app.use('/cart',transactionRouter);sequelize.sync({alter: true}).then(() => {    httpServer.listen(PORT, () => {        console.log(`Server is running on port ${PORT}`);    });});
+import express, { Express, Response, Request } from 'express';
+import cors from 'cors';
+import sequelize from './database/connection';
+import { db, syncDatabase } from './database';
+import userRouter from './routes/userRoutes';
+import productRouter from './routes/productsRoutes';
+import transactionRouter from './routes/transactionRoutes';
+import { homePageController } from './controllers/homePageController';
+import { errorHandler } from './middleware/errorHandler';
+import { createServer } from 'http';
+import helmet from 'helmet';
+syncDatabase();
+export const app: Express = express();
+export const server = createServer(app);
+export const shutdown = () => {
+    server.close();
+};
+const PORT: number | string = process.env.PORT || 3000;
+app.use(helmet());
+app.use(express.json());
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+app.use('/user', userRouter);
+app.use('/products', productRouter);
+app.get('/homePage', homePageController);
+app.use('/cart',transactionRouter);
+app.use(errorHandler);
+app.use('/', (req: Request, res: Response): Response => {
+    return res.sendStatus(404);
+});
+if (process.env.NODE_ENV !== 'test') {
+    sequelize
+        .authenticate()
+        .then(async () => {
+            await sequelize.sync({ alter: true });
+            console.log('connected to the database');
+        })
+        .catch(() => console.log('couldnt connect to the database'));
+    server.listen(PORT, () => {
+        console.log(`server is listening at port ${PORT}`);
+    });
+}

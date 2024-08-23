@@ -49,6 +49,7 @@ Transactions.init(
         },
         userId: {
             type: DataTypes.INTEGER,
+            allowNull: true,
             onUpdate: 'CASCADE',
             onDelete: 'SET NULL'
         },

@@ -58,7 +58,7 @@ module.exports = {
                 allowNull: false,
                 defaultValue: 0
             },
-            orders: {
+            unitsSold: {
                 type: new Sequelize.INTEGER(),
                 allowNull: false,
                 defaultValue: 0

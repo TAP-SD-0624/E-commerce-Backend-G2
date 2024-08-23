@@ -1,3 +1,5 @@
+import { Request, Response, NextFunction } from 'express';
+
 export class CustomError extends Error {
     public statusCode: number;
     public errorCode?: string;
@@ -14,3 +16,24 @@ export class CustomError extends Error {
         }
     }
 }
+
+export const errorMiddleware = (err: Error, req: Request, res: Response, next: NextFunction) => {
+    if (err instanceof CustomError) {
+        // Respond with the status code and error message
+        res.status(err.statusCode).json({
+            error: {
+                message: err.message,
+                statusCode: err.statusCode,
+                errorCode: err.errorCode
+            }
+        });
+    } else {
+        // Handle generic errors
+        res.status(500).json({
+            error: {
+                message: 'Internal Server Error',
+                statusCode: 500
+            }
+        });
+    }
+};

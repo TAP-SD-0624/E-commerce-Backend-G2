@@ -67,7 +67,7 @@ Users.init(
             allowNull: false
         },
         password: {
-            type: DataTypes.STRING,
+            type: DataTypes.CHAR(255),
             allowNull: false
         },
         DOB: {
