@@ -4,7 +4,6 @@ import sequelize from './database/connection';
 import { db, syncDatabase } from './database';
 import userRouter from './routes/userRoutes';
 import productRouter from './routes/productsRoutes';
-import transactionRouter from './routes/transactionRoutes';
 import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
@@ -27,7 +26,6 @@ app.use('/products', productRouter);
 app.use('/cart', cartRouter);
 app.use('/admin', AdminRouter);
 app.get('/homePage', homePageController);
-app.use('/cart',transactionRouter);
 app.use(errorHandler);
 app.use('/', (req: Request, res: Response): Response => {
     return res.sendStatus(404);
