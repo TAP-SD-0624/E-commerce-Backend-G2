@@ -1,8 +1,17 @@
 name: CI
-on: [push]
+
+on:
+    push:
+        branches:
+            - '**' # Run on all branches for every push
+    pull_request:
+        branches:
+            - main # Run on PRs targeting the main branch
+
 jobs:
     Test:
         runs-on: ubuntu-latest
+
         services:
             postgres:
                 image: postgres
@@ -17,19 +26,18 @@ jobs:
                     - 5432:5432
 
         steps:
-            # run steps required in the workflow
             - name: Checkout repository
               uses: actions/checkout@v2
 
-            - name: Set up Node.js 14.x
-              uses: actions/setup-node@v1
+            - name: Set up Node.js 16.x
+              uses: actions/setup-node@v3
               with:
-                  node-version: 14.x
+                  node-version: 16.x
 
             - name: Install dependencies
               run: npm install
 
-            - name: migrate database
+            - name: init test database
               env:
                   DB_TESTING_USERNAME: 'postgres'
                   DB_TESTING_PASSWORD: '12345'
@@ -39,3 +47,11 @@ jobs:
                   DB_TESTING_PORT: '5432'
                   ACCESS_TOKEN_SECRET: b206caddb5fb0f8497e374a79665d1b2b610fcd070cba36450f2914c93245ba0a312a63b8c44c982936f1f66d92cafc2021b36eb2b236e2afc9ca414387fa331
               run: npm run githubTest
+
+            # - name: Run P0 Critical Tests
+            #   if: github.event_name == 'push'
+            #   # run: npm run test:p0
+
+            # - name: Run P1 Additional Tests
+            #   if: github.event_name == 'pull_request' && github.base_ref == 'main'
+            #   run: npm run test:p1
