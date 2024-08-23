@@ -49,6 +49,14 @@ jobs:
               run: npm run githubinit
 
             - name: Run P0 Critical Tests
+              env:
+                  DB_TESTING_USERNAME: 'postgres'
+                  DB_TESTING_PASSWORD: '12345'
+                  DB_TESTING_DATABASE: 'ecommerce_test'
+                  DB_TESTING_DIALECT: 'postgres'
+                  DB_TESTING_HOST: 'localhost'
+                  DB_TESTING_PORT: '5432'
+                  ACCESS_TOKEN_SECRET: b206caddb5fb0f8497e374a79665d1b2b610fcd070cba36450f2914c93245ba0a312a63b8c44c982936f1f66d92cafc2021b36eb2b236e2afc9ca414387fa331
               if: github.event_name == 'push'
               run: npm run testp0
 
