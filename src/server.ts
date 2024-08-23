@@ -17,6 +17,7 @@ export const shutdown = () => {
     server.close();
 };
 const PORT: number | string = process.env.PORT || 3000;
+app.use(morgan('tiny'));
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
@@ -28,7 +29,7 @@ app.use(errorHandler);
 app.use('/', (req: Request, res: Response): Response => {
     return res.sendStatus(404);
 });
-app.use(morgan('tiny'));
+
 if (process.env.NODE_ENV !== 'test') {
     sequelize
         .authenticate()
