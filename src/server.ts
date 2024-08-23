@@ -8,6 +8,7 @@ import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
 import helmet from 'helmet';
+import morgan from 'morgan';
 import cartRouter from './routes/cartRoutes';
 import AdminRouter from './routes/adminRoutes';
 syncDatabase();
@@ -30,6 +31,7 @@ app.use(errorHandler);
 app.use('/', (req: Request, res: Response): Response => {
     return res.sendStatus(404);
 });
+app.use(morgan('tiny'));
 if (process.env.NODE_ENV !== 'test') {
     sequelize
         .authenticate()
