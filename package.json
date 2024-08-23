@@ -10,7 +10,10 @@
         "test": "jest --config jest.config.ts --coverage",
         "initTest": "cross-env NODE_ENV=test sequelize db:create && cross-env NODE_ENV=test sequelize db:migrate && npm run test",
         "setDatabase": "sequelize db:create && sequelize db:migrate && sequelize db:seed:all && npm run dev",
-        "setProductionDatabase": "cross-env NODE_ENV=production sequelize db:seed:all"
+        "setProductionDatabase": "cross-env NODE_ENV=production sequelize db:seed:all",
+        "testp1": "jest test/validation.test.ts",
+        "testp0": "jest test/product.integration.test.ts test/user.integration.test.ts",
+        "githubinit": "cross-env NODE_ENV=test sequelize db:migrate"
     },
     "repository": {
         "type": "git",
