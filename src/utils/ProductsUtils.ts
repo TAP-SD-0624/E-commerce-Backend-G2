@@ -56,7 +56,9 @@ export async function createNewProductTransaction(
     categoriesIdsList: Array<number>,
     imagesUrlList: Array<string>,
     tags: Array<string>,
-    discount?: number
+    discount?: number,
+    rating?: number,
+    unitsSold?: number
 ): Promise<void> {
     const bulkCategories: Array<{}> = categoriesIdsList.map((i: number): {} => {
         return { categoryId: i };
@@ -78,7 +80,9 @@ export async function createNewProductTransaction(
                     title,
                     categoriesIds: bulkCategories,
                     imagesUrls: bulkImages,
-                    tags
+                    tags,
+                    rating,
+                    unitsSold
                 },
                 {
                     include: [
@@ -104,8 +108,6 @@ export async function deleteProductById(productId: number): Promise<void> {
         throw new CustomError('Opps something went wrong', 500);
     }
 }
-
-/////////////////
 export async function getProductPageById(productId: number): Promise<Products> {
     const product = await db.Products.findByPk(productId, {
         attributes: ['id', 'title', 'label', 'description', 'price', 'discount', 'imageUrl', 'rating', 'unitsSold', 'quantity', 'totalRatings'],
@@ -149,36 +151,6 @@ export async function getProductPageById(productId: number): Promise<Products> {
         throw new CustomError('Product was not found', 404);
     }
 }
-// export async function searchByBrandName(searchValue: string): Promise<Array<Products>> {
-//     const results = await db.Products.findAll({
-//         attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
-//         include: [
-//             {
-//                 model: db.Brands,
-//                 attributes: [
-//                     ['id', 'brandId'],
-//                     ['name', 'brandTitle']
-//                 ],
-//                 where: {
-//                     name: { [Op.iLike]: `%${searchValue}%` }
-//                 }
-//             },
-//             {
-//                 model: db.Categories,
-//                 attributes: [
-//                     ['id', 'categoryId'],
-//                     ['title', 'categoryTitle']
-//                 ],
-//                 through: { attributes: [] }
-//             }
-//         ]
-//     });
-//     if (results.length > 0) {
-//         return results;
-//     } else {
-//         return [];
-//     }
-// }
 export async function searchBar(searchValue: string): Promise<Array<Products>> {
     const results = await db.Products.findAll({
         attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
@@ -214,12 +186,6 @@ export async function searchBar(searchValue: string): Promise<Array<Products>> {
         throw new CustomError('no result were found', 404);
     }
 }
-// export async function searchForProductsOrBrands(searchValue: string): Promise<Array<Products>> {
-//     const products = await searchByProductNameOrTags(searchValue);
-//     const brands = await searchByBrandName(searchValue);
-//     if (products.length < 1 && brands.length < 1) throw new CustomError('no result were found', 404);
-//     return [...products!, ...brands!];
-// }
 export async function getCardOneProducts(): Promise<Array<Products>> {
     const x = await db.Products.findAll({
         attributes: ['id', 'title', 'label', 'price', 'discount', 'imageUrl', 'rating', 'totalRatings', 'unitsSold'],
@@ -375,7 +341,6 @@ export async function getProductsByBrandId(id: number): Promise<Array<Products>>
         throw new CustomError('no result were found', 404);
     }
 }
-
 //the home page
 export async function getAllCategories(): Promise<Array<Categories>> {
     const categories = await db.Categories.findAll({ attributes: ['id', 'title', 'imageUrl'] });
@@ -475,7 +440,7 @@ export async function getHandPickedCollections(id: number): Promise<Array<Produc
             }
         ],
         where: {
-            [Op.and]: [{ rating: { [Op.gt]: 4.5 } }, { price: { [Op.lt]: 100 } }]
+            [Op.and]: [{ rating: { [Op.gte]: 4.5 } }, { price: { [Op.lte]: 100 } }]
         }
     });
     if (x.length > 0) {
@@ -484,7 +449,6 @@ export async function getHandPickedCollections(id: number): Promise<Array<Produc
         throw new CustomError('no result were found', 404);
     }
 }
-
 //reviews
 export async function updateUserReviewTransaction(productId: number, userId: number, newReview?: string, newRating?: number): Promise<boolean> {
     // dont forget to add limitaion to the new review and the new rating like rating should be between 1 and 5
@@ -496,7 +460,8 @@ export async function updateUserReviewTransaction(productId: number, userId: num
         const result = await sequelize.transaction(async (t) => {
             //checking if user has review already
             const userHasReview = await db.Ratings.findOne({
-                where: { userId, productId }
+                where: { userId, productId },
+                transaction: t
             });
             if (userHasReview) {
                 // if user has a review lets update it
@@ -507,7 +472,7 @@ export async function updateUserReviewTransaction(productId: number, userId: num
                             rating: newRating || userHasReview.rating,
                             review: newReview || userHasReview.review
                         },
-                        { where: { id: userHasReview.id } }
+                        { where: { id: userHasReview.id }, transaction: t }
                     );
                 } catch (error) {
                     throw new CustomError("couldn't update user existing review", 500);
@@ -515,12 +480,15 @@ export async function updateUserReviewTransaction(productId: number, userId: num
             } else {
                 // if user has no review lets create it
                 try {
-                    await db.Ratings.create({
-                        userId,
-                        rating: newRating || 0,
-                        review: newReview || '',
-                        productId
-                    });
+                    await db.Ratings.create(
+                        {
+                            userId,
+                            rating: newRating || 0,
+                            review: newReview || '',
+                            productId
+                        },
+                        { transaction: t }
+                    );
                 } catch (error) {
                     throw new CustomError("couldn't create new review", 500);
                 }
@@ -529,18 +497,20 @@ export async function updateUserReviewTransaction(productId: number, userId: num
             try {
                 const newTotalRatings = await db.Ratings.findOne({
                     where: { productId },
-                    attributes: [[sequelize.fn('count', sequelize.col('rating')), 'totalRatings']]
+                    attributes: [[sequelize.fn('count', sequelize.col('rating')), 'totalRatings']],
+                    transaction: t
                 });
                 const newAvgRating = await db.Ratings.findOne({
                     where: { productId },
-                    attributes: [[sequelize.fn('avg', sequelize.col('rating')), 'rating']]
+                    attributes: [[sequelize.fn('avg', sequelize.col('rating')), 'rating']],
+                    transaction: t
                 });
                 if (newAvgRating && newTotalRatings) {
                     // if we have a new rating then we need to update it in the products table
                     try {
                         await Products.update(
                             { rating: newAvgRating.dataValues.rating, totalRatings: newTotalRatings.dataValues.totalRatings },
-                            { where: { id: productId } }
+                            { where: { id: productId }, transaction: t }
                         );
                     } catch (error) {
                         throw new CustomError("couldn't update the new rating", 500);
@@ -598,5 +568,21 @@ export async function toggleWishList(productId: number, userId: number) {
         }
     } catch (error) {
         throw new CustomError("couldn't complete", 500);
+    }
+}
+//testing
+export async function createCategory(title: string, imageUrl: string) {
+    try {
+        await db.Categories.create({ title, imageUrl });
+    } catch (error) {
+        throw new CustomError('Opps couldnt make it', 500);
+    }
+}
+export async function createBrand(name: string, imageUrl: string) {
+    try {
+        await db.Brands.create({ name, imageUrl });
+    } catch (error) {
+        const err = error as Error;
+        throw new CustomError('Opps couldnt make it', 500);
     }
 }

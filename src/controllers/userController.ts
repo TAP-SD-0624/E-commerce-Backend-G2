@@ -8,8 +8,7 @@ export const createUser = (role: string) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         const { firstName, lastName, email, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
         try {
-            const hashedPassword = await bcrypt.hash(String(password), 10);
-            const user = await createUserDB(role, firstName, lastName, email, hashedPassword, phone, DOB, imageUrl);
+            const user = await createUserDB(role, firstName, lastName, email, password, phone, DOB, imageUrl);
             if (user) {
                 const token = generateToken(user.dataValues.id as number, user.dataValues.role);
                 const { password, role, ...userWithoutSensitiveData } = user.dataValues;
@@ -46,10 +45,12 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
     }
 };
 export const userUpdate = async (req: Request, res: Response, next: NextFunction) => {
-    const { firstName, lastName, phone, DOB, imageUrl }: createNewUserInterface = req.body;
+    const { firstName, lastName, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
     try {
-        const user = await updateUserById(req.body.decoded.userId, firstName, lastName, phone, DOB, imageUrl);
-        return res.status(201);
+        const user = await updateUserById(req.body.decoded.userId, firstName, lastName, password, phone, DOB, imageUrl);
+        return res.status(201).json({
+            message: 'User updated succesfullly'
+        });
     } catch (err) {
         return next(err);
     }

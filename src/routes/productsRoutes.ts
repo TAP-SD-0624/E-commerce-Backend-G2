@@ -9,7 +9,10 @@ import {
     validateProductUpdate
 } from '../middleware/validateProduct';
 import authenticateToken from '../utils/tokenUtils';
+import multer from 'multer';
 
+const memo = multer.memoryStorage();
+export const uploadMiddleware = multer({ storage: memo });
 const productRouter: Router = Router();
 //general
 productRouter.get('/itemPage', validateId, PC.getItemPageById);
@@ -18,7 +21,6 @@ productRouter.get('/itemByBrand', validateId, PC.getItemByBrandId);
 productRouter.get('/handPickedCollection', validateId, PC.getHandPickedCollectionItems);
 productRouter.get('/productSearch', validateSearchValue, PC.searchInItems);
 productRouter.get('/newArrivals', PC.getNewArrivalsItems);
-
 //cards
 productRouter.get('/itemCardOne', PC.itemsCardOne);
 productRouter.get('/itemCardTwo', PC.itemsCardTwo);
@@ -31,11 +33,12 @@ productRouter.delete('/removeItemFromCart', [authenticateToken('user'), ...valid
 productRouter.post('/toggleItemInWishList', [authenticateToken('user'), ...validateProductId], PC.toggleItemInWishList);
 //reviews and rating
 productRouter.post('/upsertUserReview', [authenticateToken('user'), ...validateUserReview], PC.upsertUserReviewOrRating);
-
 //////// Admin Only ///////
 //crud on products
 productRouter.post('/createNewProduct', [authenticateToken('admin'), ...validateProduct], PC.createNewProduct);
 productRouter.delete('/deleteProduct', [authenticateToken('admin'), ...validateProductId], PC.deleteProduct);
 productRouter.put('/updateProduct', [authenticateToken('admin'), ...validateProductUpdate], PC.updateProduct);
+//upload image
+productRouter.post('/uploadProductImages', [authenticateToken('admin'), uploadMiddleware.any()], PC.uploadProductImages);
 
 export default productRouter;
