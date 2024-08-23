@@ -8,8 +8,8 @@
         "dev": "nodemon",
         "build": "tsc",
         "test": "jest --config jest.config.ts --coverage",
-        "initTest": "cross-env NODE_ENV=test sequelize db:create && cross-env NODE_ENV=test sequelize db:migrate && npm test",
-        "githubTest": "cross-env NODE_ENV=test sequelize db:migrate && npm run test",
+        "initTest": "cross-env NODE_ENV=test sequelize db:create && cross-env NODE_ENV=test sequelize db:migrate && npm run test",
+        "githubTest": "cross-env NODE_ENV=test sequelize db:migrate && npm test",
         "setDatabase": "sequelize db:create && sequelize db:migrate && sequelize db:seed:all && npm run dev",
         "setProductionDatabase": "cross-env NODE_ENV=production sequelize db:seed:all"
     },
