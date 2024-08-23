@@ -61,5 +61,7 @@ jobs:
               run: npm run testp0
 
             - name: Run P1 Additional Tests
+              env:
+                  ACCESS_TOKEN_SECRET: b206caddb5fb0f8497e374a79665d1b2b610fcd070cba36450f2914c93245ba0a312a63b8c44c982936f1f66d92cafc2021b36eb2b236e2afc9ca414387fa331
               if: github.event_name == 'pull_request' && github.base_ref == 'Development'
               run: npm run testp1
