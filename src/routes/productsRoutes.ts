@@ -39,6 +39,6 @@ productRouter.post('/createNewProduct', [authenticateToken('admin'), ...validate
 productRouter.delete('/deleteProduct', [authenticateToken('admin'), ...validateProductId], PC.deleteProduct);
 productRouter.put('/updateProduct', [authenticateToken('admin'), ...validateProductUpdate], PC.updateProduct);
 //upload image
-productRouter.post('/uploadProductImages', [authenticateToken('admin'), uploadMiddleware.any()], PC.uploadProductImages);
+productRouter.post('/uploadProductImages', [uploadMiddleware.any()], PC.uploadProductImages);
 
 export default productRouter;
