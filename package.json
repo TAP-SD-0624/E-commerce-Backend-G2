@@ -12,8 +12,8 @@
         "setDatabase": "sequelize db:create && sequelize db:migrate && sequelize db:seed:all && npm run dev",
         "setProductionDatabase": "cross-env NODE_ENV=production sequelize db:seed:all",
         "testp1": "jest test/validation.test.ts",
-        "testp000": "jest test/product.integration.test.ts test/user.integration.test.ts",
-        "testp0": "cross-env NODE_ENV=test sequelize db:migrate && npm run testp000"
+        "testp0": "jest test/product.integration.test.ts test/user.integration.test.ts",
+        "githubinit": "cross-env NODE_ENV=test sequelize db:migrate"
     },
     "repository": {
         "type": "git",
