@@ -4,7 +4,7 @@ import Address from './address';
 import Ratings from './ratings';
 import Cart from './cart';
 import Orders from './orders';
-import Transactions from './Transactions';
+import Tranactions from './Transactions';
 import Wishlist from './wishlist';
 export interface UserInterface {
     id?: number;
@@ -13,7 +13,7 @@ export interface UserInterface {
     email: string;
     phone: string;
     password: string;
-    DOB: Date;
+    DOB: number;
     imageUrl: string;
     createdAt?: Date;
     updatedAt?: Date;
@@ -26,7 +26,7 @@ class Users extends Model<UserInterface> implements UserInterface {
     declare email: string;
     declare phone: string;
     declare password: string;
-    declare DOB: Date;
+    declare DOB: number;
     declare imageUrl: string;
     declare createdAt?: Date;
     declare updatedAt?: Date;
@@ -35,7 +35,7 @@ class Users extends Model<UserInterface> implements UserInterface {
         Users.hasMany(Address, { foreignKey: 'userId' });
         Users.hasMany(Ratings, { foreignKey: 'userId' });
         Users.hasMany(Cart, { foreignKey: 'userId' });
-        Users.hasMany(Transactions, { foreignKey: 'userId' });
+        Users.hasMany(Tranactions, { foreignKey: 'userId' });
         Users.hasMany(Orders, { foreignKey: 'userId' });
         Users.hasMany(Wishlist, { foreignKey: 'userId' });
     }

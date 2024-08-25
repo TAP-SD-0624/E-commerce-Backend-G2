@@ -2,24 +2,24 @@ import { Model, DataTypes } from 'sequelize';
 import sequelize from '../connection';
 import Users from './users';
 import Orders from './orders';
-interface TransactionsInterface {
+interface TranactionsInterface {
     id?: number;
     userId: number;
     paymentStatus: string;
-    shippingStatus: string;
+    shipingStatus: string;
     updatedAt?: Date;
     createdAt?: Date;
-    shippingAddress: string;
+    shipingAddress: string;
     totalPrice: number;
 }
 
-class Transactions extends Model<TransactionsInterface> implements TransactionsInterface {
+class Transactions extends Model<TranactionsInterface> implements TranactionsInterface {
     declare id?: number;
     declare userId: number;
     declare paymentStatus: string;
-    declare shippingStatus: string;
+    declare shipingStatus: string;
     declare totalPrice: number;
-    declare shippingAddress: string;
+    declare shipingAddress: string;
     declare readonly updatedAt?: Date;
     declare readonly createdAt?: Date;
     static associate() {
@@ -38,10 +38,10 @@ Transactions.init(
         paymentStatus: {
             type: DataTypes.STRING
         },
-        shippingStatus: {
+        shipingStatus: {
             type: DataTypes.STRING
         },
-        shippingAddress: {
+        shipingAddress: {
             type: DataTypes.STRING
         },
         totalPrice: {

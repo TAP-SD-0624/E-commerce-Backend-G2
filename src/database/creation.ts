@@ -10,12 +10,14 @@ import { UserInterface } from './models/users';
 
 interface productJson {
     category: string;
+    categoryImageUrl: any;
     id: any;
     label: any;
     description: any;
     price: any;
     discount: any;
     title: any;
+    brandImageUrl: any;
     quantity: any;
     imageUrl: any;
     images: any[];
@@ -60,7 +62,7 @@ for (const productJson of data) {
         brand = {
             id: brands.length + 1,
             name: productJson.title,
-            imageUrl: '',
+            imageUrl: productJson.brandImageUrl, // Placeholder for brand imageUrl
             createdAt: new Date(),
             updatedAt: new Date()
         };
@@ -115,7 +117,7 @@ for (const productJson of data) {
         category = {
             id: categories.length + 1,
             title: productJson.category,
-            imageUrl: '', // Placeholder for category imageUrl
+            imageUrl: productJson.categoryImageUrl, // Placeholder for category imageUrl
             createdAt: new Date(),
             updatedAt: new Date()
         };

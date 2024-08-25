@@ -1,6 +1,5 @@
 'use strict';
 import { DataTypes, QueryInterface } from 'sequelize';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
@@ -21,10 +20,6 @@ module.exports = {
                 allowNull: true,
                 onUpdate: 'CASCADE',
                 onDelete: 'SET NULL'
-            },
-            quantityOrdered: {
-                type: Sequelize.INTEGER,
-                allowNull: true
             },
             createdAt: {
                 allowNull: false,
