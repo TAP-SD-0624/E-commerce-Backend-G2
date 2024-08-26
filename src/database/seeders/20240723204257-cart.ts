@@ -23,12 +23,6 @@ module.exports = {
                 createdAt: new Date(),
                 updatedAt: new Date()
             },
-            {
-                userId: 1,
-                productId: 5,
-                createdAt: new Date(),
-                updatedAt: new Date()
-            },
 
             {
                 userId: 3,

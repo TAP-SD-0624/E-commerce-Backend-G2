@@ -145,3 +145,17 @@ describe('update user data', () => {
         });
     });
 });
+
+
+describe('Cart and Checkout Operations', () => {
+
+    it('should add an item to the cart', async () => {
+        const resp = await request(app)
+            .post('/products/addItemToCart')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
+            .send({ productId: 1 });
+
+        expect(resp.status).toBe(200);
+    });
+
+});

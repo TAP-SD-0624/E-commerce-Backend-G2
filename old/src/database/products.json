@@ -1,0 +1,860 @@
+[
+    {
+        "id": 1,
+        "label": "Essence Mascara Lash Princess",
+        "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
+        "category": "beauty",
+        "categoryImageUrl": "https://shorturl.at/bnirv",
+        "price": 9.99,
+        "discount": 7.17,
+        "rating": 4.7,
+        "quantity": 5,
+        "tags": ["beauty", "mascara", "makeup"],
+        "title": "Essence",
+        "brandImageUrl": "https://shorturl.at/mIVln",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Very unhappy with my purchase!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "John Doe",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "color a little bit lighter,not as described!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Nolan Gonzalez",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Scarlett Wright",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://shorturl.at/xCB4E",
+            "https://shorturl.at/fNAbQ",
+            "https://shorturl.at/cW1Bv"
+        ],
+        "imageUrl": "https://rb.gy/zat1kw"
+    },
+    {
+        "id": 2,
+        "label": "Eyeshadow Palette with Mirror",
+        "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+        "category": "beauty",
+        "categoryImageUrl": "https://rb.gy/cri2ao",
+        "price": 19.99,
+        "discount": 5.5,
+        "rating": 3.333,
+        "quantity": 44,
+        "tags": ["beauty", "eyeshadow", "makeup"],
+        "title": "Glamour Beauty",
+        "brandImageUrl": "https://rb.gy/85ppiy",
+        "reviews": [
+            {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Liam Garcia",
+                "reviewerEmail": "liam.garcia@x.dummyjson.com"
+            },
+            {
+                "rating": 1,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Nora Russell",
+                "reviewerEmail": "james.davis@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Elena Baker",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            }
+        ],
+        "images": ["https://tinyurl.com/4zefwf4u",
+        "https://rb.gy/y4cclw",
+            "https://tinyurl.com/yc4hmp76"
+        ],
+        "imageUrl": "https://tinyurl.com/26k4f6sh"
+    },
+    {
+        "id": 3,
+        "label": "Powder Canister",
+        "description": "The Powder Canister is a finely milled setting powder designed to set makeup and control shine. With a lightweight and translucent formula, it provides a smooth and matte finish.",
+        "category": "beauty",
+        "categoryImageUrl": "https://tinyurl.com/2v788wap",
+        "price": 14.99,
+        "discount": 18.14,
+        "rating": 4.666,
+        "quantity": 59,
+        "tags": ["beauty", "face powder", "makeup"],
+        "title": "Velvet Touch",
+        "brandImageUrl": "https://tinyurl.com/2v788wap",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Ethan Thompson",
+                "reviewerEmail": "olivia.wilson@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Levi Hicks",
+                "reviewerEmail": "alexander.jones@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.618Z",
+                "reviewerName": "Hazel Gardner",
+                "reviewerEmail": "ava.taylor@x.dummyjson.com"
+            }
+        ],
+        "images": [
+        "https://tinyurl.com/43aye7mj",
+        "https://tinyurl.com/2sw3x27u",
+        "https://tinyurl.com/wmtdj3r6"
+        ],
+        "imageUrl": "https://tinyurl.com/md7cmmek"
+    },
+    {
+        "id": 4,
+        "label": "Red Lipstick",
+        "description": "The Red Lipstick is a classic and bold choice for adding a pop of color to your lips. With a creamy and pigmented formula, it provides a vibrant and long-lasting finish.",
+        "category": "beauty",
+        "categoryImageUrl": "https://tinyurl.com/munwvf5d",
+        "price": 12.99,
+        "discount": 19.03,
+        "rating": 4.5,
+        "quantity": 68,
+        "tags": ["beauty", "lipstick", "makeup"],
+        "title": "Chic Cosmetics",
+           "brandImageUrl": "https://tinyurl.com/munwvf5d",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Leo Rivera",
+                "reviewerEmail": "ava.taylor@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Oscar Powers",
+                "reviewerEmail": "ethan.martinez@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Carter Rivera",
+                "reviewerEmail": "isabella.anderson@x.dummyjson.com"
+            }
+        ],
+        "images": ["https://tinyurl.com/56kdwyan",
+        "https://tinyurl.com/2nscyxy4",
+        "https://tinyurl.com/ycycb53w"
+        ],
+        "imageUrl": "https://tinyurl.com/2xf6b3ck"
+    },
+    {
+        "id": 5,
+        "label": "Red Nail Polish",
+        "description": "The Red Nail Polish offers a rich and glossy red hue for vibrant and polished nails. With a quick-drying formula, it provides a salon-quality finish at home.",
+        "category": "beauty",
+        "categoryImageUrl": "https://tinyurl.com/mr3ev59b",
+        "price": 8.99,
+        "discount": 2.46,
+        "rating": 4.666,
+        "quantity": 71,
+        "tags": ["beauty", "nail polish"],
+        "title": "Nail Couture",
+        "brandImageUrl": "https://tinyurl.com/29wbcwcp",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Leo Rivera",
+                "reviewerEmail": "isabella.anderson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Evan Reed",
+                "reviewerEmail": "liam.garcia@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Evelyn Sanchez",
+                "reviewerEmail": "olivia.wilson@x.dummyjson.com"
+            }
+        ],
+        "images": ["https://tinyurl.com/sdpe4pbb",
+        "https://tinyurl.com/29wbcwcp"
+        ],
+        "imageUrl": "https://tinyurl.com/527ajwwx"
+    },
+    {
+        "id": 6,
+        "label": "Calvin Klein CK One",
+        "description": "CK One by Calvin Klein is a classic unisex fragrance, known for its fresh and clean scent. It's a versatile fragrance suitable for everyday wear.",
+        "category": "fragrances",
+        "categoryImageUrl": "https://tinyurl.com/mvp9jk6s",
+        "price": 49.99,
+        "discount": 0.32,
+        "rating": 2.666,
+        "quantity": 17,
+        "tags": ["fragrances", "perfumes", "men", "women"],
+        "title": "Calvin Klein",
+        "brandImageUrl": "https://tinyurl.com/yp39ct3j",
+        "weight": 5,
+        "reviews": [
+            {
+                "rating": 4,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Sophia Brown",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            },
+            {
+                "rating": 3,
+                "comment": "Very disappointed!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Madison Collins",
+                "reviewerEmail": "mia.rodriguez@x.dummyjson.com"
+            },
+            {
+                "rating": 1,
+                "comment": "Poor quality!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Maya Reed",
+                "reviewerEmail": "noah.hernandez@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/yp39ct3j",
+            "https://tinyurl.com/mvp9jk6s",
+            "https://tinyurl.com/k3spa2pc"
+        ],
+        "imageUrl": "https://tinyurl.com/px7s2zh7"
+    },
+    {
+        "id": 7,
+        "label": "Chanel Coco Noir Eau De",
+        "description": "Coco Noir by Chanel is an elegant and mysterious fragrance, featuring notes of grapefruit, rose, and sandalwood. Perfect for evening occasions.",
+        "category": "fragrances",
+        "categoryImageUrl": "https://tinyurl.com/bdeus9s6",
+        "price": 129.99,
+        "discount": 18.64,
+        "rating": 3.0,
+        "quantity": 41,
+        "tags": ["fragrances", "perfumes", "luxury", "fragrance"],
+        "title": "Chanel",
+        "brandImageUrl": "https://tinyurl.com/4c8khb48",
+        "reviews": [
+            {
+                "rating": 1,
+                "comment": "Too expensive, and bad quality! Disappointing product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Lincoln Kelly",
+                "reviewerEmail": "noah.hernandez@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Great product!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Lincoln Kelly",
+                "reviewerEmail": "charlotte.lopez@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Lucas Allen",
+                "reviewerEmail": "william.gonzalez@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/4hx44fpm",
+            "https://tinyurl.com/3vbk53rj",
+            "https://tinyurl.com/4hx44fpm"
+        ],
+        "imageUrl": "https://tinyurl.com/37uaaesa"
+    },
+    {
+        "id": 8,
+        "label": "Dior J'adore",
+        "description": "J'adore by Dior is a luxurious and floral fragrance, known for its blend of ylang-ylang, rose, and jasmine. It embodies femininity and sophistication.",
+        "category": "fragrances",
+        "categoryImageUrl": "https://tinyurl.com/24mar8kp",
+        "price": 89.99,
+        "discount": 17.44,
+        "rating": 4.3333,
+        "quantity": 91,
+        "tags": ["fragrances", "perfumes", "luxury", "Dior"],
+        "title": "Dior",
+        "brandImageUrl": "https://tinyurl.com/2yhwaskw",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Fast shipping!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Zoe Nicholson",
+                "reviewerEmail": "william.gonzalez@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Addison Wright",
+                "reviewerEmail": "avery.perez@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Clara Berry",
+                "reviewerEmail": "noah.hernandez@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/wyzds5kf",
+            "https://tinyurl.com/mvkjuc94",
+            "https://tinyurl.com/jn6jwhjw"
+        ],
+        "imageUrl": "https://tinyurl.com/2a964hv6"
+    },
+    {
+        "id": 9,
+        "label": "Dolce Shine Eau de",
+        "description": "Dolce Shine by Dolce & Gabbana is a vibrant and fruity fragrance, featuring notes of mango, jasmine, and blonde woods. It's a joyful and youthful scent.",
+        "category": "fragrances",
+        "categoryImageUrl": "https://tinyurl.com/3zz58n97",
+        "price": 69.99,
+        "discount": 11.47,
+        "rating": 3.3333,
+        "quantity": 3,
+        "tags": ["fragrances", "perfumes", "Dolce & Gabbana", "women", "floral", "eau de parfum", "luxury"],
+        "title": "Dolce & Gabbana",
+        "brandImageUrl": "https://tinyurl.com/9e32kybu",
+        "reviews": [
+            {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Xavier Wright",
+                "reviewerEmail": "noah.hernandez@x.dummyjson.com"
+            },
+            {
+                "rating": 1,
+                "comment": "Poor quality!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Mila Hernandez",
+                "reviewerEmail": "charlotte.lopez@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Very happy with my purchase!",
+                "date": "2024-05-23T08:56:21.619Z",
+                "reviewerName": "Sophia Brown",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/ycy72wep",
+            "https://tinyurl.com/78uk96u3",
+            "https://tinyurl.com/ycy72wep"
+        ],
+        "imageUrl": "https://tinyurl.com/3bb6st72"
+    },
+    {
+        "id": 10,
+        "label": "Gucci Bloom Eau de",
+        "description": "Gucci Bloom by Gucci is a floral and captivating fragrance, with notes of tuberose, jasmine, and Rangoon creeper. It's a modern and romantic scent.",
+        "category": "fragrances",
+        "categoryImageUrl": "https://tinyurl.com/483x7pvj",
+        "price": 79.99,
+        "discount": 8.9,
+        "rating": 4.666,
+        "quantity": 93,
+        "tags": ["fragrances", "perfumes", "designer", "luxury", "floral", "scent", "modern", "romantic"],
+        "title": "Gucci",
+        "brandImageUrl": "https://tinyurl.com/3scm9w2p",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Great value for money!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Aria Parker",
+                "reviewerEmail": "logan.torres@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Natalie Harris",
+                "reviewerEmail": "abigail.rivera@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Fast shipping!",
+                "date": "2024-05-23T08:56:21.620Z",
+                "reviewerName": "Ava Harris",
+                "reviewerEmail": "ava.taylor@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/5n753ext",
+            "https://tinyurl.com/mr2j3cpv",
+            "https://tinyurl.com/5n753ext"
+        ],
+        "imageUrl": "https://tinyurl.com/37txdymd"
+    },
+    {
+        "id": 11,
+        "label": "Blue Women's Handbag",
+        "description": "The Blue Women's Handbag is a stylish and spacious accessory for everyday use. With a vibrant blue color and multiple compartments, it combines fashion and functionality.",
+        "category": "women's fashion accessories",
+        "categoryImageUrl": "https://tinyurl.com/5cvr2tfw",
+        "price": 49.99,
+        "discount": 5.24,
+        "rating": 1.333,
+        "quantity": 76,
+        "tags": ["fashion accessories", "handbags", "blue", "stylish", "luxury", "women's "],
+        "title": "Dior",
+        "brandImageUrl": "https://tinyurl.com/4ttwj6jn",
+        "reviews": [
+            {
+                "rating": 1,
+                "comment": "Terrible Manufacturing Quality",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "John Doe",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 2,
+                "comment": "Horrible and cheap quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Aria Parker",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            },
+            {
+                "rating": 1,
+                "comment": "Poor quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Hazel Gardner",
+                "reviewerEmail": "james.davis@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://i.ebayimg.com/images/g/QjYAAOSwErRmuEXX/s-l1600.webp",
+            "https://i.ebayimg.com/images/g/9VYAAOSwCGFmuEXX/s-l960.webp",
+            "https://i.ebayimg.com/images/g/yioAAOSw5KhmuEXX/s-l960.webp"
+        ],
+        "imageUrl": "https://tinyurl.com/59awf4mw"
+    },
+    {
+        "id": 12,
+        "label": "Dior Women's Leather Bag",
+        "description": "The Dior Women's Leather Bag is a luxurious and high-quality leather bag for the sophisticated woman. With a timeless design and durable craftsmanship, it's a versatile accessory.",
+        "category": "women's bags",
+        "categoryImageUrl": "https://tinyurl.com/4r8seks7",
+        "price": 129.99,
+        "discount": 7.74,
+        "rating": 4.333,
+        "quantity": 9,
+        "tags": ["fashion accessories", "bags", "designer"],
+        "title": "Dior",
+        "brandImageUrl": "https://tinyurl.com/h97veds7",
+        "reviews": [
+            {
+                "rating": 4,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Hunter Gordon",
+                "reviewerEmail": "james.davis@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Ethan Fletcher",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Aaron Cook",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/9wenttbw",
+            "https://tinyurl.com/y3teazja",
+            "https://tinyurl.com/9wenttbw"
+        ],
+        "imageUrl": "https://tinyurl.com/3kt7ndef"
+    },
+    {
+        "id": 13,
+        "label": "Prada Women Bag",
+        "description": "The Prada Women Bag is an iconic designer bag that exudes elegance and luxury. Crafted with precision and featuring the Prada logo, it's a statement piece for fashion enthusiasts.",
+        "category": "women's bags",
+        "categoryImageUrl": "https://tinyurl.com/mr4b9m46",
+        "price": 599.99,
+        "discount": 18.3,
+        "rating": 4,
+        "quantity": 43,
+        "tags": ["fashion accessories", "designer bags", "bag", "leather"],
+        "title": "Prada",
+        "brandImageUrl": "https://tinyurl.com/mt3k74yj",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Samantha Howard",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Henry Hill",
+                "reviewerEmail": "emma.miller@x.dummyjson.com"
+            },
+            {
+                "rating": 3,
+                "comment": "Not worth the price!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Lucas Ramirez",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/mr3r5ere",
+            "https://tinyurl.com/2pvkvu6a",
+            "https://tinyurl.com/enh69duf"
+        ],
+        "imageUrl": "https://tinyurl.com/4ujjjhj6"
+    },
+    {
+        "id": 14,
+        "label": "White Faux Leather Backpack",
+        "description": "The White Faux Leather Backpack is a trendy and practical backpack for the modern woman. With a sleek white design and ample storage space, it's perfect for both casual and on-the-go styles.",
+        "category": "backpacks",
+        "categoryImageUrl": "https://tinyurl.com/5h4nw2pf",
+        "price": 39.99,
+        "discount": 7.76,
+        "rating": 3.666,
+        "quantity": 89,
+        "tags": ["fashion accessories", "backpacks", "school", "travel", "outdoor"],
+        "title": "fjallraven",
+        "brandImageUrl": "https://tinyurl.com/ynbmktx3",
+        "reviews": [
+            {
+                "rating": 1,
+                "comment": "Would not recommend!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Harper Kelly",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Sofia Mitchell",
+                "reviewerEmail": "emma.miller@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Eli Bennett",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/5h4nw2pf",
+            "https://tinyurl.com/5n8udncv",
+            "https://tinyurl.com/2e66nw96"
+        ],
+        "imageUrl": "https://tinyurl.com/52mbw5wk"
+    },
+    {
+        "id": 15,
+        "label": "So Kate Patent Pointed-Toe Red Sole Pump",
+        "description": "The Women shoes in Black is a classic and versatile accessory that complements various outfits. With a timeless black color and functional design, it's a must-have in every woman's wardrobe.",
+        "category": "women's accessories",
+        "categoryImageUrl": "https://tinyurl.com/35rh9v6z",
+        "price": 959.99,
+        "discount": 3.08,
+        "rating": 4.66,
+        "quantity": 24,
+        "tags": ["luxury", "shoes", "leather", "heels", "pumps", "women's accessories"],
+        "title": "Christian Louboutin",
+        "brandImageUrl": "https://tinyurl.com/uyfhutzu",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Not as described!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Leah Hughes",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Lila Hudson",
+                "reviewerEmail": "olivia.wilson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Ethan Martinez",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/3stzk95f",
+            "https://tinyurl.com/de9nmsf6",
+            "https://tinyurl.com/3524rdh5",
+            "https://tinyurl.com/3cdpmf44"
+        ],
+        "imageUrl": "https://tinyurl.com/5cyeu9r3"
+    },
+    {
+        "id": 16,
+        "label": "Black Women's Handbag",
+        "description": "The Blue Women's Handbag is a stylish and spacious accessory for everyday use. With a vibrant blue color and multiple compartments, it combines fashion and functionality.",
+        "category": "women's handbag",
+        "categoryImageUrl": "https://tinyurl.com/k2s4k2d8",
+        "price": 49.99,
+        "discount": 5.24,
+        "rating": 4,
+        "quantity": 76,
+        "tags": ["fashion accessories", "handbags", "black", "leather", "designer", "luxury", "women's handbag"],
+        "title": "Dior",
+        "brandImageUrl": "https://tinyurl.com/4a899w44",
+        "reviews": [
+            {
+                "rating": 4,
+                "comment": "Very satisfied!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "John Doe",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Aria Parker",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Poor quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Hazel Gardner",
+                "reviewerEmail": "james.davis@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/k2s4k2d8",
+            "https://tinyurl.com/3rsnmv96",
+            "https://tinyurl.com/549hvrth"
+        ],
+        "imageUrl": "https://tinyurl.com/59awf4mw"
+    },
+    {
+        "id": 17,
+        "label": "Dior Women's Leather Belt",
+        "description": "The Dior Women's Leather Belt is a luxurious and high-quality leather belt for the sophisticated woman. With a timeless design and durable craftsmanship, it's a versatile accessory.",
+        "category": "belt",
+        "categoryImageUrl": "https://tinyurl.com/mryuzwrt",
+        "price": 129.99,
+        "discount": 7.74,
+        "rating": 4.333,
+        "quantity": 9,
+        "tags": ["fashion accessories", "leather", "designer belt", "luxury", "belt"],
+        "title": "Chanel",
+        "brandImageUrl": "https://tinyurl.com/yenh4hpd",
+        "reviews": [
+            {
+                "rating": 4,
+                "comment": "Highly impressed!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Hunter Gordon",
+                "reviewerEmail": "james.davis@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Ethan Fletcher",
+                "reviewerEmail": "sophia.brown@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Highly recommended!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Aaron Cook",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/z52z4vty",
+            "https://tinyurl.com/3w4yv34b",
+            "https://tinyurl.com/595h69uv"
+        ],
+        "imageUrl": "https://tinyurl.com/3kt7ndef"
+    },
+    {
+        "id": 18,
+        "label": "Manolo Blahnik Red High heal shoes",
+        "description": "The Manolo Blahnik Women Bag is an iconic designer bag that exudes elegance and luxury. Crafted with precision and featuring the Manolo Blahnik logo.",
+        "category": "shoes",
+        "categoryImageUrl": "https://tinyurl.com/2d6sbskb",
+        "price": 599.99,
+        "discount": 18.3,
+        "rating": 4,
+        "quantity": 43,
+        "tags": ["fashion accessories", "designer shoes", "high heels", "luxury", "shoes", "red"],
+        "title": "Manolo Blahnik",
+        "brandImageUrl": "https://tinyurl.com/2t2c3csb",
+        "reviews": [
+            {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Samantha Howard",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Would buy again!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Henry Hill",
+                "reviewerEmail": "emma.miller@x.dummyjson.com"
+            },
+            {
+                "rating": 3,
+                "comment": "Not worth the price!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Lucas Ramirez",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/ytf8ww3u",
+            "https://tinyurl.com/ye24zd8a",
+            "https://tinyurl.com/56nwpd6w"
+        ],
+        "imageUrl": "https://tinyurl.com/4ujjjhj6"
+    },
+    {
+        "id": 19,
+        "label": "Valentino scarf",
+        "description": "The Valentino scarf is a luxurious and versatile accessory that can elevate any outfit. Made from 100% silk, this scarf features an intricate design",
+        "category": "accessories",
+        "categoryImageUrl": "https://tinyurl.com/5fu34awz",
+        "price": 39.99,
+        "discount": 7.76,
+        "rating": 3.666,
+        "quantity": 89,
+        "tags": ["fashion accessories", "scarf", "designer", "luxury", "silk", "wool"],
+        "title": "Gucci",
+        "brandImageUrl": "https://tinyurl.com/ya59nx8y",
+        "reviews": [
+            {
+                "rating": 1,
+                "comment": "Would not recommend!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Harper Kelly",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Excellent quality!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Sofia Mitchell",
+                "reviewerEmail": "emma.miller@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Eli Bennett",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/5fu34awz",
+            "https://tinyurl.com/2th8zccu",
+            "https://tinyurl.com/rkyeucnh"
+        ],
+        "imageUrl": "https://tinyurl.com/52mbw5wk"
+    },
+    {
+        "id": 20,
+        "label": "The Ordinary",
+        "description":"A reformulation of our most-loved hydration serum that instantly hydrates and plumps, while smoothing texture and wrinkles. This new formula has a slight yellow tinge when compared to our previous formula.",
+        "category": "skin care",
+        "categoryImageUrl": "https://tinyurl.com/8kk3j83x",
+        "price": 59.99,
+        "discount": 3.08,
+        "rating": 3.33,
+        "quantity": 24,
+        "tags": ["skin care", "makeup", "serum"],
+        "title": "The Ordinary",
+        "brandImageUrl": "https://tinyurl.com/wh99d79y",
+        "reviews": [
+            {
+                "rating": 1,
+                "comment": "Not as described!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Leah Hughes",
+                "reviewerEmail": "emily.johnson@x.dummyjson.com"
+            },
+            {
+                "rating": 4,
+                "comment": "Very pleased!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Lila Hudson",
+                "reviewerEmail": "olivia.wilson@x.dummyjson.com"
+            },
+            {
+                "rating": 5,
+                "comment": "Awesome product!",
+                "date": "2024-05-23T08:56:21.627Z",
+                "reviewerName": "Ethan Martinez",
+                "reviewerEmail": "michael.williams@x.dummyjson.com"
+            }
+        ],
+        "images": [
+            "https://tinyurl.com/yrc9hpxc",
+            "https://tinyurl.com/mvkvuh6f",
+            "https://tinyurl.com/8kk3j83x"
+        ],
+        "imageUrl": "https://tinyurl.com/5cyeu9r3"
+    }
+]

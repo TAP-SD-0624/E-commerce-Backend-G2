@@ -8,10 +8,12 @@
         "dev": "nodemon",
         "build": "tsc",
         "test": "jest --config jest.config.ts --coverage",
-        "githubTest": "cross-env NODE_ENV=test sequelize db:migrate && npm run test",
         "initTest": "cross-env NODE_ENV=test sequelize db:create && cross-env NODE_ENV=test sequelize db:migrate && npm run test",
         "setDatabase": "sequelize db:create && sequelize db:migrate && sequelize db:seed:all && npm run dev",
-        "setProductionDatabase": "cross-env NODE_ENV=production sequelize db:seed:all"
+        "setProductionDatabase": "cross-env NODE_ENV=production sequelize db:seed:all",
+        "testp1": "jest test/validation.test.ts",
+        "testp0": "jest test/product.integration.test.ts test/user.integration.test.ts",
+        "githubinit": "cross-env NODE_ENV=test sequelize db:migrate"
     },
     "repository": {
         "type": "git",
@@ -66,6 +68,7 @@
         "mysql2": "^3.11.0",
         "pg": "^8.12.0",
         "pg-hstore": "^2.3.4",
+        "redis": "^4.7.0",
         "sequelize": "^6.37.3",
         "supertest": "^7.0.0",
         "uuid": "^10.0.0"

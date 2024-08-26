@@ -10,14 +10,13 @@ import { UserInterface } from './models/users';
 
 interface productJson {
     category: string;
-    categoryImageUrl: any;
     id: any;
     label: any;
     description: any;
     price: any;
     discount: any;
     title: any;
-    brandImageUrl: any;
+    brand: any;
     quantity: any;
     imageUrl: any;
     images: any[];
@@ -38,8 +37,8 @@ interface userJson {
     role: any;
 }
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const filePath = path.join(__dirname, 'products.json');
 const data: productJson[] = JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -61,12 +60,8 @@ for (const productJson of data) {
     if (!brand) {
         brand = {
             id: brands.length + 1,
-            name: productJson.title,
-<<<<<<< HEAD
-            imageUrl: productJson.brandImageUrl, // Placeholder for brand imageUrl
-=======
-            imageUrl: '', // Placeholder for brand imageUrl
->>>>>>> aeb7b069dd380bcc66b7ec15f322236874655e1a
+            name: productJson.brand,
+            imageUrl: '',
             createdAt: new Date(),
             updatedAt: new Date()
         };
@@ -121,7 +116,7 @@ for (const productJson of data) {
         category = {
             id: categories.length + 1,
             title: productJson.category,
-            imageUrl: productJson.categoryImageUrl, // Placeholder for category imageUrl
+            imageUrl: '', // Placeholder for category imageUrl
             createdAt: new Date(),
             updatedAt: new Date()
         };

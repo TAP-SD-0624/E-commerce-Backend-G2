@@ -863,3 +863,17 @@ export const createProductBadConstrain = {
     tags: ['tag1', 'tag2'],
     discount: 1
 };
+
+export const checkoutAddress = {
+    brandId: 1,
+    label: 'label',
+    description: 'description',
+    price: 1,
+    title: 'title',
+    imageUrl: 'www.image/url.com',
+    quantity: 1,
+    categoriesIdsList: [1, 99],
+    imagesUrlList: ['1/url', '2/url'],
+    tags: ['tag1', 'tag2'],
+    discount: 1
+};

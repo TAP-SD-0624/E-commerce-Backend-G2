@@ -451,3 +451,110 @@ describe('testing tokens', () => {
         expect(resp.status).toBe(403);
     });
 });
+
+//cart
+
+describe('validateAddress', () => {
+    // target end points
+    // address
+    it('should response with 422 for bad input', async () => {
+        const resp = await request(app)
+            .post('/cart/newAddress')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${userToken}` })
+            .send({
+                fullName: '',
+                street: '1st',
+                city: '',
+                mobile: 1234567,
+                state: 'N',
+                zipcode: 432
+            });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            city: {
+                location: 'body',
+                msg: 'City is required',
+                path: 'city',
+                type: 'field',
+                value: ''
+            },
+            fullName: {
+                location: 'body',
+                msg: 'Full name is required',
+                path: 'fullName',
+                type: 'field',
+                value: ''
+            },
+            mobile: {
+                location: 'body',
+                msg: 'mobile must be at least 10 characters long',
+                path: 'mobile',
+                type: 'field',
+                value: 1234567
+            },
+            state: {
+                location: 'body',
+                msg: 'State must be at least 2 characters long',
+                path: 'state',
+                type: 'field',
+                value: 'N'
+            },
+            street: {
+                location: 'body',
+                msg: 'Street address must be at least 5 characters long',
+                path: 'street',
+                type: 'field',
+                value: '1st'
+            }
+        });
+
+    });
+});
+
+describe('validateTransaction', () => {
+    // target end points
+    // transaction
+    it('should response with 422 for bad input', async () => {
+        const resp = await request(app)
+            .post('/cart/addTranaction')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${userToken}` })
+            .send({
+                shipingStatus: 'pen',
+                shipingAddress: '',
+                paymentStatus: 'pen',
+                totalPrice: -1,
+            });
+        expect(resp.status).toBe(422);
+        expect(resp.body).toEqual({
+            shipingStatus: {
+                location: 'body',
+                msg: 'shipping status must be at least 4 characters long',
+                path: 'shipingStatus',
+                type: 'field',
+                value: 'pen'
+            },
+            shipingAddress: {
+                location: 'body',
+                msg: 'shipping Address is required',
+                path: 'shipingAddress',
+                type: 'field',
+                value: ''
+            },
+            paymentStatus: {
+                location: 'body',
+                msg: 'paymentStatus must be at least 4 characters long',
+                path: 'paymentStatus',
+                type: 'field',
+                value: "pen"
+            },
+            totalPrice: {
+                location: 'body',
+                msg: 'totalPrice must be more than 0',
+                path: 'totalPrice',
+                type: 'field',
+                value: -1
+            }
+        });
+
+    });
+});
