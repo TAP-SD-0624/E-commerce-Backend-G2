@@ -7,31 +7,7 @@ import { CustomError } from '../middleware/customError';
 export const getItemPageById = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const id: number = Number(req.query.id);
-
-        // Check cache first
-        const client = req.app.locals.redisClient;
-        let cachedCart;
-        try {
-            cachedCart = await client.get(`page:${id}`);
-        } catch (redisError) {
-            console.error('Redis Get Error:', redisError);
-            //continue without caching if Redis is down
-        }
-
-        if (cachedCart) {
-            return res.send(JSON.parse(cachedCart));
-        }
-
         const result = await DBU.getProductPageById(id);
-
-        // Set the result in the cache
-        try {
-            await client.set(`page:${id}`, JSON.stringify(result), { EX: 3600 }); // cache for 1 hour expiration then refreshes
-        } catch (redisError) {
-            console.error('Redis Set Error:', redisError);
-            // continue without caching if Redis is down
-        }
-
         return res.send(result);
     } catch (error) {
         next(error);
