@@ -1,17 +1,22 @@
 import express, { Express, Response, Request } from 'express';
 import cors from 'cors';
 import sequelize from './database/connection';
-import { db, syncDatabase } from './database';
+
+import { syncDatabase } from './database';
+
 import userRouter from './routes/userRoutes';
 import productRouter from './routes/productsRoutes';
+import redisRouter from './routes/redisRoutes';
+import cartRouter from './routes/cartRoutes';
+
 import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
-import helmet from 'helmet';
-import cartRouter from './routes/cartRoutes';
 import { createClient } from 'redis';
 
+import helmet from 'helmet';
 syncDatabase();
+
 export const app: Express = express();
 export const server = createServer(app);
 export const shutdown = () => {
@@ -28,6 +33,7 @@ app.use('/user', userRouter);
 app.use('/products', productRouter);
 app.get('/homePage', homePageController);
 app.use('/cart', cartRouter);
+app.use('/redis', redisRouter);
 
 app.use('/', (req: Request, res: Response): Response => {
     return res.sendStatus(404);
@@ -52,19 +58,19 @@ client.on('error', (err) => {
 });
 
 // Store Redis client in app locals
-app.locals.redisClient = client;
+//app.locals.redisClient = client;
 
 // Connect to Redis
-async function connectToRedis() {
-    try {
-        await client.connect();
-        console.log('Connected to Redis server');
-    } catch (err) {
-        console.error('Failed to connect to Redis:', err);
-    }
-}
-
-connectToRedis();
+// async function connectToRedis() {
+//     try {
+//         await client.connect();
+//         console.log('Connected to Redis server');
+//     } catch (err) {
+//         console.error('Failed to connect to Redis:', err);
+//     }
+// }
+//
+// connectToRedis();
 
 // Shutdown sequence
 process.on('SIGINT', async () => {
