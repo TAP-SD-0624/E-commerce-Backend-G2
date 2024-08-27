@@ -1,8 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import { addNewAddress, addNewTranactions, finishCheckout, GetAddressById, getAllFromTheCart } from '../utils/cartUtils';
-import { promises } from 'dns';
-import transaction from 'sequelize/types/transaction';
-import { log } from 'console';
 
 export const getUserAddresses = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
@@ -45,9 +42,6 @@ export const checkout = async (req: Request, res: Response, next: NextFunction):
     try {
         const { state, city, street, zipcode, fullName, mobile, paymentStatus, totalPrice } = req.body;
         const result = await finishCheckout(req.body.decoded.userId, state, city, street, zipcode, fullName, mobile, paymentStatus, totalPrice);
-        console.log('_______________________________________+++++++++++++++++++________');
-        console.log(result);
-
         return res.sendStatus(200);
     } catch (error) {
         next(error);
