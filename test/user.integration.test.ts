@@ -25,20 +25,6 @@ afterAll(async () => {
     await sequelize.close();
 });
 
-// describe('integrate user and gest tasks', () => {
-//     it('should create an admin', async () => {
-//         const user = await createUserDB('admin', 'amr', 'imad', 'amr@gmail.com', '123456', '+00970', Date.parse('2002/02/02'), 'image/url.com');
-//         expect(user).toBeTruthy();
-//     });
-//     it('should login user', async () => {
-//         const resp = await request(app)
-//             .post('/user/login')
-//             .set({ 'Content-type': 'Application/json' })
-//             .send({ email: 'amr@gmail.com', password: '123456' });
-//         expect(resp.status).toEqual(201);
-//     });
-// });
-
 describe('register a user', () => {
     const mockUser = {
         user: {
@@ -179,10 +165,6 @@ describe('checkout process', () => {
             .post('/products/addItemToCart')
             .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
             .send({ productId: 1 });
-
-        console.log('---------------------------------');
-        console.log(resp.body);
-
         expect(resp.status).toBe(200);
     });
 
@@ -207,8 +189,6 @@ describe('checkout process', () => {
                 fullName: 'Ramzi Abushahla',
                 totalPrice: 200
             });
-        console.log('----------------------------------------------------');
-        console.log(resp.body);
         expect(resp.status).toBe(200);
     });
 });
