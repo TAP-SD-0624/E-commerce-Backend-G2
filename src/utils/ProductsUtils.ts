@@ -553,9 +553,13 @@ export async function deleteFromCart(productId: number, userId: number) {
 export async function addToCart(productId: number, userId: number) {
     try {
         const x = await db.Cart.create({ productId, userId });
+        return x;
     } catch (error) {
+
         throw new CustomError('cant add the product to cart', 500);
+
     }
+
 }
 //whishlist
 export async function toggleWishList(productId: number, userId: number) {

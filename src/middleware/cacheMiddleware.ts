@@ -7,14 +7,19 @@ export const cacheMiddleware = async (req: Request, res: Response, next: NextFun
     try {
         const cachedData = await client.get(key);
         if (cachedData) {
+            res.setHeader('X-Data-Source', 'cache'); // Indicate data is from cache
+            console.log('cashed 🤩')
             return res.json(JSON.parse(cachedData));
+
         }
 
         const originalJson = res.json.bind(res);
 
-        res.json = (body) => {
-            client.set(key, JSON.stringify(body), { EX: 3600 }) // Set expiration time, e.g., 1 hour
-                .catch((err: Error) => console.error('Failed to cache response:', err));
+            res.json = (body) => {
+            // If no cached data, generate and cache the response
+         client.set(key, JSON.stringify(body), { EX: 3600 });
+            res.setHeader('X-Data-Source', 'database');
+            console.log("database 🥳")
             return originalJson(body);
         };
 
@@ -23,3 +28,6 @@ export const cacheMiddleware = async (req: Request, res: Response, next: NextFun
         next(error);
     }
 };
+
+
+

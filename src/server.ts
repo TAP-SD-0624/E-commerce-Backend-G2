@@ -52,25 +52,48 @@ export const client = createClient({
     },
 });
 
-// Set up error event listener
 client.on('error', (err) => {
     console.error('Redis Client Error:', err);
 });
 
-// Store Redis client in app locals
-//app.locals.redisClient = client;
+async function connectToRedis() {
+    try {
+        await client.connect();
+        console.log('Connected to Redis server');
+        app.locals.redisClient = client; // Ensure this is set before defining routes
 
-// Connect to Redis
-// async function connectToRedis() {
-//     try {
-//         await client.connect();
-//         console.log('Connected to Redis server');
-//     } catch (err) {
-//         console.error('Failed to connect to Redis:', err);
-//     }
-// }
-//
-// connectToRedis();
+        // Now define routes after Redis is connected
+        app.use('/user', userRouter);
+        app.use('/products', productRouter);
+        app.get('/homePage', homePageController);
+        app.use('/cart', cartRouter);
+        app.use('/redis', redisRouter);
+
+        app.use('/', (req: Request, res: Response): Response => {
+            return res.sendStatus(404);
+        });
+
+        app.use(errorHandler);
+
+        if (process.env.NODE_ENV !== 'test') {
+            sequelize
+                .authenticate()
+                .then(async () => {
+                    await sequelize.sync({ alter: true });
+                    console.log('Connected to the database');
+                })
+                .catch(() => console.log('Could not connect to the database'));
+
+            server.listen(PORT, () => {
+                console.log(`Server is listening at port ${PORT}`);
+            });
+        }
+    } catch (err) {
+        console.error('Failed to connect to Redis:', err);
+    }
+}
+
+connectToRedis();
 
 // Shutdown sequence
 process.on('SIGINT', async () => {
