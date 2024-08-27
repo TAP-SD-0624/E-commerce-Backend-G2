@@ -8,9 +8,7 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "allowSyntheticDefaultImports": true,
-        "experimentalDecorators": true,
-        "emitDecoratorMetadata": true
+        "allowSyntheticDefaultImports": true
     },
     "include": ["src/**/*.ts"],
     "exclude": ["node_modules"]

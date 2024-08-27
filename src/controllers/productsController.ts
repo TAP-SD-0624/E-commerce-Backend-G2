@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import * as DBU from '../utils/ProductsUtils';
 import { uploadImages } from '../utils/firebase';
 import { CustomError } from '../middleware/customError';
+import { log } from 'console';
 
 export const getItemPageById = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {

@@ -5,6 +5,7 @@ import Products from '../database/models/products';
 import Categories from '../database/models/categories';
 import Brands from '../database/models/brands';
 import { CustomError } from '../middleware/customError';
+import { log } from 'console';
 
 //////////// Delete / Create / Update
 export async function updateProductById(
@@ -553,6 +554,7 @@ export async function deleteFromCart(productId: number, userId: number) {
 export async function addToCart(productId: number, userId: number) {
     try {
         const x = await db.Cart.create({ productId, userId });
+        return x;
     } catch (error) {
         throw new CustomError('cant add the product to cart', 500);
     }
