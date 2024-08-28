@@ -63,11 +63,9 @@ async function connectToRedis() {
         app.locals.redisClient = client; // Ensure this is set before defining routes
 
         // Now define routes after Redis is connected
-        app.use('/user', userRouter);
         app.use('/products', productRouter);
         app.get('/homePage', homePageController);
-        app.use('/cart', cartRouter);
-        app.use('/redis', redisRouter);
+
 
         app.use('/', (req: Request, res: Response): Response => {
             return res.sendStatus(404);
