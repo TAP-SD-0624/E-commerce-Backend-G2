@@ -16,6 +16,7 @@ interface productJson {
     price: any;
     discount: any;
     title: any;
+    brand: any;
     quantity: any;
     imageUrl: any;
     images: any[];
@@ -36,8 +37,8 @@ interface userJson {
     role: any;
 }
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
 const filePath = path.join(__dirname, 'products.json');
 const data: productJson[] = JSON.parse(fs.readFileSync(filePath, 'utf8'));
@@ -59,7 +60,7 @@ for (const productJson of data) {
     if (!brand) {
         brand = {
             id: brands.length + 1,
-            name: productJson.title,
+            name: productJson.brand,
             imageUrl: '',
             createdAt: new Date(),
             updatedAt: new Date()
