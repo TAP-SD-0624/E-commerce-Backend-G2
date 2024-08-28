@@ -56,7 +56,7 @@ const brands: BrandsInterface[] = [];
 const productCategories: ProductsCategoriesInterface[] = [];
 
 for (const productJson of data) {
-    let brand = brands.find((br) => br.name == productJson.title);
+    let brand = brands.find((br) => br.name == productJson.brand);
     if (!brand) {
         brand = {
             id: brands.length + 1,
