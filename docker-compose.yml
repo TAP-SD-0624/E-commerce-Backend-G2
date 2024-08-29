@@ -1,0 +1,39 @@
+version: '3.8' # the version of Docker Compose file format
+
+services:
+  app: # the app
+    image: node:20.14 # Use the Node.js image
+    container_name: E-Commerce-Backend-G2
+    working_dir: /app # Working directory inside the container
+    volumes:
+      - .:/app # Mount the current directory to /app in the container for code sharing
+    ports:
+      - "3000:3000" # Map port 3000 on the Ecommerce-app to port 3000 in the container
+    env_file:
+      - .env # Load environment variables from the .env file into the container
+    depends_on:
+      - db #  the database service starts before the app
+    command: npm run dev # Start the app in development mode; change to `npm start` for production mode
+
+  db: # database
+    image: postgres:15.3 # the official PostgreSQL image, version 15.3
+    container_name: postgres_db # Name of the database container
+    environment: # Environment variables to configure the PostgreSQL container
+      POSTGRES_USER: ${DB_USERNAME} # Set the database username from the .env file
+      POSTGRES_PASSWORD: ${DB_PASSWORD} # Set the database password from the .env file
+      POSTGRES_DB: ${DB_DATABASE} # Set the initial database name from the .env file
+    ports:
+      - "5432:5432" # Map postgres port 5432 on the host to port 5432 in the container
+    volumes:
+      - postgres_data:/var/lib/postgresql/data # Persist PostgreSQL data in a Docker volume
+
+  redis: # Redis
+    image: redis:7.2 # Redis image, version 7.2
+    container_name: redis_cache # Name of the Redis container
+    ports:
+      - "6379:6379" # Map port 6379 on the host to port 6379 in the container
+
+volumes:
+  postgres_data: # Define a volume for persistent PostgreSQL data
+
+

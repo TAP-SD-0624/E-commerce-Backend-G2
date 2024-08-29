@@ -1,5 +1,3 @@
-//! this code should be in the server.ts file
-
 // // Get Redis URL from .env or use default local URL
 // import { createClient } from 'redis';
 //
