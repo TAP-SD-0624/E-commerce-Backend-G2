@@ -46,7 +46,8 @@ const swaggerDefinition = {
                     },
                     imageUrl: {
                         type: 'string',
-                        format: 'uri'
+                        pattern: '^.*\\.jpg$', // Regex pattern to match strings ending with .jpg
+                        example: 'profile.jpg'
                     }
                 },
                 required: ['firstName', 'lastName', 'email', 'password']

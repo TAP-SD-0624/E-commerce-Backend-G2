@@ -44,6 +44,25 @@ export const createUser = (role: string) => {
     };
 };
 
+/**
+ * @swagger
+ * /user/login:
+ *   post:
+ *     summary: login a user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/createNewUserInterface'
+ *     responses:
+ *       201:
+ *         description: user logged in succesfully
+ *       401:
+ *         description: Invalid password
+ */
+
 export const userLogin = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body as { email: string; password: string };
     try {
@@ -63,6 +82,32 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
         next(err);
     }
 };
+
+/**
+ * @swagger
+ * /user/update:
+ *   put:
+ *     summary: update user data
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/createNewUserInterface'
+ *           securityDefinitions:
+ *              Bearer:
+ *                  type: apiKey
+ *                  name: Authorization
+ *                  in: header
+ *                  description: >-
+ *                      Enter the token with the `Bearer: ` prefix, e.g. "Bearer abcde12345".
+ *     responses:
+ *       201:
+ *         description: user logged in succesfully
+ *       422:
+ *         description: Invalid input
+ */
 export const userUpdate = async (req: Request, res: Response, next: NextFunction) => {
     const { firstName, lastName, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
     try {
