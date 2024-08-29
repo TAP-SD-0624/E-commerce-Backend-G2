@@ -18,7 +18,41 @@ const swaggerDefinition = {
         {
             url: 'https://e-commerce-backend-g2.onrender.com' // Staging environment
         }
-    ]
+    ],
+    components: {
+        schemas: {
+            createNewUserInterface: {
+                type: 'object',
+                properties: {
+                    firstName: {
+                        type: 'string'
+                    },
+                    lastName: {
+                        type: 'string'
+                    },
+                    email: {
+                        type: 'string',
+                        format: 'email'
+                    },
+                    password: {
+                        type: 'string'
+                    },
+                    phone: {
+                        type: 'string'
+                    },
+                    DOB: {
+                        type: 'string',
+                        format: 'date'
+                    },
+                    imageUrl: {
+                        type: 'string',
+                        format: 'uri'
+                    }
+                },
+                required: ['firstName', 'lastName', 'email', 'password']
+            }
+        }
+    }
 };
 
 const options = {
@@ -28,5 +62,3 @@ const options = {
 };
 
 export const swaggerSpec = swaggerJsdoc(options);
-
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
