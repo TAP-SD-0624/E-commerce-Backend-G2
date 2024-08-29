@@ -17,6 +17,8 @@ interface productJson {
     discount: any;
     title: any;
     brand: any;
+    brandImageUrl: any;
+    categoryImageUrl: any;
     quantity: any;
     imageUrl: any;
     images: any[];
@@ -61,7 +63,7 @@ for (const productJson of data) {
         brand = {
             id: brands.length + 1,
             name: productJson.brand,
-            imageUrl: '',
+            imageUrl: productJson.brandImageUrl,
             createdAt: new Date(),
             updatedAt: new Date()
         };
@@ -116,7 +118,7 @@ for (const productJson of data) {
         category = {
             id: categories.length + 1,
             title: productJson.category,
-            imageUrl: '', // Placeholder for category imageUrl
+            imageUrl: productJson.categoryImageUrl, // Placeholder for category imageUrl
             createdAt: new Date(),
             updatedAt: new Date()
         };
