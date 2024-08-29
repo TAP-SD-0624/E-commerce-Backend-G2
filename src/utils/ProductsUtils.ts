@@ -5,7 +5,6 @@ import Products from '../database/models/products';
 import Categories from '../database/models/categories';
 import Brands from '../database/models/brands';
 import { CustomError } from '../middleware/customError';
-import { log } from 'console';
 
 //////////// Delete / Create / Update
 export async function updateProductById(

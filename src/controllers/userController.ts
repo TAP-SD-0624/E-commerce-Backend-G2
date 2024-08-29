@@ -4,6 +4,25 @@ import { CustomError } from '../middleware/customError';
 import { generateToken } from '../utils/tokenUtils';
 import { createUserDB, findUserByEmail, getUserProfile, updateUserById } from '../utils/UsersUtils';
 import bcrypt from 'bcrypt';
+
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Register a new user
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/createNewUserInterface'
+ *     responses:
+ *       201:
+ *         description: User created successfully
+ *       422:
+ *         description: Validation Error
+ */
 export const createUser = (role: string) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         const { firstName, lastName, email, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
