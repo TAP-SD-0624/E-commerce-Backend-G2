@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt';
 
 /**
  * @swagger
- * /register:
+ * /user/register:
  *   post:
  *     summary: Register a new user
  *     tags: [Users]
