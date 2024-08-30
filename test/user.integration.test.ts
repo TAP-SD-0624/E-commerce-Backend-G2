@@ -220,3 +220,34 @@ describe('Upsert user review', () => {
         expect(resp.status).toBe(422);
     });
 });
+
+describe('add new address', () => {
+    it('should add a new address', async () => {
+        const resp = await request(app)
+            .post('/cart/newAddress')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
+            .send({
+                city: 'mumbai',
+                state: 'maharashtra',
+                street: 'street address',
+                mobile: '9876543210',
+                zipcode: '400067',
+                fullName: 'Ramzi Abushahla'
+            });
+        expect(resp.status).toBe(200);
+    });
+    it('should not add an address, and ask for an active token', async () => {
+        const resp = await request(app).post('/cart/newAddress').send({
+            productId: 1,
+            newReview: 'great product',
+            newRating: 4
+        });
+        expect(resp.status).toBe(401);
+    });
+    it('should not add an address, and ask for an valid parameters', async () => {
+        const resp = await request(app)
+            .post('/cart/newAddress')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` });
+        expect(resp.status).toBe(422);
+    });
+});
