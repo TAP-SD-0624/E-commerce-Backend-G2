@@ -192,3 +192,31 @@ describe('checkout process', () => {
         expect(resp.status).toBe(200);
     });
 });
+
+describe('Upsert user review', () => {
+    it('should Upsert a user review for a specific product', async () => {
+        const resp = await request(app)
+            .post('/products/upsertUserReview')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
+            .send({
+                productId: 1,
+                newReview: 'great product',
+                newRating: 4
+            });
+        expect(resp.status).toBe(202);
+    });
+    it('should not Upsert a user review for a specific product, and ask for an active token', async () => {
+        const resp = await request(app).post('/products/upsertUserReview').send({
+            productId: 1,
+            newReview: 'great product',
+            newRating: 4
+        });
+        expect(resp.status).toBe(401);
+    });
+    it('should not Upsert a user review for a specific product, and ask for an valid parameters', async () => {
+        const resp = await request(app)
+            .post('/products/upsertUserReview')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` });
+        expect(resp.status).toBe(422);
+    });
+});
