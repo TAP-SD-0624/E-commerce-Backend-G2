@@ -11,7 +11,6 @@ import {
 import authenticateToken from '../utils/tokenUtils';
 import multer from 'multer';
 import { cacheMiddleware } from '../middleware/cacheMiddleware';
-
 const memo = multer.memoryStorage();
 export const uploadMiddleware = multer({ storage: memo });
 const productRouter: Router = Router();

@@ -87,7 +87,6 @@ export const VaildateMostBought = [
         }
     }
 ];
-
 export const VaildateNotBought = [
     body('daysToConsiderNew')
         .notEmpty()
@@ -143,7 +142,6 @@ export const VaildateRegion = [
         }
     }
 ];
-
 export const validateAddress = [
     body('fullName')
         .notEmpty()
@@ -185,14 +183,7 @@ export const validateAddress = [
         .trim()
         .escape(),
 
-    body('zipcode')
-        .notEmpty()
-        .withMessage('Zipcode is required')
-        .isPostalCode('any')
-        .withMessage('Invalid zipcode format')
-        .trim()
-        .escape(),
-
+    body('zipcode').notEmpty().withMessage('Zipcode is required').isPostalCode('any').withMessage('Invalid zipcode format').trim().escape(),
     (req: Request, res: Response, next: NextFunction) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

@@ -1,7 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
 import { addNewAddress, addNewTranactions, finishCheckout, GetAddressById, getAllFromTheCart } from '../utils/cartUtils';
-import { promises } from 'dns';
-import transaction from 'sequelize/types/transaction';
 
 export const getUserAddresses = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
@@ -40,10 +38,31 @@ export const getShoppingCart = async (req: Request, res: Response, next: NextFun
         next(error);
     }
 };
+
+/**
+ * @swagger
+ * /cart/checkout:
+ *   post:
+ *     summary: upsert user review
+ *     tags: [Cart]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/checkoutInterface'
+ *     responses:
+ *       200:
+ *         description: order dine succesfully
+ *       422:
+ *         description: Invalid input
+ *       500:
+ *         description: something went wrong
+ */
 export const checkout = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { state, city, street, zipcode, fullName, mobile, paymentStatus, totalPrice } = req.body;
-        await finishCheckout(req.body.decoded.userId, state, city, street, zipcode, fullName, mobile, paymentStatus, totalPrice);
+        const result = await finishCheckout(req.body.decoded.userId, state, city, street, zipcode, fullName, mobile, paymentStatus, totalPrice);
         return res.sendStatus(200);
     } catch (error) {
         next(error);

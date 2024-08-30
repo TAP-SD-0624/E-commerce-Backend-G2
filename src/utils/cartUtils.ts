@@ -2,7 +2,7 @@ import { Op, where, Sequelize } from 'sequelize';
 import { CustomError } from '../middleware/customError';
 import { db } from '../database';
 import sequelize from '../database/connection';
-import { deleteFromCart } from './ProductsUtils';
+
 export async function GetAddressById(userId: number) {
     try {
         const Addresses = await db.Address.findAll({
@@ -15,7 +15,6 @@ export async function GetAddressById(userId: number) {
             return Addresses;
         }
     } catch (error) {
-        console.log(error);
         if (error instanceof CustomError) throw new CustomError(error.message, error.statusCode);
         throw new CustomError('Opps something went wrong', 500);
     }
@@ -46,6 +45,7 @@ export async function addNewAddress(
             },
             transaction
         });
+
         if (ad) {
             return ad;
         } else {
@@ -57,7 +57,6 @@ export async function addNewAddress(
             }
         }
     } catch (error) {
-        console.log(error);
         if (error instanceof CustomError) throw new CustomError(error.message, error.statusCode);
 
         throw new CustomError('Oops, something went wrong', 500);
@@ -92,7 +91,6 @@ export async function addNewTranactions({
         );
         return tr;
     } catch (error) {
-        console.log(error);
         throw new CustomError('Oops, something went wrong', 500);
     }
 }
@@ -116,7 +114,6 @@ export async function getAllFromTheCart(userId: number, transaction?: any) {
             throw new CustomError('There is no item in the cart', 404);
         }
     } catch (error) {
-        console.log(error);
         if (error instanceof CustomError) {
             throw new CustomError(error.message, error.statusCode);
         }
@@ -178,10 +175,3 @@ export async function finishCheckout(
         throw new CustomError('Oops, something went wrong', 500);
     }
 }
-
-
-
-
-
-
-

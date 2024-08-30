@@ -88,7 +88,7 @@ export async function updateUserById(
 
 export async function getUserProfile(id: number): Promise<Users> {
     const user = await Users.findByPk(id, {
-        attributes: { exclude: ['password'] },
+        attributes: { exclude: ['password', 'role', 'createdAt', 'updatedAt'] },
         include: [db.Cart, db.Address, db.Orders, db.Tranactions, db.Wishlist, db.Ratings]
     });
     if (user) {

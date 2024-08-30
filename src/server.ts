@@ -7,13 +7,16 @@ import { syncDatabase } from './database';
 import userRouter from './routes/userRoutes';
 import productRouter from './routes/productsRoutes';
 import redisRouter from './routes/redisRoutes';
-import cartRouter from './routes/cartRoutes';
 
 import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
-
 import helmet from 'helmet';
+import morgan from 'morgan';
+import cartRouter from './routes/cartRoutes';
+import AdminRouter from './routes/adminRoutes';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './swagger';
 syncDatabase();
 
 export const app: Express = express();
@@ -23,21 +26,22 @@ export const shutdown = () => {
 };
 
 const PORT: number | string = process.env.PORT || 3000;
+app.use(morgan('tiny'));
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/user', userRouter);
 app.use('/products', productRouter);
-app.get('/homePage', homePageController);
 app.use('/cart', cartRouter);
+app.use('/admin', AdminRouter);
+app.get('/homePage', homePageController);
 app.use('/redis', redisRouter);
-
 app.use('/', (req: Request, res: Response): Response => {
     return res.sendStatus(404);
 });
-
 app.use(errorHandler);
 
 // Get Redis URL from .env or use default local URL

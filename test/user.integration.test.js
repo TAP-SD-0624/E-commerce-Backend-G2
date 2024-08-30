@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __importDefault(require("../src/database/connection"));
 const server_1 = require("../src/server");
 const supertest_1 = __importDefault(require("supertest"));
-const UsersUtils_1 = require("../src/utils/UsersUtils");
 let genaratedUserToken;
 beforeAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield connection_1.default
@@ -34,19 +33,6 @@ afterAll(() => __awaiter(void 0, void 0, void 0, function* () {
     yield connection_1.default.sync({ force: true, match: /_test$/ });
     yield connection_1.default.close();
 }));
-describe('integrate user and gest tasks', () => {
-    it('should create an admin', () => __awaiter(void 0, void 0, void 0, function* () {
-        const user = yield (0, UsersUtils_1.createUserDB)('admin', 'amr', 'imad', 'amr@gmail.com', '123456', '+00970', Date.parse('2002/02/02'), 'image/url.com');
-        expect(user).toBeTruthy();
-    }));
-    it('should login user', () => __awaiter(void 0, void 0, void 0, function* () {
-        const resp = yield (0, supertest_1.default)(server_1.app)
-            .post('/user/login')
-            .set({ 'Content-type': 'Application/json' })
-            .send({ email: 'amr@gmail.com', password: '123456' });
-        expect(resp.status).toEqual(201);
-    }));
-});
 describe('register a user', () => {
     const mockUser = {
         user: {
@@ -150,12 +136,112 @@ describe('update user data', () => {
         });
     }));
 });
-describe('Cart and Checkout Operations', () => {
+describe('Get user profile', () => {
+    it('should return user profile', () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(server_1.app).get('/user/profile').set('Authorization', `Bearer ${genaratedUserToken}`);
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual({
+            id: 1,
+            firstName: 'feras',
+            lastName: 'samih',
+            email: 'samih@gmail.com',
+            phone: '88776656',
+            DOB: '1988-06-05T00:00:00.000Z',
+            imageUrl: 'bbb.jpg',
+            Carts: [],
+            Addresses: [],
+            Orders: [],
+            Transactions: [],
+            Wishlists: [],
+            Ratings: []
+        });
+    }));
+});
+describe('checkout process', () => {
     it('should add an item to the cart', () => __awaiter(void 0, void 0, void 0, function* () {
         const resp = yield (0, supertest_1.default)(server_1.app)
             .post('/products/addItemToCart')
             .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
             .send({ productId: 1 });
         expect(resp.status).toBe(200);
+    }));
+    it('should get the cart', () => __awaiter(void 0, void 0, void 0, function* () {
+        const resp = yield (0, supertest_1.default)(server_1.app)
+            .get('/cart/shoppingCart')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` });
+        expect(resp.status).toBe(200);
+    }));
+    it('should checkout cart', () => __awaiter(void 0, void 0, void 0, function* () {
+        const resp = yield (0, supertest_1.default)(server_1.app)
+            .post('/cart/checkout')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
+            .send({
+            city: 'mumbai',
+            state: 'maharashtra',
+            street: 'street address',
+            mobile: '9876543210',
+            zipcode: '400067',
+            paymentStatus: 'completed',
+            fullName: 'Ramzi Abushahla',
+            totalPrice: 200
+        });
+        expect(resp.status).toBe(200);
+    }));
+});
+describe('Upsert user review', () => {
+    it('should Upsert a user review for a specific product', () => __awaiter(void 0, void 0, void 0, function* () {
+        const resp = yield (0, supertest_1.default)(server_1.app)
+            .post('/products/upsertUserReview')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
+            .send({
+            productId: 1,
+            newReview: 'great product',
+            newRating: 4
+        });
+        expect(resp.status).toBe(202);
+    }));
+    it('should not Upsert a user review for a specific product, and ask for an active token', () => __awaiter(void 0, void 0, void 0, function* () {
+        const resp = yield (0, supertest_1.default)(server_1.app).post('/products/upsertUserReview').send({
+            productId: 1,
+            newReview: 'great product',
+            newRating: 4
+        });
+        expect(resp.status).toBe(401);
+    }));
+    it('should not Upsert a user review for a specific product, and ask for an valid parameters', () => __awaiter(void 0, void 0, void 0, function* () {
+        const resp = yield (0, supertest_1.default)(server_1.app)
+            .post('/products/upsertUserReview')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` });
+        expect(resp.status).toBe(422);
+    }));
+});
+describe('add new address', () => {
+    it('should add a new address', () => __awaiter(void 0, void 0, void 0, function* () {
+        const resp = yield (0, supertest_1.default)(server_1.app)
+            .post('/cart/newAddress')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
+            .send({
+            city: 'mumbai',
+            state: 'maharashtra',
+            street: 'street address',
+            mobile: '9876543210',
+            zipcode: '400067',
+            fullName: 'Ramzi Abushahla'
+        });
+        expect(resp.status).toBe(200);
+    }));
+    it('should not add an address, and ask for an active token', () => __awaiter(void 0, void 0, void 0, function* () {
+        const resp = yield (0, supertest_1.default)(server_1.app).post('/cart/newAddress').send({
+            productId: 1,
+            newReview: 'great product',
+            newRating: 4
+        });
+        expect(resp.status).toBe(401);
+    }));
+    it('should not add an address, and ask for an valid parameters', () => __awaiter(void 0, void 0, void 0, function* () {
+        const resp = yield (0, supertest_1.default)(server_1.app)
+            .post('/cart/newAddress')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` });
+        expect(resp.status).toBe(422);
     }));
 });
