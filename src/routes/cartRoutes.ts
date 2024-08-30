@@ -9,6 +9,6 @@ cartRouter.post('/newAddress', [authenticateToken('user'), ...validateAddress], 
 cartRouter.get('/allAddresses', authenticateToken('user'), cr.getUserAddresses);
 cartRouter.get('/shoppingCart', authenticateToken('user'), cr.getShoppingCart);
 cartRouter.post('/addTranaction', [authenticateToken('user'), ...validateTransaction], cr.createTranactions);
-cartRouter.post('/checkout', [authenticateToken('user'), ...validateCheckout], cr.checkout);
+cartRouter.post('/checkout', [authenticateToken('user'), ...validateCheckout], cr.checkout); //Feras
 
 export default cartRouter;
