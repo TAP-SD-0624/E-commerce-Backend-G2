@@ -23,7 +23,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD} # Set the database password from the .env file
       POSTGRES_DB: ${DB_DATABASE} # Set the initial database name from the .env file
     ports:
-      - "5432:5432" # Map postgres port 5432 on the host to port 5432 in the container
+      - "5432:5433" # Map postgres port 5432 on the host to port 5432 in the container
     volumes:
       - postgres_data:/var/lib/postgresql/data # Persist PostgreSQL data in a Docker volume
 
@@ -35,5 +35,3 @@ services:
 
 volumes:
   postgres_data: # Define a volume for persistent PostgreSQL data
-
-
