@@ -118,7 +118,7 @@ module.exports = {
             //     }
             // ]
         );
-        await sequelize.query('ALTER SEQUENCE "Ratings_id_seq" RESTART WITH 50', { type: QueryTypes.RAW });
+        await sequelize.query('ALTER SEQUENCE "Ratings_id_seq" RESTART WITH 61', { type: QueryTypes.RAW });
     },
     async down(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
         /**
