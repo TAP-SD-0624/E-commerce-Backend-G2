@@ -15,16 +15,16 @@ const memo = multer.memoryStorage();
 export const uploadMiddleware = multer({ storage: memo });
 const productRouter: Router = Router();
 //general
-productRouter.get('/itemPage', validateId, PC.getItemPageById);
-productRouter.get('/itemByCategory', validateId, PC.getItemByCategoryId);
-productRouter.get('/itemByBrand', validateId, PC.getItemByBrandId);
-productRouter.get('/handPickedCollection', validateId, PC.getHandPickedCollectionItems);
-productRouter.get('/productSearch', validateSearchValue, PC.searchInItems);
-productRouter.get('/newArrivals', PC.getNewArrivalsItems);
+productRouter.get('/itemPage', validateId, PC.getItemPageById); //Menna
+productRouter.get('/itemByCategory', validateId, PC.getItemByCategoryId); //Menna
+productRouter.get('/itemByBrand', validateId, PC.getItemByBrandId); //Menna
+productRouter.get('/handPickedCollection', validateId, PC.getHandPickedCollectionItems); //Menna
+productRouter.get('/productSearch', validateSearchValue, PC.searchInItems); //Menna
+productRouter.get('/newArrivals', PC.getNewArrivalsItems); //Menna
 //cards
-productRouter.get('/itemCardOne', PC.itemsCardOne);
-productRouter.get('/itemCardTwo', PC.itemsCardTwo);
-productRouter.get('/itemCardThree', PC.itemsCardThree);
+productRouter.get('/itemCardOne', PC.itemsCardOne); //Menna
+productRouter.get('/itemCardTwo', PC.itemsCardTwo); //Menna
+productRouter.get('/itemCardThree', PC.itemsCardThree); //Menna
 //cart
 productRouter.post('/addItemToCart', [authenticateToken('user'), ...validateProductId], PC.addItemToCart);
 productRouter.delete('/reduceItemFromCart', [authenticateToken('user'), ...validateProductId], PC.reduceItemFromCart);
