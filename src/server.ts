@@ -20,7 +20,11 @@ export const shutdown = () => {
     server.close();
 };
 const PORT: number | string = process.env.PORT || 3000;
-app.use(morgan('tiny'));
+if (process.env.NODE_ENV === 'production') {
+    app.use(morgan('tiny'));
+} else {
+    app.use(morgan('dev'));
+}
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
