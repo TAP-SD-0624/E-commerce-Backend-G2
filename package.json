@@ -10,6 +10,7 @@
         "test": "jest --config jest.config.ts --coverage",
         "initTest": "cross-env NODE_ENV=test sequelize db:create && cross-env NODE_ENV=test sequelize db:migrate && npm run test",
         "setDatabase": "sequelize db:create && sequelize db:migrate && sequelize db:seed:all && npm run dev",
+        "setDockerInit":"sequelize db:migrate && sequelize db:migrate && sequelize db:seed:all && npm run dev",
         "setProductionDatabase": "cross-env NODE_ENV=production sequelize db:seed:all",
         "testp1": "jest test/validation.test.ts",
         "testp0": "jest test/product.integration.test.ts test/user.integration.test.ts",
@@ -51,6 +52,7 @@
         "typescript": "^5.5.4"
     },
     "dependencies": {
+        "@types/response-time": "^2.3.8",
         "@types/supertest": "^6.0.2",
         "bcrypt": "^5.1.1",
         "bcryptjs": "^2.4.3",
@@ -61,6 +63,7 @@
         "date-fns": "^3.6.0",
         "dotenv": "^16.4.5",
         "express": "^4.19.2",
+        "express-prom-bundle": "^7.0.0",
         "express-validator": "^7.2.0",
         "firebase": "^10.13.0",
         "helmet": "^7.1.0",
@@ -70,6 +73,8 @@
         "mysql2": "^3.11.0",
         "pg": "^8.12.0",
         "pg-hstore": "^2.3.4",
+        "prom-client": "^15.1.3",
+        "response-time": "^2.3.2",
         "sequelize": "^6.37.3",
         "supertest": "^7.0.0",
         "uuid": "^10.0.0"

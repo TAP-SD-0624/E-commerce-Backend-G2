@@ -2,13 +2,20 @@ import { NextFunction, Request, Response } from 'express';
 import * as DBU from '../utils/ProductsUtils';
 import { uploadImages } from '../utils/firebase';
 import { CustomError } from '../middleware/customError';
+import { databaseResponseTimeHistogram } from '../utils/prom.utils';
 
 export const getItemPageById = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+    const metricData = {
+        operation: 'getProductPageById'
+    };
+    const timer = databaseResponseTimeHistogram.startTimer();
     try {
         const id: number = Number(req.query.id);
         const result = await DBU.getProductPageById(id);
+        timer({ ...metricData, success: 'true' });
         return res.send(result);
     } catch (error) {
+        timer({ ...metricData, success: 'false' });
         next(error);
     }
 };

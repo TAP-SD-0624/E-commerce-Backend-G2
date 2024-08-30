@@ -1,0 +1,76 @@
+networks:
+  monitoring:
+    driver: bridge
+
+services:
+
+  prometheus:
+    image: prom/prometheus
+    container_name: "prometheus"
+    ports:
+      - '9090:9090'
+    restart: always
+    volumes:
+      - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+    networks:
+      - monitoring
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3002:3000
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    volumes:
+      - ./grafana:/etc/grafana/provisioning/datasources
+    networks:
+      - monitoring
+
+  postgresdb:
+    container_name: "psql"
+    image: postgres:16
+    restart: no
+    env_file: ./.env
+    environment:
+      - POSTGRES_USER=$DB_USERNAME
+      - POSTGRES_PASSWORD=$DB_PASSWORD
+      - POSTGRES_DB=$DB_DATABASE
+    ports:
+      - "5433:5432"
+    volumes:
+      - db:/var/lib/postgres
+    networks:
+      - monitoring
+  app:
+    container_name: "app"
+    depends_on:
+      - postgresdb
+    build: ./
+    restart: no
+    env_file: ./.env
+    ports:
+      - $EXPRESS_PORT:$EXPRESS_PORT
+      - "3030:3030"
+    environment:
+      - DB_HOST=psql
+      - DB_USERNAME=$DB_USERNAME
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_DATABASE=$DB_DATABASE
+      - DB_DIALECT=$DB_DIALECT
+      - DB_PORT="5433"
+      - ACCESS_TOKEN_SECRET=$ACCESS_TOKEN_SECRET
+      - REFRESH_TOKEN_SECRET=$REFRESH_TOKEN_SECRET
+      - FB_APIKEY=$FB_APIKEY
+      - FB_AUTHDOMAIN=$FB_AUTHDOMAIN
+      - FB_PROJECTID=$FB_PROJECTID
+      - FB_STORAGEBUCKET=$FB_STORAGEBUCKET
+      - FB_MESSAGINGSENDERID=$FB_MESSAGINGSENDERID
+      - FB_APPID=$FB_APPID
+    stdin_open: true
+    tty: true
+    networks:
+      - monitoring
+volumes: 
+  db:
