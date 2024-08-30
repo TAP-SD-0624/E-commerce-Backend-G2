@@ -87,6 +87,7 @@ export const VaildateMostBought = [
         }
     }
 ];
+
 export const VaildateNotBought = [
     body('daysToConsiderNew')
         .notEmpty()

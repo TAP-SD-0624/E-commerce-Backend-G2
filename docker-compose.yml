@@ -3,7 +3,6 @@ networks:
     driver: bridge
 
 services:
-
   prometheus:
     image: prom/prometheus
     container_name: "prometheus"
@@ -14,6 +13,7 @@ services:
       - "./prometheus.yml:/etc/prometheus/prometheus.yml"
     networks:
       - monitoring
+
   grafana:
     image: grafana/grafana
     container_name: grafana
@@ -27,12 +27,15 @@ services:
       - ./grafana:/etc/grafana/provisioning/datasources
     networks:
       - monitoring
-  redis: # Redis
+
+  redis_cache: # Redis
     image: redis:7.2 # Redis image, version 7.2
     container_name: redis_cache # Name of the Redis container
     ports:
       - "6379:6379" # Map port 6379 on the host to port 6379 in the container
-      -
+    networks:
+      - monitoring  # Add this line to connect redis_cache to the monitoring network
+
   postgresdb:
     container_name: "psql"
     image: postgres:16
@@ -48,11 +51,12 @@ services:
       - db:/var/lib/postgres
     networks:
       - monitoring
+
   app:
     container_name: "app"
     depends_on:
       - postgresdb
-      - redis
+      - redis_cache
     build: ./
     restart: no
     env_file: ./.env
@@ -66,6 +70,7 @@ services:
       - DB_DATABASE=$DB_DATABASE
       - DB_DIALECT=$DB_DIALECT
       - DB_PORT="5433"
+      - REDIS_URL=${REDIS_URL}
       - ACCESS_TOKEN_SECRET=$ACCESS_TOKEN_SECRET
       - REFRESH_TOKEN_SECRET=$REFRESH_TOKEN_SECRET
       - FB_APIKEY=$FB_APIKEY
@@ -78,5 +83,6 @@ services:
     tty: true
     networks:
       - monitoring
+
 volumes:
   db:

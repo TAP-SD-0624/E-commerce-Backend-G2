@@ -1,11 +1,10 @@
 import express, { Express, Response, Request } from 'express';
 import cors from 'cors';
 import sequelize from './database/connection';
-import { db, syncDatabase } from './database';
+import { syncDatabase } from './database';
 import userRouter from './routes/userRoutes';
 import productRouter from './routes/productsRoutes';
 import redisRouter from './routes/redisRoutes';
-
 import { homePageController } from './controllers/homePageController';
 import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
@@ -18,16 +17,16 @@ import { swaggerSpec } from './swagger';
 import responseTime from 'response-time';
 import { respTime } from './middleware/prom.middleware';
 import { firePromServer } from './utils/prom.utils';
-
-
-syncDatabase();
+import { createClient } from 'redis';
 
 export const app: Express = express();
 export const server = createServer(app);
 export const shutdown = () => {
     server.close();
 };
+
 const PORT: number | string = process.env.PORT || 3000;
+
 app.use(morgan('tiny'));
 app.use(responseTime(respTime));
 app.use(helmet());
@@ -37,25 +36,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/user', userRouter);
-app.use('/products', productRouter);
 app.use('/cart', cartRouter);
 app.use('/admin', AdminRouter);
-app.get('/homePage', homePageController);
-
-
-
-app.use('/redis', redisRouter);
-app.use('/', (req: Request, res: Response): Response => {
-    return res.sendStatus(404);
-});
-app.use(errorHandler);
-
-// Get Redis URL from .env or use default local URL
-import { createClient } from 'redis';
 
 const redisUrl = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
 
-// Create Redis client instance with retry strategy
 export const client = createClient({
     url: redisUrl,
     socket: {
@@ -67,16 +52,17 @@ client.on('error', (err) => {
     console.error('Redis Client Error:', err);
 });
 
-async function connectToRedis() {
+async function startServer() {
     try {
+        await syncDatabase();
         await client.connect();
         console.log('Connected to Redis server');
-        app.locals.redisClient = client; // Ensure this is set before defining routes
+        app.locals.redisClient = client;
 
-        // Now define routes after Redis is connected
         app.use('/products', productRouter);
         app.get('/homePage', homePageController);
 
+        app.use('/redis', redisRouter);
 
         app.use('/', (req: Request, res: Response): Response => {
             return res.sendStatus(404);
@@ -84,25 +70,24 @@ async function connectToRedis() {
 
         app.use(errorHandler);
 
-        if (process.env.NODE_ENV !== 'test') {
-            sequelize
-                .authenticate()
-                .then(async () => {
-                    await sequelize.sync({ alter: true });
-                    console.log('Connected to the database');
-                })
-                .catch(() => console.log('Could not connect to the database'));
+        await sequelize.authenticate();
+        await sequelize.sync({ alter: true });
+        console.log('Connected to the database');
 
-            server.listen(PORT, () => {
-                console.log(`Server is listening at port ${PORT}`);
-            });
-        }
+        firePromServer();
+
+        server.listen(PORT, () => {
+            console.log(`Server is listening at port ${PORT}`);
+        });
     } catch (err) {
-        console.error('Failed to connect to Redis:', err);
+        console.error('Failed to start the server:', err);
+        process.exit(1); // Exit with failure
     }
 }
 
-connectToRedis();
+if (process.env.NODE_ENV !== 'test') {
+    startServer();
+}
 
 // Shutdown sequence
 process.on('SIGINT', async () => {
@@ -119,17 +104,3 @@ process.on('SIGINT', async () => {
         process.exit(0); // Ensure the application exits
     }
 });
-
-if (process.env.NODE_ENV !== 'test') {
-    sequelize
-        .authenticate()
-        .then(async () => {
-            await sequelize.sync({ alter: true });
-            console.log('connected to the database');
-        })
-        .catch(() => console.log('couldnt connect to the database'));
-    firePromServer()
-    server.listen(PORT, () => {
-        console.log(`server is listening at port ${PORT}`);
-    });
-}
