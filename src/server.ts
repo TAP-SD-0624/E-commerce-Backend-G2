@@ -11,6 +11,8 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cartRouter from './routes/cartRoutes';
 import AdminRouter from './routes/adminRoutes';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './swagger';
 import responseTime from 'response-time';
 import { respTime } from './middleware/prom.middleware';
 import { firePromServer } from './utils/prom.utils';
@@ -29,6 +31,7 @@ app.use(helmet());
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/user', userRouter);
 app.use('/products', productRouter);
 app.use('/cart', cartRouter);
@@ -41,6 +44,7 @@ app.use(errorHandler);
 app.use('/', (req: Request, res: Response): Response => {
     return res.sendStatus(404);
 });
+
 if (process.env.NODE_ENV !== 'test') {
     sequelize
         .authenticate()

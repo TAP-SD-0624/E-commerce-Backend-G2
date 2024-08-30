@@ -1,13 +1,17 @@
 import sequelize from '../src/database/connection';
 import { shutdown, app, server } from '../src/server';
 import request from 'supertest';
-import { createUserDB } from '../src/utils/UsersUtils';
+import * as TH from '../src/utils/ProductsTestHelper';
 let genaratedUserToken: string;
 beforeAll(async () => {
     await sequelize
         .authenticate()
         .then(async () => {
             console.log('connected to the database for testing');
+            await TH.seedTestCategories();
+            await TH.seedTestBrands();
+            await TH.seedTestProducts();
+            await TH.seedTestProductsCategories();
             await sequelize.sync({ alter: true });
         })
         .catch(() => console.log('couldnt connect to the database for testing'));
@@ -19,20 +23,6 @@ afterAll(async () => {
     shutdown();
     await sequelize.sync({ force: true, match: /_test$/ });
     await sequelize.close();
-});
-
-describe('integrate user and gest tasks', () => {
-    it('should create an admin', async () => {
-        const user = await createUserDB('admin', 'amr', 'imad', 'amr@gmail.com', '123456', '+00970', Date.parse('2002/02/02'), 'image/url.com');
-        expect(user).toBeTruthy();
-    });
-    it('should login user', async () => {
-        const resp = await request(app)
-            .post('/user/login')
-            .set({ 'Content-type': 'Application/json' })
-            .send({ email: 'amr@gmail.com', password: '123456' });
-        expect(resp.status).toEqual(201);
-    });
 });
 
 describe('register a user', () => {
@@ -143,5 +133,121 @@ describe('update user data', () => {
         expect(response.body).toEqual({
             message: 'No token provided'
         });
+    });
+});
+
+describe('Get user profile', () => {
+    it('should return user profile', async () => {
+        const response = await request(app).get('/user/profile').set('Authorization', `Bearer ${genaratedUserToken}`);
+
+        expect(response.status).toBe(200);
+        expect(response.body).toEqual({
+            id: 1,
+            firstName: 'feras',
+            lastName: 'samih',
+            email: 'samih@gmail.com',
+            phone: '88776656',
+            DOB: '1988-06-05T00:00:00.000Z',
+            imageUrl: 'bbb.jpg',
+            Carts: [],
+            Addresses: [],
+            Orders: [],
+            Transactions: [],
+            Wishlists: [],
+            Ratings: []
+        });
+    });
+});
+
+describe('checkout process', () => {
+    it('should add an item to the cart', async () => {
+        const resp = await request(app)
+            .post('/products/addItemToCart')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
+            .send({ productId: 1 });
+        expect(resp.status).toBe(200);
+    });
+
+    it('should get the cart', async () => {
+        const resp = await request(app)
+            .get('/cart/shoppingCart')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` });
+        expect(resp.status).toBe(200);
+    });
+
+    it('should checkout cart', async () => {
+        const resp = await request(app)
+            .post('/cart/checkout')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
+            .send({
+                city: 'mumbai',
+                state: 'maharashtra',
+                street: 'street address',
+                mobile: '9876543210',
+                zipcode: '400067',
+                paymentStatus: 'completed',
+                fullName: 'Ramzi Abushahla',
+                totalPrice: 200
+            });
+        expect(resp.status).toBe(200);
+    });
+});
+
+describe('Upsert user review', () => {
+    it('should Upsert a user review for a specific product', async () => {
+        const resp = await request(app)
+            .post('/products/upsertUserReview')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
+            .send({
+                productId: 1,
+                newReview: 'great product',
+                newRating: 4
+            });
+        expect(resp.status).toBe(202);
+    });
+    it('should not Upsert a user review for a specific product, and ask for an active token', async () => {
+        const resp = await request(app).post('/products/upsertUserReview').send({
+            productId: 1,
+            newReview: 'great product',
+            newRating: 4
+        });
+        expect(resp.status).toBe(401);
+    });
+    it('should not Upsert a user review for a specific product, and ask for an valid parameters', async () => {
+        const resp = await request(app)
+            .post('/products/upsertUserReview')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` });
+        expect(resp.status).toBe(422);
+    });
+});
+
+describe('add new address', () => {
+    it('should add a new address', async () => {
+        const resp = await request(app)
+            .post('/cart/newAddress')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` })
+            .send({
+                city: 'mumbai',
+                state: 'maharashtra',
+                street: 'street address',
+                mobile: '9876543210',
+                zipcode: '400067',
+                fullName: 'Ramzi Abushahla'
+            });
+        expect(resp.status).toBe(200);
+    });
+    it('should not add an address, and ask for an active token', async () => {
+        const resp = await request(app).post('/cart/newAddress').send({
+            productId: 1,
+            newReview: 'great product',
+            newRating: 4
+        });
+        expect(resp.status).toBe(401);
+    });
+    it('should not add an address, and ask for an valid parameters', async () => {
+        const resp = await request(app)
+            .post('/cart/newAddress')
+            .set({ 'Content-type': 'Application/json', Authorization: `bearer ${genaratedUserToken}` });
+        expect(resp.status).toBe(422);
     });
 });

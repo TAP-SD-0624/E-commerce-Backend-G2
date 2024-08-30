@@ -33,8 +33,8 @@ export const itemsToDrop = async (req: Request, res: Response, next: NextFunctio
 
 export const ProductsByRegion = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
-        const { country } = req.body;
-        const x = await getProductsByRegion(country);
+        const { state } = req.body;
+        const x = await getProductsByRegion(state);
         res.send(x);
     } catch (error) {
         next(error);
