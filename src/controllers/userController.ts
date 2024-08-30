@@ -95,13 +95,6 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
  *         application/json:
  *           schema:
  *             $ref: '#/components/schemas/createNewUserInterface'
- *           securityDefinitions:
- *              Bearer:
- *                  type: apiKey
- *                  name: Authorization
- *                  in: header
- *                  description: >-
- *                      Enter the token with the `Bearer: ` prefix, e.g. "Bearer abcde12345".
  *     responses:
  *       201:
  *         description: user logged in succesfully
@@ -119,6 +112,22 @@ export const userUpdate = async (req: Request, res: Response, next: NextFunction
         return next(err);
     }
 };
+
+/**
+ * @swagger
+ * /user/profile:
+ *   get:
+ *     summary: Get user profile
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: User profile data
+ *       401:
+ *         description: No token provided
+ *       404:
+ *         description: can not find this user data
+ */
+
 export const userProfile = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user = await getUserProfile(req.body.decoded.userId);
@@ -127,3 +136,6 @@ export const userProfile = async (req: Request, res: Response, next: NextFunctio
         next(err);
     }
 };
+
+//  *     security:
+//  *       - bearerAuth: []

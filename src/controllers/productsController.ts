@@ -83,6 +83,25 @@ export const getHandPickedCollectionItems = async (req: Request, res: Response, 
         next(error);
     }
 };
+
+/**
+ * @swagger
+ * /products/addItemToCart:
+ *   post:
+ *     summary: add Item to cart
+ *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/productID'
+ *     responses:
+ *       200:
+ *         description: item added succesfully
+ *       422:
+ *         description: Invalid input
+ */
 export const addItemToCart = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { productId } = req.body;
@@ -92,6 +111,25 @@ export const addItemToCart = async (req: Request, res: Response, next: NextFunct
         next(error);
     }
 };
+
+/**
+ * @swagger
+ * /products/reduceItemFromCart:
+ *   delete:
+ *     summary: reduce Item number from cart
+ *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/productID'
+ *     responses:
+ *       200:
+ *         description: item nimber reduced succesfully
+ *       422:
+ *         description: Invalid input
+ */
 export const reduceItemFromCart = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { productId } = req.body;
@@ -101,6 +139,25 @@ export const reduceItemFromCart = async (req: Request, res: Response, next: Next
         next(error);
     }
 };
+
+/**
+ * @swagger
+ * /products/removeItemFromCart:
+ *   delete:
+ *     summary: remove Item from cart
+ *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/productID'
+ *     responses:
+ *       200:
+ *         description: item removed succesfully
+ *       422:
+ *         description: Invalid input
+ */
 export const removeItemFromCart = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { productId } = req.body;
@@ -110,6 +167,25 @@ export const removeItemFromCart = async (req: Request, res: Response, next: Next
         next(error);
     }
 };
+
+/**
+ * @swagger
+ * /products/toggleItemInWishList:
+ *   post:
+ *     summary: toggle Item in wishlist
+ *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/productID'
+ *     responses:
+ *       200:
+ *         description: item toggled succesfully
+ *       422:
+ *         description: Invalid input
+ */
 export const toggleItemInWishList = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { productId } = req.body;
@@ -119,6 +195,25 @@ export const toggleItemInWishList = async (req: Request, res: Response, next: Ne
         next(error);
     }
 };
+
+/**
+ * @swagger
+ * /products/upsertUserReview:
+ *   post:
+ *     summary: upsert user review
+ *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/userReview'
+ *     responses:
+ *       200:
+ *         description: product reviewed succesfully
+ *       422:
+ *         description: Invalid input
+ */
 export const upsertUserReviewOrRating = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
         const { productId, newReview, newRating } = req.body;

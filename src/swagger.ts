@@ -20,6 +20,13 @@ const swaggerDefinition = {
         }
     ],
     components: {
+        securitySchemes: {
+            bearerAuth: {
+                type: 'http',
+                scheme: 'bearer',
+                bearerFormat: 'JWT'
+            }
+        },
         schemas: {
             createNewUserInterface: {
                 type: 'object',
@@ -51,9 +58,41 @@ const swaggerDefinition = {
                     }
                 },
                 required: ['firstName', 'lastName', 'email', 'password']
+            },
+            productID: {
+                type: 'object',
+                properties: {
+                    productId: {
+                        type: 'number',
+                        example: 1
+                    }
+                },
+                required: ['productId']
+            },
+            userReview: {
+                type: 'object',
+                properties: {
+                    productId: {
+                        type: 'number',
+                        example: 1
+                    },
+                    newReview: {
+                        type: 'string'
+                    },
+                    newRating: {
+                        type: 'number',
+                        example: 1
+                    }
+                },
+                required: ['productId', 'newReview', 'newRating']
             }
         }
-    }
+    },
+    security: [
+        {
+            bearerAuth: []
+        }
+    ]
 };
 
 const options = {
