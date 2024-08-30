@@ -1,9 +1,7 @@
 import express, { Express, Response, Request } from 'express';
 import cors from 'cors';
 import sequelize from './database/connection';
-
-import { syncDatabase } from './database';
-
+import { db, syncDatabase } from './database';
 import userRouter from './routes/userRoutes';
 import productRouter from './routes/productsRoutes';
 import redisRouter from './routes/redisRoutes';
@@ -17,6 +15,11 @@ import cartRouter from './routes/cartRoutes';
 import AdminRouter from './routes/adminRoutes';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './swagger';
+import responseTime from 'response-time';
+import { respTime } from './middleware/prom.middleware';
+import { firePromServer } from './utils/prom.utils';
+
+
 syncDatabase();
 
 export const app: Express = express();
@@ -24,9 +27,9 @@ export const server = createServer(app);
 export const shutdown = () => {
     server.close();
 };
-
 const PORT: number | string = process.env.PORT || 3000;
 app.use(morgan('tiny'));
+app.use(responseTime(respTime));
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
@@ -38,6 +41,9 @@ app.use('/products', productRouter);
 app.use('/cart', cartRouter);
 app.use('/admin', AdminRouter);
 app.get('/homePage', homePageController);
+
+
+
 app.use('/redis', redisRouter);
 app.use('/', (req: Request, res: Response): Response => {
     return res.sendStatus(404);
@@ -122,6 +128,7 @@ if (process.env.NODE_ENV !== 'test') {
             console.log('connected to the database');
         })
         .catch(() => console.log('couldnt connect to the database'));
+    firePromServer()
     server.listen(PORT, () => {
         console.log(`server is listening at port ${PORT}`);
     });

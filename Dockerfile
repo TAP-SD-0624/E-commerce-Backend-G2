@@ -2,6 +2,9 @@
 # smaller image: FROM node:20.14-alpine
 FROM node:20.14.0
 
+# Declaring env
+ENV NODE_ENV development
+
 # Set the creators
 LABEL authors="Menna, Amer, Feras, Ramzi"
 

@@ -11,6 +11,7 @@ interface configsInterface {
 }
 export let configs: configsInterface;
 
+console.log(process.env.DB_HOST)
 if (process.env.NODE_ENV === 'test') {
     configs = {
         username: process.env.DB_TESTING_USERNAME || 'postgres',
