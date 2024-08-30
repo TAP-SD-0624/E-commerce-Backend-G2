@@ -22,6 +22,8 @@ import bcrypt from 'bcrypt';
  *         description: User created successfully
  *       422:
  *         description: Validation Error
+ *       500:
+ *         description: something went wrong
  */
 export const createUser = (role: string) => {
     return async (req: Request, res: Response, next: NextFunction) => {
@@ -61,6 +63,8 @@ export const createUser = (role: string) => {
  *         description: user logged in succesfully
  *       401:
  *         description: Invalid password
+ *       500:
+ *         description: something went wrong
  */
 
 export const userLogin = async (req: Request, res: Response, next: NextFunction) => {
@@ -100,6 +104,8 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
  *         description: user logged in succesfully
  *       422:
  *         description: Invalid input
+ *       500:
+ *         description: something went wrong
  */
 export const userUpdate = async (req: Request, res: Response, next: NextFunction) => {
     const { firstName, lastName, password, phone, DOB, imageUrl }: createNewUserInterface = req.body;
@@ -126,6 +132,8 @@ export const userUpdate = async (req: Request, res: Response, next: NextFunction
  *         description: No token provided
  *       404:
  *         description: can not find this user data
+ *       500:
+ *         description: something went wrong
  */
 
 export const userProfile = async (req: Request, res: Response, next: NextFunction) => {
@@ -136,6 +144,3 @@ export const userProfile = async (req: Request, res: Response, next: NextFunctio
         next(err);
     }
 };
-
-//  *     security:
-//  *       - bearerAuth: []

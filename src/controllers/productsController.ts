@@ -101,6 +101,8 @@ export const getHandPickedCollectionItems = async (req: Request, res: Response, 
  *         description: item added succesfully
  *       422:
  *         description: Invalid input
+ *       500:
+ *         description: something went wrong
  */
 export const addItemToCart = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
@@ -129,6 +131,8 @@ export const addItemToCart = async (req: Request, res: Response, next: NextFunct
  *         description: item nimber reduced succesfully
  *       422:
  *         description: Invalid input
+ *       500:
+ *         description: something went wrong
  */
 export const reduceItemFromCart = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
@@ -157,6 +161,8 @@ export const reduceItemFromCart = async (req: Request, res: Response, next: Next
  *         description: item removed succesfully
  *       422:
  *         description: Invalid input
+ *       500:
+ *         description: something went wrong
  */
 export const removeItemFromCart = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
@@ -185,6 +191,8 @@ export const removeItemFromCart = async (req: Request, res: Response, next: Next
  *         description: item toggled succesfully
  *       422:
  *         description: Invalid input
+ *       500:
+ *         description: something went wrong
  */
 export const toggleItemInWishList = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {
@@ -213,6 +221,8 @@ export const toggleItemInWishList = async (req: Request, res: Response, next: Ne
  *         description: product reviewed succesfully
  *       422:
  *         description: Invalid input
+ *       500:
+ *         description: something went wrong
  */
 export const upsertUserReviewOrRating = async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
     try {

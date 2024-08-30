@@ -85,6 +85,39 @@ const swaggerDefinition = {
                     }
                 },
                 required: ['productId', 'newReview', 'newRating']
+            },
+            checkoutInterface: {
+                type: 'object',
+                properties: {
+                    state: {
+                        type: 'string'
+                    },
+                    city: {
+                        type: 'string'
+                    },
+                    street: {
+                        type: 'string'
+                    },
+                    zipcode: {
+                        type: 'number',
+                        example: 11111
+                    },
+                    fullName: {
+                        type: 'string'
+                    },
+                    mobile: {
+                        type: 'string'
+                    },
+                    paymentStatus: {
+                        type: 'string',
+                        example: 'paid'
+                    },
+                    totalPrice: {
+                        type: 'number',
+                        example: 500
+                    }
+                },
+                required: ['state', 'city', 'street', 'zipcode', 'fullName', 'mobile', 'paymentStatus', 'totalPrice']
             }
         }
     },
