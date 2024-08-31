@@ -95,6 +95,7 @@ export async function createNewProductTransaction(
             );
         });
     } catch (error) {
+        console.log(error)
         throw new CustomError('Opps something went wrong', 500);
     }
 }

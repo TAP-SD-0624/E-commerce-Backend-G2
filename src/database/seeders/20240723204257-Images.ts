@@ -36,7 +36,7 @@ module.exports = {
             //     }
             // ]
         );
-        await sequelize.query('ALTER SEQUENCE "Images_id_seq" RESTART WITH 40', { type: QueryTypes.RAW });
+        await sequelize.query('ALTER SEQUENCE "Images_id_seq" RESTART WITH 61', { type: QueryTypes.RAW });
     },
     async down(queryInterface: QueryInterface, Sequelize: typeof DataTypes) {
         /**

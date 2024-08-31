@@ -13,6 +13,7 @@ import cartRouter from './routes/cartRoutes';
 import AdminRouter from './routes/adminRoutes';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './swagger';
+import { createCategory } from './utils/ProductsUtils';
 syncDatabase();
 export const app: Express = express();
 export const server = createServer(app);
@@ -31,6 +32,10 @@ app.use('/products', productRouter);
 app.use('/cart', cartRouter);
 app.use('/admin', AdminRouter);
 app.get('/homePage', homePageController);
+app.get('/',async(req,res)=>{
+    await createCategory("test","www.test.com")
+    res.send('ok')
+})
 app.use(errorHandler);
 app.use('/', (req: Request, res: Response): Response => {
     return res.sendStatus(404);
