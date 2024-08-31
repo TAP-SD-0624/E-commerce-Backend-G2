@@ -80,7 +80,7 @@ export const userLogin = async (req: Request, res: Response, next: NextFunction)
                 token
             });
         } else {
-            throw new CustomError('Invalid password', 401);
+            throw new CustomError('Invalid credentials, try again', 401);
         }
     } catch (err) {
         next(err);
