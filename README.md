@@ -262,7 +262,7 @@ The following activities can be done:
 ```
 ## Project Screenshots :
 
-# redis:
+## redis:
 ```text
 Redis Cache and Database Data Retrieval
 
@@ -296,7 +296,7 @@ How It Works
 
 By using Redis caching, our application significantly reduces the time it takes to serve repeated requests, enhancing the overall user experience and reducing the load on our database.
 
-### Swagger:
+## Swagger:
 
 API Endpoints
 ```text
@@ -347,7 +347,7 @@ Example Response JSON
 ![Data from Database](images/swagger_postman.png)
 
 
-### Load testing:
+## Load testing:
 ```text
 Test Plan Overview:
 The test plan consists of multiple HTTP requests to simulate user interactions with the E-commerce API. The requests include fetching the home page, searching for products, and retrieving product details by brand and category.
@@ -374,6 +374,54 @@ The response includes product details such as categoryTitle, brandTitle, price, 
 
 The Summary Report shows that all requests were successfully executed with no errors. The average response time and throughput for each request are also provided.
 
+
+## Monitoring
+Monitoring is provided using prometheus and visualized using grafana and can only be used in docker container
+
+Routes: 
+
+Deploying the docker container will create four servers :
+
+    localhost:3000 for the backend app
+    localhost:3030 for exporting the metrics (localhost:3030/metrics)
+    localhost:9090 for the prometheus server
+    localhost:3002 for the grafana server
+
+Usage:
+
+After deploying grafana can be accessed using (localhost:3002) the default user name and password are :
+
+    username : admin
+    password : admin
+After accessing grafana you need to add the data source as (http://localhost:9090) depending on the deploy and then u can add you dashboard
+
+### Examples:
+
+##### General information about monitoring example
+![Data from Database](images/monitoring1.png)
+
+##### Database monitoring examples:
+
+Database operation example
+![Data from Database](images/monitoring2.png)
+
+Database general example
+
+![Data from Database](images/monitoring3.png)
+
+Database requsets with results example
+![Data from Database](images/monitoring4.png)
+
+##### RESTfull api monitoring example
+#####Request api request count example
+![Data from Database](images/monitoring5.png)
+##### Request api response latency example
+![Data from Database](images/monitoring6.png)
+
+```text
+
+
+```
 ### To better enjoy the app please see E-commerce-Frontend-G2 repository.
 
 
