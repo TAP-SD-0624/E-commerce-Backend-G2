@@ -183,7 +183,7 @@ Monitoring is implemented using tools like Grafana and Prometheus to track key m
 API documentation is generated using Swagger.
 
 ```bash
-http://localhost:5000/SWAGGER-API
+http://localhost:3000/docs
 ```
 
 ### Contributing
