@@ -116,7 +116,7 @@ export async function getUserProfile(id: number): Promise<any> {
         }, {});
 
         // Attach grouped cart items to the user object
-        return { ...user.toJSON(), cart: groupedCartItems };
+        return { ...user.toJSON(), Cart: groupedCartItems };
     }
-    return user;
+    return { ...user.toJSON(), Cart: [] };
 }
