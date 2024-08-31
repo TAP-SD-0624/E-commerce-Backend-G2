@@ -260,6 +260,12 @@ The following activities can be done:
 12- Interact with the user's wishlist and more!
 
 ```
+### Project Screenshots :
+
+![Data from Database](https://github.com/TAP-SD-0624/E-commerce-Backend-G2/blob/master/Project%20Screenshots/Home%20Page.png)
+![Data from cache](https://github.com/TAP-SD-0624/E-commerce-Backend-G2/images/redis_cache.png)
+
+
 
 ### To better enjoy the app please see E-commerce-Frontend-G2 repository.
 
