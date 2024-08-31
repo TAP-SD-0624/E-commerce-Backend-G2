@@ -149,7 +149,7 @@ describe('Get user profile', () => {
             phone: '88776656',
             DOB: '1988-06-05T00:00:00.000Z',
             imageUrl: 'bbb.jpg',
-            Carts: [],
+            Cart: [],
             Addresses: [],
             Orders: [],
             Transactions: [],

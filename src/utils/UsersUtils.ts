@@ -1,4 +1,6 @@
 import { db } from '../database';
+import Cart from '../database/models/cart';
+import Products from '../database/models/products';
 import Users from '../database/models/users';
 import { CustomError } from '../middleware/customError';
 import bcrypt from 'bcrypt';
@@ -86,14 +88,35 @@ export async function updateUserById(
     }
 }
 
-export async function getUserProfile(id: number): Promise<Users> {
+export async function getUserProfile(id: number): Promise<any> {
     const user = await Users.findByPk(id, {
         attributes: { exclude: ['password', 'role', 'createdAt', 'updatedAt'] },
-        include: [db.Cart, db.Address, db.Orders, db.Tranactions, db.Wishlist, db.Ratings]
+        include: [db.Address, db.Orders, db.Tranactions, db.Wishlist, db.Ratings]
     });
-    if (user) {
-        return user;
-    } else {
-        throw new CustomError('unable to get profile', 404);
+    if (!user) {
+        throw new CustomError('Unable to get profile', 404);
     }
+
+    const cartItems = await Cart.findAll({
+        where: { userId: id }
+    });
+
+    if (cartItems.length > 0) {
+        // Group cart items by productId
+        const groupedCartItems = cartItems.reduce((groupedItems: any, item: any) => {
+            const { productId } = item;
+            if (!groupedItems[productId]) {
+                groupedItems[productId] = {
+                    product: item.Product,
+                    items: []
+                };
+            }
+            groupedItems[productId].items.push(item);
+            return groupedItems;
+        }, {});
+
+        // Attach grouped cart items to the user object
+        return { ...user.toJSON(), Cart: groupedCartItems };
+    }
+    return { ...user.toJSON(), Cart: [] };
 }

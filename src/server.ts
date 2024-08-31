@@ -5,7 +5,6 @@ import { db, syncDatabase } from './database';
 import userRouter from './routes/userRoutes';
 import productRouter from './routes/productsRoutes';
 import { homePageController } from './controllers/homePageController';
-import { errorHandler } from './middleware/errorHandler';
 import { createServer } from 'http';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -13,6 +12,7 @@ import cartRouter from './routes/cartRoutes';
 import AdminRouter from './routes/adminRoutes';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './swagger';
+import { errorMiddleware } from './middleware/customError';
 syncDatabase();
 export const app: Express = express();
 export const server = createServer(app);
@@ -20,7 +20,11 @@ export const shutdown = () => {
     server.close();
 };
 const PORT: number | string = process.env.PORT || 3000;
-app.use(morgan('tiny'));
+if (process.env.NODE_ENV === 'production') {
+    app.use(morgan('tiny'));
+} else {
+    app.use(morgan('dev'));
+}
 app.use(helmet());
 app.use(express.json());
 app.use(cors());
@@ -31,7 +35,7 @@ app.use('/products', productRouter);
 app.use('/cart', cartRouter);
 app.use('/admin', AdminRouter);
 app.get('/homePage', homePageController);
-app.use(errorHandler);
+app.use(errorMiddleware);
 app.use('/', (req: Request, res: Response): Response => {
     return res.sendStatus(404);
 });
