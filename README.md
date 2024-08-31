@@ -260,12 +260,119 @@ The following activities can be done:
 12- Interact with the user's wishlist and more!
 
 ```
-### Project Screenshots :
+## Project Screenshots :
 
-![Data from Database](https://github.com/TAP-SD-0624/E-commerce-Backend-G2/blob/master/Project%20Screenshots/Home%20Page.png)
-![Data from cache](https://github.com/TAP-SD-0624/E-commerce-Backend-G2/images/redis_cache.png)
+# redis:
+```text
+Redis Cache and Database Data Retrieval
+
+In our backend application, we leverage Redis to optimize the performance of our API by caching responses to reduce load times and minimize database queries. The following screenshots illustrate how this caching mechanism works and how data is retrieved, either from Redis or directly from the database.
+```
+Screenshot 1: Database Data Retrieval
+
+![Data from Database](images/redis_db.png)
+
+In this scenario, the request for the product data does not find any existing cached data in Redis. Consequently, the server fetches the data directly from the database. The following key points are visible in the screenshot:
+
+	•	Response Headers: The X-Data-Source header in the HTTP response indicates that the data was retrieved from the “database”.
+	•	Logs: The logs in the terminal display database 🥳, confirming that the data was indeed fetched from the database.
+	•	Performance: The API request took around 735.608 ms, which is typical for a database retrieval without any caching.
+Screenshot 2: Cached Data Retrieval
+
+![Data from Database](images/redis_cache.png)
+
+In this scenario, the request for the product data is found in Redis cache, and therefore, the server retrieves the data directly from Redis without querying the database. The following key points are visible in the screenshot:
+
+	•	Response Headers: The X-Data-Source header in the HTTP response now indicates that the data was retrieved from the “cache”.
+	•	Logs: The logs in the terminal display cached 😁, confirming that the data was retrieved from Redis cache.
+	•	Performance: The API request took significantly less time, approximately 7.655 ms, showcasing the efficiency of retrieving data from the cache.
+
+How It Works
+
+	1.	Cache Check: When a request is received, the middleware first checks Redis to see if the response for the requested URL is already cached.
+	•	If cached data is found, it is returned immediately, and the response header is set to indicate that the data was retrieved from the cache.
+	•	If no cached data is found, the server fetches the data from the database.
+	2.	Data Caching: After retrieving data from the database, it is stored in Redis for future requests. The data is cached with an expiration time, ensuring that it stays fresh and up-to-date.
+
+By using Redis caching, our application significantly reduces the time it takes to serve repeated requests, enhancing the overall user experience and reducing the load on our database.
+
+### Swagger:
+
+API Endpoints
+```text
+The API exposes the following endpoints:
+
+/products/itemCardTwo: Retrieves detailed information about a specific product identified by the itemCardTwo parameter.
+
+GET: Used to retrieve data from the API.
+Request Parameters
+itemCardTwo: The unique identifier of the product to retrieve.
+```
+##### Response Structure:
+The API response is a JSON object containing the following fields:
+
+    • title: The product title.
+    • label: The product label or description.
+    • discount: The percentage discount applied to the product.
+    • rating: The average product rating.
+    • totalRatings: The total number of ratings for the product.
+    • unitsSold: The number of units sold for the product.
+    • brand: The product brand information, including the brand title and category details.
+
+##### Example Request
+GET https://e-commerce-backend-g2.onrender.com/docs/#/Products/get_products
+
+Example Response JSON
+```text
+{
+  "title": "Porch Shine Powder Canister",
+  "label": "Lantick",
+  "discount": 18,
+  "rating": 5,
+  "totalRatings": 1,
+  "unitsSold": 3,
+  "brand": {
+    "brandTitle": "Veluwt Touch",
+    "categories": [
+      {
+        "categoryId": 1,
+        "categoryName": "Beasty"
+      }
+    ]
+  }
+}
+```
+![Data from Database](images/swagger.png)
+
+![Data from Database](images/swagger_postman.png)
 
 
+### Load testing:
+```text
+Test Plan Overview:
+The test plan consists of multiple HTTP requests to simulate user interactions with the E-commerce API. The requests include fetching the home page, searching for products, and retrieving product details by brand and category.
+
+Test Plan Structure
+
+The test plan is organized as follows:
+1- HTTP Request Defaults: Configured to set common properties for all HTTP requests.
+2- Get home page: Simulates a request to load the home page.
+3- Search for product or brand: Simulates a search request by product or brand.
+4- Get Products by Brand ID: Fetches products associated with a specific brand.
+5- Get Products by Category ID: Fetches products associated with a specific category.
+```
+Test Results:
+1. View Results Tree
+The View Results Tree listener captures the details of each request, including the response data. Below is a screenshot of the View Results Tree showing the response for the "Get home page" request:
+
+![Data from Database](images/load_testing2.png)
+
+The response includes product details such as categoryTitle, brandTitle, price, rating, unitsSold, and other relevant fields.
+
+2. Summary Report
+![Data from Database](images/load_testing.png)
+
+The Summary Report shows that all requests were successfully executed with no errors. The average response time and throughput for each request are also provided.
 
 ### To better enjoy the app please see E-commerce-Frontend-G2 repository.
 
